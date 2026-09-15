@@ -1,0 +1,40 @@
+_*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+
+# Thumbnails
+._*
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Logs & temp
+*.log
+*.tmp
+*.swp
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

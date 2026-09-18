@@ -2,18 +2,35 @@
    COMPONENTS — sidebar, search, scroll spy
 ═══════════════════════════════════════════ */
 
-/* ── SIDEBAR ── */
+/* ── SIDEBAR ──
+   打开时用「position:fixed + 负 top 偏移」锁滚动，而不是只设置
+   body.style.overflow='hidden'：页面已经往下滚动较深时（例如从测评结果页
+   底部点「查看岗位详情」），仅锁 overflow 会让浏览器在滚动容器约束变化的
+   瞬间重新结算一次滚动位置，叠加全局 html{scroll-behavior:smooth} 后就表现
+   成一次可见的「先跳到顶部、再缓动滚回原位」的抖动——不是代码里显式调用了
+   scrollTo/scrollIntoView，而是浏览器自身的滚动结算，因此必须连 body 的
+   滚动位置一起钉住，关闭时再原样、无动画地还原，才能保证完全不出现这类
+   隐性 autoscroll。 */
 const Sidebar = {
+  _scrollY: 0,
   open(html) {
+    this._scrollY = window.scrollY || document.documentElement.scrollTop || 0;
     document.getElementById('sidebar-content').innerHTML = html;
     document.getElementById('sidebar').classList.add('is-open');
     document.getElementById('sidebar-overlay').classList.add('is-open');
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${this._scrollY}px`;
+    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
   },
   close() {
     document.getElementById('sidebar').classList.remove('is-open');
     document.getElementById('sidebar-overlay').classList.remove('is-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
     document.body.style.overflow = '';
+    window.scrollTo({ top: this._scrollY, left: 0, behavior: 'instant' });
   },
 };
 
@@ -263,6 +280,33 @@ const Schools = {
   // Legacy — kept for section header school grid (small picks per group)
   pickForSidebar(industryId, maxPerGroup = 3, roleText = '', companyText = '') {
     return ProgramScorer.topByGroup(roleText, companyText, industryId, maxPerGroup);
+  },
+
+  // 产业全景 · "推荐申请院校" —— 直接复刻归档站 20-industry-role-library.js 里
+  // industryDetailModules[industry].schools 的人工精选名单与原始顺序
+  // （data/industry_school_picks.json，按 school_en 匹配到当前项目的 programs.json）。
+  // 不用 ProgramScorer 重新算排名：archive 的名单是编辑手动挑选的结果，
+  // prestige_score/tag 数据本质上是按"影视制作"口径打分，会系统性低估其他
+  // 8 个子产业里真正对口的强项目（比如广告方向的西北大学、公关方向的波士顿大学），
+  // 直接复刻名单才能保证结果跟 archive 站完全一致。
+  // 每所学校在该产业下仍按 industry_tags 优先挑一个最贴合的项目展示；
+  // 如果这所学校在当前数据里没有项目挂了这个产业标签（数据颗粒度不够），
+  // 退化为在该校全部项目里按主题匹配挑最接近的一个，保证学校本身不会被漏掉。
+  pickForIndustryPanorama(industryId) {
+    const order = (DATA.industry_school_picks && DATA.industry_school_picks[industryId]) || [];
+    const result = { US: [], UK: [], HK_SG: [], OTHER: [] };
+    order.forEach(schoolEn => {
+      const atSchool = DATA.programs.filter(p => p.school_en === schoolEn);
+      if (!atSchool.length) return;
+      const tagged = atSchool.filter(p => (p.industry_tags || []).includes(industryId));
+      const pool = tagged.length ? tagged : atSchool;
+      const best = pool
+        .map(p => ({ p, score: ProgramScorer.score(p, '', '', industryId) }))
+        .sort((a, b) => b.score - a.score)[0].p;
+      const group = result[best.country_group] ? best.country_group : 'OTHER';
+      result[group].push({ school_en: best.school_en, school_zh: best.school_zh, prog: best });
+    });
+    return result;
   },
 };
 

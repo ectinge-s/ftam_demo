@@ -3,10 +3,60 @@
 ═══════════════════════════════════════════ */
 const HomePage = {
   build() {
+    this.buildRoadmap();
     this.buildInstructors();
     this.buildResources();
     this.buildFeaturedCourses();
     this._initStickyCollapse();
+  },
+
+  // ── Auto-scroll marquees: speed by px/秒，而不是固定"秒/圈" ──────
+  //   之前 coop-marquee-track / featured-rail 都是写死 animation-duration（如 42s），
+  //   导致内容条数越多（比如资源网络 100+ 家合作方）单圈要跑的距离越长、
+  //   但时间没变，看起来滚动飞快；反之内容少时又显得很慢。
+  //   这里统一用"恒定像素/秒"来算 duration，让不管列表多长，视觉滚动速度都一致，
+  //   不会再出现"资源网络转太快"这种问题。
+  _applyMarqueeSpeed(track, pxPerSecond = 60) {
+    if (!track) return;
+    // track.scrollWidth 是复制后两份内容的总宽度，实际跑一圈（0 → -50%）只走一半
+    const singleSetWidth = track.scrollWidth / 2;
+    if (!singleSetWidth) return;
+    const duration = Math.max(singleSetWidth / pxPerSecond, 8); // 8s 下限，防止内容极短时抖动过快
+    track.style.setProperty('--marquee-duration', duration.toFixed(1) + 's');
+  },
+
+  // ── Roadmap（首页关键问题板块，文案/编号完整复刻 archive 站首页
+  //   home-hub 的 8 个问题原文，用现有站内路由把每一条接到对应的真实功能上：
+  //   01 AI+影视 → 首页新增的 #thesis 板块；02 八大行业 → 产业全景；
+  //   03 职业测评；04 岗位库（61个岗位）；05 院校库（新增独立页面）；
+  //   06 课程产品；07 成长时间轴（页面仍在，只是不再放主导航第二组）；
+  //   08 我的规划。现在 8 条都有真实落地页，不再需要「即将上线」占位。 ──
+  ROADMAP: [
+    { num: '01', title: '为什么影视传媒是AI时代的黄金赛道？', desc: '先看内容产业、生产方式和新岗位。', action: "Router.go('home',{scrollTo:'#thesis'})" },
+    { num: '02', title: '影视传媒到底可以进入哪些行业？', desc: '认识八大行业与就业边界。', action: "Router.go('planning')" },
+    { num: '03', title: '我更适合什么方向和岗位？', desc: '用职业测评形成主次方向。', action: 'PlanningViews.goToAssessment()' },
+    { num: '04', title: '具体岗位每天做什么、怎么进入？', desc: '查看 61 个岗位并进行对比。', action: 'PlanningViews.goToJobs()' },
+    { num: '05', title: '哪些院校和专业真正匹配目标岗位？', desc: '按具体专业、培养方式和要求比较。', action: "Router.go('schools')" },
+    { num: '06', title: '斯芬克有哪些影视学习与行业资源？', desc: '查看海外教授、行业项目与课程海报。', action: "Router.go('course-products')" },
+    { num: '07', title: '作品、申请、实习应该什么时候开始？', desc: '查看申请与职业准备时间。', action: "Router.go('timeline')" },
+    { num: '08', title: '怎样把方向变成一份可执行规划？', desc: '生成留学、双规划或职业规划。', action: 'PlanningViews.goToCareer()' },
+  ],
+
+  buildRoadmap() {
+    const grid = document.getElementById('roadmap-grid');
+    if (!grid) return;
+    grid.innerHTML = this.ROADMAP.map(item => {
+      const clickable = !!item.action;
+      const attrs = clickable ? ` onclick="${item.action}" style="cursor:pointer"` : '';
+      const badge = item.soon ? `<span class="roadmap-card__badge">即将上线</span>` : '';
+      return `<div class="roadmap-card${clickable ? ' roadmap-card--active' : ''}"${attrs}>
+        <div class="roadmap-card__num">${item.num}</div>
+        <div class="roadmap-card__body">
+          <div class="roadmap-card__title-row"><div class="roadmap-card__title">${item.title}</div>${badge}</div>
+          <div class="roadmap-card__desc">${item.desc}</div>
+        </div>
+      </div>`;
+    }).join('');
   },
 
   // ── Sticky collapse bar ────────────────────────────────────────
@@ -156,8 +206,11 @@ const HomePage = {
                  : inst.tag === 'alumni'   ? '老师'
                  : inst.is_research        ? '老师' : '';
     const displayName = base + suffix;
-    const avatar = inst.photo
-      ? `<div class="person-card__avatar person-card__avatar--photo"><img src="${inst.photo}" alt="${base}" loading="lazy"></div>`
+    // 卡片主图用 assets/img/instructor-avatars/ 下新换的头像（裁切/优化过的小图），
+    // 弹窗大图仍然用 inst.photo 原图（assets/img/instructors/），两者互不影响。
+    const avatarSrc = inst.photo ? inst.photo.replace('/img/instructors/', '/img/instructor-avatars/') : null;
+    const avatar = avatarSrc
+      ? `<div class="person-card__avatar person-card__avatar--photo"><img src="${avatarSrc}" alt="${base}" loading="lazy"></div>`
       : `<div class="person-card__avatar">${base.slice(-1)}</div>`;
     const nameRow = `<div class="person-card__name">${displayName}</div>`;
     const roleTag = `<span class="tag tag--${tagCls}" style="margin-top:6px;">${inst.role}</span>`;
@@ -176,30 +229,43 @@ const HomePage = {
     } else {
       body = `${nameRow}<div class="person-card__title">${inst.title || ''}</div>`;
     }
-    return `<div class="person-card">${avatar}${body}${roleTag}</div>`;
+    const modalClick = inst.photo ? ` onclick="ImageModal.open('${inst.photo}','${displayName}')" style="cursor:pointer"` : '';
+    return `<div class="person-card"${modalClick}>${avatar}${body}${roleTag}</div>`;
   },
 
   // ── Resources (marquee) ────────────────────────────────────────
   buildResources() {
     const COOP = DATA.resources || [];
-    // 来源数据未提供合作方 logo 图片，改用名称首字/缩写文字标（.coop-card__logo--text）
-    const card = c => `<div class="coop-card">
-      <div class="coop-card__logo coop-card__logo--text">${c.initial || (c.nameCn || '').slice(0, 1)}</div>
+    // 来源数据未提供合作方 logo 图片，改用名称首字/缩写文字标（.coop-card__logo--text），
+    // 配色先随手轮流取用站内品牌色令牌（不追究每家具体属于哪个产业），保证视觉上有区分度。
+    const BRAND_TINTS = ['film', 'platform', 'brand', 'culture', 'media', 'pr', 'ip', 'ai'];
+    const card = (c, i) => {
+      const tint = `var(--color-${BRAND_TINTS[i % BRAND_TINTS.length]})`;
+      return `<div class="coop-card">
+      <div class="coop-card__logo coop-card__logo--text" style="--coop-tint:${tint}">${c.initial || (c.nameCn || '').slice(0, 1)}</div>
       <div class="coop-card__name-en">${c.nameEn}</div>
       <div class="coop-card__name-cn">${c.nameCn}</div>
     </div>`;
+    };
     const fill = (id, items) => {
       const el = document.getElementById(id);
-      if (el) el.innerHTML = [...items, ...items].map(card).join('');
+      if (!el) return;
+      const cardsHtml = items.map((c, i) => card(c, i));
+      el.innerHTML = [...cardsHtml, ...cardsHtml].join('');
     };
     fill('coop-row-a', COOP);
 
     const track = document.getElementById('coop-row-a');
-    if (track && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => track.classList.toggle('is-paused', !e.isIntersecting));
-      }, { threshold: 0.1 });
-      obs.observe(track.closest('.coop-marquee-wrap'));
+    if (track) {
+      // 资源网络合作方数量较多（100+ 家），按恒定像素速度算 duration，
+      // 避免像固定 42s/圈那样条数一多就转得飞快。
+      this._applyMarqueeSpeed(track, 60);
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => track.classList.toggle('is-paused', !e.isIntersecting));
+        }, { threshold: 0.1 });
+        obs.observe(track.closest('.coop-marquee-wrap'));
+      }
     }
   },
 
@@ -230,6 +296,8 @@ const HomePage = {
     // Duplicate the list once so the marquee (translateX 0 -> -50%) loops seamlessly —
     // same technique as the resources coop marquee below.
     rail.innerHTML = [...this.FEATURED_ORDER, ...this.FEATURED_ORDER].map(card).join('');
+    // 同一套恒定像素速度算法，卡片更宽所以给稍慢一点的速度，方便看清标题。
+    this._applyMarqueeSpeed(rail, 45);
 
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver(entries => {

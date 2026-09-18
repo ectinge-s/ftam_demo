@@ -39,12 +39,13 @@
   height: 40px;
   flex: 0 0 40px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border-2);
+  /* --coop-tint 由 JS 按合作方所属产业方向注入（8 大产业色令牌之一） */
+  border: 1px solid var(--coop-tint, var(--color-border-2));
   background: linear-gradient(140deg, var(--color-surface-2), var(--color-surface));
   font-family: var(--font-cn);
   font-size: var(--text-md);
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--coop-tint, var(--color-text-secondary));
 }
 
 /* ── 4. 首页 Hero：影视作品海报带 ─────────────────────────── */
@@ -157,6 +158,16 @@
   color: var(--color-text-muted);
   white-space: nowrap;
 }
+/* Planning 页内「职业测评」视图用的说明行，替代原独立页面时的大标题 as-hero，
+   横向留白与 .as-progress / .as-stage 对齐，避免和页面顶部共享的 plan-hero 标题重复。 */
+.as-view-intro {
+  max-width: var(--content-max);
+  margin: var(--space-6) auto 0;
+  padding: 0 40px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
 .as-stage {
   max-width: 860px;
   margin: 0 auto;
@@ -235,7 +246,7 @@
   color: #fff;
   box-shadow: var(--glow-primary-soft);
 }
-.as-btn--primary:hover { background: var(--color-primary-bright); border-color: var(--color-primary-bright); }
+.as-btn--primary:hover { box-shadow: var(--glow-primary); transform: translateY(-1px); }
 .as-btn:disabled { opacity: .4; cursor: not-allowed; }
 
 .as-result { display: flex; flex-direction: column; gap: var(--space-5); }
@@ -268,7 +279,7 @@
 .as-persona__en { font-family: var(--font-en); color: var(--color-accent); font-size: var(--text-base); }
 .as-persona__desc { width: 100%; color: var(--color-text-muted); line-height: 1.7; margin-top: var(--space-2); }
 
-.as-dims { display: flex; flex-direction: column; gap: var(--space-3); }
+.as-dims { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-5); }
 .as-dim { display: grid; grid-template-columns: 132px 1fr 42px; align-items: center; gap: var(--space-3); }
 .as-dim__name { font-family: var(--font-cn); font-size: var(--text-sm); color: var(--color-text-secondary); }
 .as-dim__track { height: 6px; border-radius: var(--radius-pill); background: var(--color-surface-2); overflow: hidden; }
@@ -289,19 +300,10 @@
 .as-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .as-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 
-/* ── 8. 我的规划（pl-*）────────────────────────────────────── */
-.pl-layout {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 40px var(--space-10);
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: var(--space-6);
-  align-items: start;
-}
-@media (max-width: 980px) { .pl-layout { grid-template-columns: 1fr; } }
-.pl-side { display: flex; flex-direction: column; gap: var(--space-4); position: sticky; top: calc(var(--navbar-h) + 24px); }
-@media (max-width: 980px) { .pl-side { position: static; } }
+/* ── 8. 规划类页面通用组件（pl-*，供 Planning 页「职业规划」视图复用）──────
+   旧的独立两列布局壳 .pl-layout / .pl-side（左侧栏+右侧结果区）已随其宿主
+   页面 page-plan 一起下线；「职业规划」视图改用 .cp-flow 单栏布局，下面这些
+   卡片／按钮／状态类仍是它的基础样式，予以保留。 */
 .pl-card {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -361,7 +363,6 @@
 /* 主按钮悬停：加深主色并保持浅色文字（沿用 .pl-btn:hover 的墨色会与主色填充撞色） */
 .pl-btn--primary:hover { background: var(--color-primary-deep); border-color: var(--color-primary-deep); color: #F6F6F4; }
 .pl-btn--ghost:hover { border-color: var(--color-danger); color: var(--color-danger); }
-.pl-main { display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; }
 .pl-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));

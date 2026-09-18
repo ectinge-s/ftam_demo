@@ -85,6 +85,49 @@
 
     reconcile();                       /* 初始：不在首页首屏就不播放 */
 
+    /* ── 鼠标跟随「取景框」──────────────────────────────────────────
+       整个 hero 区域（含正文列）都能触发，跟随光标实时把坐标写进
+       --vf-mx/--vf-my（相对 .hero__logomark--video 左上角，单位 px），
+       CSS 那边：① .hero__video-veil 用同名变量在蒙层上镂空一个矩形
+       窗口，露出未压暗的原始画面；② .hero__viewfinder 用同名变量把
+       四角 + 中心十字挪到光标位置，模拟摄像机取景器对焦框。
+       监听挂在 .hero（正文列和视频层共同的父级）上而不是视频层本身——
+       正文/按钮的 z-index 更高，鼠标移到它们上面时，命中测试的目标
+       元素在 .hero__inner 子树里、不在视频层里，事件不会经过视频层，
+       只会经过共同祖先 .hero 往上冒泡，所以必须在这一级接收，才能让
+       取景框在文字上方也跟着走。不影响任何按钮点击——这里只监听
+       mousemove/mouseleave，不拦截、不阻止事件，点击该走的路径完全不变。
+       纯视觉点缀，不依赖任何播放/声音逻辑；触屏设备没有 mousemove，
+       天然不触发。 */
+    var vfHero = document.querySelector('.hero');
+    var vfContainer = document.querySelector('.hero__logomark--video');
+    var vfBox = document.getElementById('hero-viewfinder');
+    if (vfHero && vfContainer && vfBox) {
+      var vfHalfW = 130, vfHalfH = 85;   /* 与 CSS .hero__viewfinder 的 260×170 对应 */
+      var vfRafId = 0, vfNextX = 0, vfNextY = 0, vfNextOn = false;
+      function vfApply() {
+        vfRafId = 0;
+        vfContainer.style.setProperty('--vf-mx', vfNextX + 'px');
+        vfContainer.style.setProperty('--vf-my', vfNextY + 'px');
+        vfContainer.style.setProperty('--vf-hw', vfNextOn ? vfHalfW + 'px' : '0px');
+        vfContainer.style.setProperty('--vf-hh', vfNextOn ? vfHalfH + 'px' : '0px');
+        vfBox.classList.toggle('is-visible', vfNextOn);
+      }
+      vfHero.addEventListener('mousemove', function (e) {
+        /* 坐标始终相对视频层（跟蒙层镂空窗口用的是同一套变量），
+           不是相对 .hero 本身——两者理论上四边贴合，但以视频层为准更准确。 */
+        var r = vfContainer.getBoundingClientRect();
+        vfNextX = e.clientX - r.left;
+        vfNextY = e.clientY - r.top;
+        vfNextOn = true;
+        if (!vfRafId) vfRafId = requestAnimationFrame(vfApply);
+      });
+      vfHero.addEventListener('mouseleave', function () {
+        vfNextOn = false;
+        if (!vfRafId) vfRafId = requestAnimationFrame(vfApply);
+      });
+    }
+
     if (!btn) return;
 
     /* ── 显隐：跟随影像的可见性 ── */

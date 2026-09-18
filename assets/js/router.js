@@ -18,14 +18,16 @@ const Router = {
     this.current = pageId;
 
     // Persist page in URL hash; push new history entry so browser back button works
-    const pagesToHash = ['portfolio','planning','timeline','course-products','assessment','plan'];
+    const pagesToHash = ['portfolio','planning','timeline','course-products','schools'];
     const newHash = pagesToHash.includes(pageId) ? '#' + pageId : location.pathname + location.search;
     if (!this._fromPopstate && location.hash !== '#' + pageId) {
       history.pushState(null, '', newHash);
     }
 
     // Sync navbar active state
-    const navMap = { home: 0, portfolio: 4, timeline: 5, 'course-products': 6 };
+    // 'timeline' 已从主导航第二组移除（仍是可直接访问的独立页面，
+    // 通过首页 roadmap 卡片「07」和 footer 链接进入），因此不再占用导航高亮位。
+    const navMap = { home: 0, portfolio: 6, schools: 7, 'course-products': 8 };
     if (navMap[pageId] !== undefined)
       document.querySelectorAll('.navbar__btn')[navMap[pageId]]?.classList.add('is-active');
 
@@ -90,10 +92,16 @@ const Tabs = {
 
 // Handle browser back/forward
 window.addEventListener('popstate', () => {
-  const PAGES = ['portfolio','planning','timeline','course-products','assessment','plan'];
+  const PAGES = ['portfolio','planning','timeline','course-products','schools'];
   const hashPage = location.hash.replace('#', '');
   Router._fromPopstate = true;
-  Router.go(PAGES.includes(hashPage) ? hashPage : 'home');
+  if (hashPage === 'assessment') {
+    PlanningViews.goToAssessment();
+  } else if (hashPage === 'plan') {
+    PlanningViews.goToCareer();
+  } else {
+    Router.go(PAGES.includes(hashPage) ? hashPage : 'home');
+  }
   Router._fromPopstate = false;
 });
 

@@ -32,7 +32,9 @@ const DATA = (() => {
     'internship_resources', /* 实习资源库 */
     'cases',             /* 录取案例原始明细 */
     'role_recruitment',  /* 岗位招聘画像 */
-    'film_resources'     /* 影视资源索引统计 */
+    'film_resources',    /* 影视资源索引统计 */
+    'industry_map',      /* 产业全景：赛道卡片 + 行业详情分区（内容/排版复刻归档站 20-industry-role-library.js） */
+    'industry_school_picks' /* 产业全景 · 推荐申请院校：归档站人工精选名单（school_en 顺序），见 Schools.pickForIndustryPanorama */
   ];
 
   async function load() {

@@ -36,6 +36,7 @@ const PlanningPage = {
     this._buildSections();
     ScrollSpy.init();
     this._initRailCollapse();
+    if (window.JobLibrary) JobLibrary.build();
   },
 
   _buildNav() {
@@ -82,16 +83,18 @@ const PlanningPage = {
   _buildSections() {
     const container = document.getElementById('industry-sections');
     const taxo = DATA.taxonomy;
+    const map = DATA.industry_map || { tracks: {}, detail: {} };
 
     container.innerHTML = INDUSTRIES.map(ind => {
       // taxonomy 以产业方向 id 为键（film_tv / digital_platform / …）
       const t = taxo[ind.id] || {};
+      const fullInd = (DATA.industries || []).find(i => i.id === ind.id) || {};
 
       // Companies for this industry (all entries, may have duplicates per company)
       const companies = DATA.careers.filter(c => c.industry_id === ind.id);
       const tiers = [...new Set(companies.map(c => c.tier))];
 
-      // Deduplicated company list for tags (max 20 unique companies)
+      // Deduplicated company list for tags (max 25 unique companies)
       const uniqueCompanies = [];
       const seenCompanies = new Set();
       for (const c of companies) {
@@ -102,61 +105,98 @@ const PlanningPage = {
         if (uniqueCompanies.length >= 25) break;
       }
 
-      // Job directions — deduplicated by direction_zh
-      const directions = [...new Map(companies.map(c => [c.direction_zh, c])).values()];
+      const roleCount = new Set(companies.map(c => c.role_id)).size;
+      const aiRoleCount = new Set(companies.filter(c => c.is_ai_track).map(c => c.role_id)).size;
+      const heroCompanies = uniqueCompanies.slice(0, 6);
 
-      // Core skills from taxonomy
-      const skills = (t.legacy_subdirections || []).concat(t.new_subdirections || []);
+      const tracks = map.tracks[ind.name] || [];
+      const detail = map.detail[ind.name] || {};
 
-      // School match partial — use first direction as default context for section header
-      const defaultDir = directions[0] ? directions[0].direction_zh : '';
-      const schoolPicks = Schools.pickForSidebar(ind.id, 3, defaultDir, '');
+      const schoolPicks = Schools.pickForIndustryPanorama(ind.id);
 
-      const copy = PlanningPage._getIntro(ind.id);
       return `
       <div class="industry-section" id="sec-${ind.id}">
-        <div class="industry-section__header">
-          <span class="industry-section__num">${ind.num}</span>
-          <div style="flex:1">
-            <div class="industry-section__title">${ind.name}<span class="industry-section__acad">— ${ind.acad}</span></div>
-            <div class="industry-section__scope">${ind.scope}</div>
-          </div>
-          <div class="cv-actions">
-            <button class="cv-btn cv-btn--primary" onclick="PlanningPage.openCareerJourneySidebar('${ind.id}')">岗位晋升路径 →</button>
-            <button class="cv-btn cv-btn--secondary" onclick="Router.goToPortfolioFilter('${ind.acad}')">优秀案例 →</button>
-          </div>
-        </div>
-
-        <div class="industry-section__intro" id="intro-wrap-${ind.id}">
-          <p class="intro-short">${copy.short}</p>
-          <div class="intro-full" id="intro-full-${ind.id}" style="display:none;">
-            ${copy.full}
-            <div class="intro-tags">
-              <div class="intro-tag-row">
-                <span class="intro-tag-label">核心学术方向</span>
-                <span>${copy.skills}</span>
-              </div>
-              <div class="intro-tag-row">
-                <span class="intro-tag-label">代表升学项目</span>
-                <span>${copy.programs}</span>
-              </div>
+        <section class="ind-hero" id="overview-${ind.id}">
+          <div class="industry-section__header">
+            <span class="industry-section__num">${ind.num}</span>
+            <div style="flex:1">
+              <div class="industry-section__title">${ind.name}<span class="industry-section__acad">— ${ind.acad}</span></div>
+              <div class="industry-section__scope">${ind.scope}</div>
+            </div>
+            <div class="cv-actions">
+              <button class="cv-btn cv-btn--primary" onclick="PlanningPage.openCareerJourneySidebar('${ind.id}')">岗位晋升路径 →</button>
+              <button class="cv-btn cv-btn--secondary" onclick="Router.goToPortfolioFilter('${ind.acad}')">优秀案例 →</button>
             </div>
           </div>
-          <button class="intro-expand-btn" onclick="PlanningPage.toggleIntro('${ind.id}',this)">
-            展开详情 <span class="intro-expand-arrow">↓</span>
-          </button>
-        </div>
+          <p class="ind-hero__copy">${fullInd.observation || ''}${fullInd.coreLogic ? ` 当前更核心的能力是<strong>${fullInd.coreLogic}</strong>。` : ''}${fullInd.aiImpact ? ` AI 带来的变化是：${fullInd.aiImpact}` : ''}</p>
+          <div class="ind-hero__row">
+            <div class="ind-hero__stats">
+              <div class="ind-stat"><span>岗位数量</span><strong>${roleCount}</strong></div>
+              <div class="ind-stat"><span>AI+岗位</span><strong>${aiRoleCount}</strong></div>
+            </div>
+            <div class="ind-hero__card">
+              <span>适合人群</span>
+              <p>${fullInd.audience || ''}</p>
+            </div>
+            <div class="ind-hero__card ind-hero__card--companies">
+              <span>头部公司</span>
+              <div class="company-tag-cloud">${heroCompanies.map(c => `<span class="company-tag" onclick="PlanningPage.openCompanyGroupSidebar('${ind.id}','${c.company.replace(/'/g,"\\'")}')">${c.company}</span>`).join('')}</div>
+            </div>
+          </div>
+        </section>
 
-        <div class="industry-cols">
-          <!-- Col 1: Companies -->
-          <div class="industry-col">
-            <div class="industry-col__label">就业企业</div>
+        <details class="ind-toc" open>
+          <summary><span>本页目录</span><strong>${ind.name}</strong></summary>
+          <div class="ind-toc__links">
+            <button type="button" onclick="PlanningPage.jumpToSection('overview-${ind.id}')">行业概览</button>
+            <button type="button" onclick="PlanningPage.jumpToSection('tracks-${ind.id}')">赛道与岗位</button>
+            <button type="button" onclick="PlanningPage.jumpToSection('biz-${ind.id}')">业务板块</button>
+            <button type="button" onclick="PlanningPage.jumpToSection('entry-${ind.id}')">入行路径</button>
+            <button type="button" onclick="PlanningPage.jumpToSection('cap-${ind.id}')">核心能力</button>
+            <button type="button" onclick="PlanningPage.jumpToSection('schools-${ind.id}')">院校专业</button>
+            <button type="button" onclick="PlanningPage.jumpToSection('partners-${ind.id}')">SFK资源</button>
+          </div>
+        </details>
+
+        <section class="ind-tracks" id="tracks-${ind.id}">
+          <div class="ind-section-head">
+            <div class="ind-section-title">这一方向下的典型赛道与岗位</div>
+            <div class="ind-section-copy">先看行业全景，再决定是深入某个岗位，还是直接去看后面的公司、能力和院校专业对照。</div>
+          </div>
+          <div class="ind-track-grid">${tracks.map(track => this._trackCardHtml(ind.id, track)).join('')}</div>
+        </section>
+
+        <details class="ind-detail" id="biz-${ind.id}">
+          <summary class="ind-detail__head"><h4>行业正在做什么业务</h4><span>Industry Businesses</span></summary>
+          <div class="ind-detail__body">
+            <div class="ind-detail-grid">
+              ${(detail.businesses || []).map(x => `
+                <div class="ind-detail-card">
+                  <b>${x.title}</b><small>${x.en || ''}</small>
+                  <p>${x.copy}</p>
+                </div>`).join('')}
+            </div>
+          </div>
+        </details>
+
+        <details class="ind-detail" id="entry-${ind.id}">
+          <summary class="ind-detail__head"><h4>怎么进入这个行业</h4><span>Career Entry Path</span></summary>
+          <div class="ind-detail__body">
+            <div class="ind-path-line">
+              ${(detail.jobPath || []).map((x, i) => `<div class="ind-path-step"><strong>${String(i + 1).padStart(2, '0')}</strong>${x}</div>`).join('')}
+            </div>
+          </div>
+        </details>
+
+        <details class="ind-detail" id="companies-${ind.id}">
+          <summary class="ind-detail__head"><h4>产业常见公司</h4><span>Representative Companies</span></summary>
+          <div class="ind-detail__body">
             <div class="company-filter" id="cfilter-${ind.id}">
               <button class="company-filter__btn is-active" data-tier="all"
                       onclick="PlanningPage.filterTier('${ind.id}','all',this)">全部</button>
-              ${tiers.map(t => `
-                <button class="company-filter__btn" data-tier="${t}"
-                        onclick="PlanningPage.filterTier('${ind.id}','${t}',this)">${t}</button>`).join('')}
+              ${tiers.map(t2 => `
+                <button class="company-filter__btn" data-tier="${t2}"
+                        onclick="PlanningPage.filterTier('${ind.id}','${t2}',this)">${t2}</button>`).join('')}
             </div>
             <div class="company-tag-cloud" id="colist-${ind.id}">
               ${uniqueCompanies.map(c => `
@@ -166,85 +206,151 @@ const PlanningPage = {
                 </span>`).join('')}
             </div>
           </div>
+        </details>
 
-          <!-- Col 2: Job directions -->
-          <div class="industry-col">
-            <div class="industry-col__label">岗位方向</div>
-            <ul class="job-dir-list">
-              ${directions.map(c => `
-                <li class="job-dir-list__item"
-                    onclick="PlanningPage.openJobSidebar('${ind.id}','${c.direction_zh.replace(/'/g,"\\'")}')">
-                  <span>${c.direction_zh}</span>
-                  <span class="job-dir-list__item-en">${c.direction_en}</span>
-                  <span class="job-dir-list__count">${companies.filter(x=>x.direction_zh===c.direction_zh).length}</span>
-                </li>`).join('')}
-            </ul>
-          </div>
-
-          <!-- Col 3: Core skills -->
-          <div class="industry-col">
-            <div class="industry-col__label">核心学术方向</div>
-            <div class="skill-tags" style="margin-bottom:16px;">
-              ${(t.legacy_subdirections||[]).map((s,i) =>
-                `<span class="skill-tag${i<3?' skill-tag--key':''}">${s}</span>`
-              ).join('')}
-              ${(t.new_subdirections||[]).slice(0,4).map(s =>
-                `<span class="skill-tag">${s}</span>`
-              ).join('')}
-            </div>
-            <div class="industry-col__label">常用工具</div>
-            <div class="skill-tags">
-              ${(t.tools_hint||[]).map(s =>
-                `<span class="skill-tag">${s}</span>`
-              ).join('')}
+        <details class="ind-detail" id="growth-${ind.id}">
+          <summary class="ind-detail__head"><h4>职业发展路径</h4><span>Career Ladders</span></summary>
+          <div class="ind-detail__body">
+            <div class="ind-career-grid">
+              ${(detail.careers || []).map(x => `
+                <div class="ind-career-card"><h5>${x.name}</h5>
+                  ${(x.steps || []).map((step, i) => `<div class="ind-career-step">${i + 1}. ${step}</div>`).join('')}
+                </div>`).join('')}
             </div>
           </div>
-        </div>
+        </details>
 
-        <!-- School match area -->
-        <div class="school-match-area">
-          <div class="school-match-area__header">
-            <div class="school-match-area__title">代表性可匹配院校</div>
-            <div class="school-match-area__actions">
-              <div class="country-pills" id="cpills-${ind.id}">
-                ${[['US','🇺🇸 美国'],['UK','🇬🇧 英国'],['HK_SG','🇭🇰 港新'],['OTHER','🌏 其他']].map((g,i) =>
-                  `<button class="country-pill${i===0?' is-active':''}" data-group="${g[0]}"
-                           onclick="PlanningPage.switchCountry('${ind.id}','${g[0]}',this)">${g[1]}</button>`
-                ).join('')}
+        <details class="ind-detail" id="cap-${ind.id}">
+          <summary class="ind-detail__head"><h4>需要建立哪些能力</h4><span>Core Capabilities</span></summary>
+          <div class="ind-detail__body">
+            <div class="skill-tags">${(detail.abilities || []).map(x => `<span class="skill-tag">${x}</span>`).join('')}</div>
+            ${(t.tools_hint || []).length ? `
+              <div class="ind-block-title" style="margin-top:var(--space-4)">常用 AI 工具</div>
+              <div class="skill-tags">${t.tools_hint.map(x => `<span class="skill-tag">${x}</span>`).join('')}</div>` : ''}
+          </div>
+        </details>
+
+        <details class="ind-detail" id="proj-${ind.id}">
+          <summary class="ind-detail__head"><h4>代表项目类型</h4><span>Project Types</span></summary>
+          <div class="ind-detail__body">
+            <div class="skill-tags">${(detail.projects || []).map(x => `<span class="skill-tag">${x}</span>`).join('')}</div>
+          </div>
+        </details>
+
+        <details class="ind-detail" id="portfolio-${ind.id}">
+          <summary class="ind-detail__head"><h4>作品集对应就业方向</h4><span>Portfolio Mapping</span></summary>
+          <div class="ind-detail__body">
+            <div class="ind-portfolio-grid">${(detail.portfolioMap || []).map(x => `<div class="ind-portfolio-item">${x}</div>`).join('')}</div>
+          </div>
+        </details>
+
+        <details class="ind-detail" id="schools-${ind.id}">
+          <summary class="ind-detail__head"><h4>推荐申请院校</h4><span>Recommended Programs</span></summary>
+          <div class="ind-detail__body">
+            ${(t.program_tags_hint || []).length ? `
+              <div class="ind-block-title">核心学术方向</div>
+              <div class="skill-tags" style="margin-bottom:var(--space-4)">${t.program_tags_hint.map(x => `<span class="skill-tag">${x}</span>`).join('')}</div>` : ''}
+            <div class="school-match-area__header">
+              <div class="school-match-area__title">代表性可匹配院校</div>
+              <div class="school-match-area__actions">
+                <div class="country-pills" id="cpills-${ind.id}">
+                  ${[['US','🇺🇸 美国'],['UK','🇬🇧 英国'],['HK_SG','🇭🇰 港新'],['OTHER','🌏 其他']].map((g,i) =>
+                    `<button class="country-pill${i===0?' is-active':''}" data-group="${g[0]}"
+                             onclick="PlanningPage.switchCountry('${ind.id}','${g[0]}',this)">${g[1]}</button>`
+                  ).join('')}
+                </div>
+                <button class="school-match-area__view-all"
+                        onclick="PlanningPage.openFullSchoolSidebar('${ind.id}', document.querySelector('#cpills-${ind.id} .country-pill.is-active')?.dataset.group || 'US')">
+                  查看全部 →
+                </button>
               </div>
-              <button class="school-match-area__view-all"
-                      onclick="PlanningPage.openFullSchoolSidebar('${ind.id}', document.querySelector('#cpills-${ind.id} .country-pill.is-active')?.dataset.group || 'US')">
-                查看全部 →
-              </button>
             </div>
+            ${['US','UK','HK_SG','OTHER'].map((g,i) => `
+              <div class="school-country-panel${i===0?'':' u-visually-hidden'}" id="sgrid-${ind.id}-${g}">
+                ${this._renderSchoolGrid(ind.id, g, schoolPicks)}
+              </div>`).join('')}
           </div>
-          ${['US','UK','HK_SG','OTHER'].map((g,i) => `
-            <div class="school-country-panel${i===0?'':' u-visually-hidden'}" id="sgrid-${ind.id}-${g}">
-              ${this._renderSchoolGrid(ind.id, g, schoolPicks)}
-            </div>`).join('')}
-        </div>
+        </details>
+
+        <details class="ind-detail" id="partners-${ind.id}">
+          <summary class="ind-detail__head"><h4>SFK合作企业与产业项目</h4><span>SFK Industry Partners</span></summary>
+          <div class="ind-detail__body">
+            <div class="ind-partner-grid">
+              ${(detail.sfkPartners || []).map(x => `<div class="ind-partner-card"><b>${x.name}</b><p>${x.copy}</p></div>`).join('')}
+            </div>
+            <div class="ind-partner-note">以上均为SFK已建立合作关系或已落地合作项目的企业、机构、工作室及行业团队。</div>
+          </div>
+        </details>
       </div>`;
     }).join('');
   },
 
-  // 产业方向介绍文案 —— 完全由 data/industries.json + data/taxonomy.json 驱动
-  _getIntro(indId) {
-    const t = (DATA.taxonomy || {})[indId] || {};
-    const ind = (DATA.industries || []).find(i => i.id === indId) || {};
-    const skills = [...new Set((t.legacy_subdirections || []).concat(t.new_subdirections || []))];
-    const short = ind.observation || (ind.scope ? `${ind.name}：${ind.scope}。` : '');
-    const full = [
-      ind.observation ? `<p>${ind.observation}</p>` : '',
-      ind.coreLogic ? `<p><strong>核心逻辑</strong>：${ind.coreLogic}</p>` : '',
-      ind.aiImpact ? `<p><strong>AI 影响</strong>：${ind.aiImpact}</p>` : '',
-      ind.audience ? `<p><strong>适合人群</strong>：${ind.audience}</p>` : '',
-    ].join('');
-    return {
-      short,
-      full,
-      skills: skills.join(' · '),
-      programs: (t.program_tags_hint || []).join(' · '),
-    };
+  // 产业全景 · 赛道卡片辅助方法（内容/排版复刻归档站 20-industry-role-library.js 的
+  // industryTracks + buildTrackCard；岗位/公司改为从当前项目 careers.json 实时匹配，
+  // 而不是沿用归档站自己的角色库，点击后打开的也是当前项目已有的岗位/公司侧边栏）
+  _industryDirections(indId) {
+    const companies = DATA.careers.filter(c => c.industry_id === indId);
+    return [...new Map(companies.map(c => [c.direction_zh, c])).values()];
+  },
+  _trackRoles(indId, track) {
+    const dirs = this._industryDirections(indId);
+    const keywords = track.roleKeywords || [];
+    return dirs.filter(c => keywords.some(k => `${c.direction_zh} ${c.direction_en || ''}`.includes(k)));
+  },
+  _trackCompanies(indId, roles) {
+    const dirSet = new Set(roles.map(r => r.direction_zh));
+    const names = [];
+    DATA.careers.filter(c => c.industry_id === indId && dirSet.has(c.direction_zh)).forEach(c => {
+      if (!names.includes(c.company)) names.push(c.company);
+    });
+    return names.slice(0, 6);
+  },
+  _trackCardHtml(indId, track) {
+    const roles = this._trackRoles(indId, track);
+    const companies = this._trackCompanies(indId, roles);
+    const aiRoles = roles.filter(r => r.is_ai_track);
+    return `
+      <article class="ind-track-card">
+        <div>
+          <div class="ind-track-card__title">${track.title}</div>
+          <div class="ind-track-card__en">${track.en || ''}</div>
+        </div>
+        <p class="ind-track-card__copy">${track.summary || ''}</p>
+        <div>
+          <div class="ind-block-title">典型岗位</div>
+          <div class="ind-role-list">
+            ${roles.length ? roles.map(r => `
+              <button class="ind-role-link" type="button" onclick="PlanningPage.openJobSidebar('${indId}','${r.direction_zh.replace(/'/g,"\\'")}')">
+                <span>${r.direction_zh}</span>${r.is_ai_track ? '<span class="ind-mini-badge">AI+</span>' : ''}
+              </button>`).join('') : '<div class="empty-note">这一赛道的岗位会继续补充。</div>'}
+          </div>
+        </div>
+        <div>
+          <div class="ind-block-title">代表公司</div>
+          <div class="ind-company-list">
+            ${companies.length ? companies.map(c => `<span class="ind-company-chip" onclick="PlanningPage.openCompanyGroupSidebar('${indId}','${c.replace(/'/g,"\\'")}')">${c}</span>`).join('') : '<span class="ind-company-chip">持续补充中</span>'}
+          </div>
+        </div>
+        <div>
+          <div class="ind-block-title">典型成长路径</div>
+          <div class="ind-ladder">
+            ${(track.ladder || []).map(item => {
+              const idx = item.indexOf('：');
+              if (idx > 0) return `<div class="ind-ladder-step"><strong>${item.slice(0, idx)}</strong>：${item.slice(idx + 1)}</div>`;
+              return `<div class="ind-ladder-step">${item}</div>`;
+            }).join('')}
+          </div>
+        </div>
+        ${aiRoles.length ? `<div class="ind-track-note">AI+影视延展：${aiRoles.map(r => r.direction_zh).join(' / ')}</div>` : ''}
+      </article>`;
+  },
+  // 本页目录锚点跳转：命中 <details> 先展开，再滚动过去（复用 Router.scrollTo 的
+  // 导航栏 / 产业 tab 高度补偿，避免被顶部两层吸顶遮住）
+  jumpToSection(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    Router.scrollTo(el, 12);
   },
 
   // 岗位晋升路径 —— 由 taxonomy.job_clusters + data/careers.json 驱动
@@ -317,19 +423,15 @@ const PlanningPage = {
   },
 
   switchCountry(indId, group, btn) {
+    // 所有国家分组都已经用 Schools.pickForIndustryPanorama 的精选名单在
+    // 首次渲染时一次性算好了（跟归档站名单严格对应），这里只需要切换显示，
+    // 不再需要懒渲染 —— 之前的懒渲染分支会用空 roleText 重新跑一遍通用算法，
+    // 反而会把已经对好的 archive 名单结果覆盖掉。
     document.querySelectorAll(`#cpills-${indId} .country-pill`).forEach(b => b.classList.remove('is-active'));
     btn.classList.add('is-active');
     document.querySelectorAll(`[id^="sgrid-${indId}-"]`).forEach(p => p.classList.add('u-visually-hidden'));
     const panel = document.getElementById(`sgrid-${indId}-${group}`);
-    if (panel) {
-      panel.classList.remove('u-visually-hidden');
-      // Lazy-render if not yet rendered
-      if (!panel.dataset.rendered) {
-        const picks = Schools.pickForSidebar(indId, 3, panel.dataset.roleText || '', panel.dataset.companyText || '');
-        panel.innerHTML = this._renderSchoolGrid(indId, group, picks);
-        panel.dataset.rendered = '1';
-      }
-    }
+    if (panel) panel.classList.remove('u-visually-hidden');
   },
 
   openFullSchoolSidebar(indId, group) {
@@ -475,15 +577,6 @@ const PlanningPage = {
       </div>`);
   },
 
-  toggleIntro(indId, btn) {
-    const full = document.getElementById('intro-full-' + indId);
-    const isOpen = full.style.display !== 'none';
-    full.style.display = isOpen ? 'none' : 'block';
-    btn.innerHTML = isOpen
-      ? '展开详情 <span class="intro-expand-arrow">↓</span>'
-      : '收起 <span class="intro-expand-arrow">↑</span>';
-  },
-
   filterTier(indId, tier, btn) {
     document.querySelectorAll(`#cfilter-${indId} .company-filter__btn`).forEach(b => b.classList.remove('is-active'));
     btn.classList.add('is-active');
@@ -495,3 +588,65 @@ const PlanningPage = {
   },
 };
 window.PlanningPage = PlanningPage;
+
+/* ═══════════════════════════════════════════
+   PLANNING PAGE — 视图切换（产业全景 / 岗位详情 / 我的规划）
+═══════════════════════════════════════════ */
+const PlanningViews = {
+  switch(view, btn) {
+    document.querySelectorAll('#planning-view-tabs .filter-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    document.querySelectorAll('.planning-view').forEach(v => v.classList.remove('is-active'));
+    const target = document.getElementById('pv-' + view);
+    if (target) target.classList.add('is-active');
+  },
+
+  // 供其他页面（如时间轴页）一键跳转到「我的规划」视图
+  goToCareer() {
+    Router.go('planning');
+    setTimeout(() => {
+      const btn = document.querySelector('#planning-view-tabs [data-view="career"]');
+      if (btn) PlanningViews.switch('career', btn);
+      Router.scrollTo('#planning-view-tabs');
+    }, 150);
+  },
+
+  // 供测评结果页「进入岗位库」按钮一键跳转到「岗位详情」视图
+  goToJobs() {
+    Router.go('planning');
+    setTimeout(() => {
+      const btn = document.querySelector('#planning-view-tabs [data-view="jobs"]');
+      if (btn) PlanningViews.switch('jobs', btn);
+      Router.scrollTo('#planning-view-tabs');
+    }, 150);
+  },
+
+  // 供「购物车」已选岗位点击后一键跳转到「岗位详情」视图并定位到对应岗位
+  goToJobDetail(roleId) {
+    Router.go('planning');
+    setTimeout(() => {
+      const btn = document.querySelector('#planning-view-tabs [data-view="jobs"]');
+      if (btn) PlanningViews.switch('jobs', btn);
+      if (window.JobLibrary) JobLibrary.selectRoleAndFocus(roleId);
+      Router.scrollTo('#planning-view-tabs');
+    }, 150);
+  },
+
+  // 供首页 Hero／导航菜单／页脚／旧的 #assessment 书签一键跳转到「职业测评」视图
+  // （职业测评原本是独立页面 page-assessment，现改为 Planning 页内的一个视图）
+  goToAssessment() {
+    Router.go('planning');
+    setTimeout(() => {
+      const btn = document.querySelector('#planning-view-tabs [data-view="assessment"]');
+      if (btn) PlanningViews.switch('assessment', btn);
+      Router.scrollTo('#planning-view-tabs');
+    }, 150);
+  },
+
+  // 供「我的规划」职业目标步骤「重做职业测评」按钮：重置测评答题状态后跳转回「职业测评」视图
+  goToAssessmentRetake() {
+    if (window.AssessmentPage) AssessmentPage.retake();
+    this.goToAssessment();
+  },
+};
+window.PlanningViews = PlanningViews;

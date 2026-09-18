@@ -27,12 +27,14 @@
   </span>
   <div class="navbar__links">
     <button class="navbar__btn is-active" onclick="Router.go('home')">科系介绍</button>
+    <button class="navbar__btn" onclick="Router.go('home',{scrollTo:'#thesis'})">AI+影视</button>
     <button class="navbar__btn" onclick="Router.go('home',{scrollTo:'#offers'})">offer展示</button>
     <button class="navbar__btn" onclick="Router.go('home',{scrollTo:'#instructors'})">导师团队</button>
     <button class="navbar__btn" onclick="Router.go('home',{scrollTo:'#resources'})">资源网络</button>
+    <button class="navbar__btn" onclick="Router.go('home',{scrollTo:'#courses'})">精选课程</button>
     <span class="navbar__div" aria-hidden="true"></span>
     <button class="navbar__btn navbar__btn--page" onclick="Router.go('portfolio')">案例展示</button>
-    <button class="navbar__btn navbar__btn--page" onclick="Router.go('timeline')">成长时间轴</button>
+    <button class="navbar__btn navbar__btn--page" onclick="Router.go('schools')">院校库</button>
     <button class="navbar__btn navbar__btn--page" onclick="Router.go('course-products')">课程产品</button>
   </div>
   <div class="navbar__search-wrap">
@@ -41,7 +43,7 @@
     <div id="search-results" class="search-results"></div>
   </div>
   <button class="navbar__cta" onclick="Router.go('planning')">
-    规划我的未来 <span class="u-en" style="font-size:11px;opacity:.7;">/ Plan Your Future</span>
+    产业全景图 <span class="u-en" style="opacity:.85;">×</span> 全链路规划
   </button>
   <button class="navbar__menu-toggle" id="nav-menu-toggle" aria-expanded="false" aria-controls="nav-menu-overlay" aria-label="展开全部导航">
     <span></span><span></span>
@@ -53,24 +55,26 @@
   <div class="nav-menu-overlay__inner">
     <div class="nav-menu-overlay__group">
       <a class="nav-menu-overlay__link" onclick="NavMenu.go('home')">科系介绍</a>
+      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#thesis'})">AI+影视</a>
       <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#offers'})">offer展示</a>
       <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#instructors'})">导师团队</a>
       <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#resources'})">资源网络</a>
+      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#courses'})">精选课程</a>
     </div>
     <span class="nav-menu-overlay__div" aria-hidden="true"></span>
     <div class="nav-menu-overlay__group">
       <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('portfolio')">案例展示</a>
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('timeline')">成长时间轴</a>
+      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('schools')">院校库</a>
       <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('course-products')">课程产品</a>
     </div>
     <span class="nav-menu-overlay__div" aria-hidden="true"></span>
     <div class="nav-menu-overlay__group">
       <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('planning')">产业全景与岗位</a>
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('assessment')">职业测评</a>
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('plan')">我的规划</a>
+      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.close(); PlanningViews.goToAssessment();">职业测评</a>
+      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.close(); PlanningViews.goToCareer();">我的规划</a>
     </div>
     <a class="nav-menu-overlay__cta" onclick="NavMenu.go('planning')">
-      规划我的未来 <span class="u-en" style="font-size:12px;opacity:.7;">/ Plan Your Future</span>
+      产业全景图 <span class="u-en" style="opacity:.85;">×</span> 全链路规划
     </a>
   </div>
 </div>
@@ -105,7 +109,8 @@
          ③ 视频编码不变速、不重新采样音频（AAC 直接复制），站内副本 assets/video/kexi-intro-2025-clean-fill.mp4。
          影像铺满「科系介绍」首页的整个可见区域，容器尺寸 = 界面实时显示尺寸，
          已彻底取消浮动动效（无位移）；视频宽高比不变（object-fit:cover 只裁切不拉伸）。
-         视觉处理保持不变：弱化不透明度 .70 + 轻微滤镜 + 径向遮罩 + 左实右透蒙层（正文侧更实）。
+         视觉处理：不透明度 .92（画面本身基本不弱化）+ 轻微滤镜 + 径向遮罩 + 左实右透蒙层（正文侧更实）；
+         压暗全部交给蒙层负责，鼠标悬停时蒙层会在光标处让出一个矩形窗口，露出无滤镜的原始画面（见下方取景框）。
          离开首页或下滑离开首屏时自动暂停播放（声音同步停止），见 assets/js/hero-video.js。 -->
     <div class="hero__logomark hero__logomark--video" aria-hidden="true">
       <video id="hero-video" class="hero__video"
@@ -113,6 +118,17 @@
              autoplay muted loop playsinline preload="auto"
              disablepictureinpicture tabindex="-1"></video>
       <span class="hero__video-veil" aria-hidden="true"></span>
+      <!-- 鼠标跟随取景框：跟随光标移动，在蒙层上"抠"出一个矩形窗口，
+           露出没有滤镜/蒙层压暗的原始画面，模拟摄像机取景器的对焦框。
+           只画四角 + 中心对焦十字，没有 REC/HD/电量等文字符号。
+           位置由 assets/js/hero-video.js 通过 CSS 变量 --vf-mx/--vf-my 驱动。 -->
+      <div class="hero__viewfinder" id="hero-viewfinder">
+        <span class="hero__vf-corner hero__vf-corner--tl"></span>
+        <span class="hero__vf-corner hero__vf-corner--tr"></span>
+        <span class="hero__vf-corner hero__vf-corner--bl"></span>
+        <span class="hero__vf-corner hero__vf-corner--br"></span>
+        <span class="hero__vf-cross"></span>
+      </div>
     </div>
     <div class="hero__posters" id="hero-posters" aria-hidden="true"></div>
     <div class="hero__hud hero__hud--tl" aria-hidden="true"></div>
@@ -131,22 +147,164 @@
       <h1 class="hero__title reveal reveal-2">内容 <span class="hero__x">×</span> 技术 <span class="hero__x">×</span> 商业<br><em>重写你的影像职业路径</em></h1>
       <p class="hero__sub reveal reveal-3">影视传媒正在被重新定义：AI 生成影像压缩了制作周期，流媒体与短视频重写了发行与内容运营的规则，品牌、平台与版权方开始争夺同一批"既懂创作、又会技术、还能对接商业"的复合型内容人才。<br><br>我们不培养只会拍片的技术执行者，也不培养只会写方案的空想型创意人。我们培养的，是能在 AI 时代把故事、技术与商业连成一条完整链路的创作者与内容决策者。</p>
       <div class="hero__stats reveal reveal-4">
-        <div class="hero__stat"><div class="hero__stat-num">8</div><div class="hero__stat-label">大产业方向 × 学术分支</div></div>
-        <div class="hero__stat"><div class="hero__stat-num">61</div><div class="hero__stat-label">个核心岗位与晋升路径</div></div>
-        <div class="hero__stat"><div class="hero__stat-num">146</div><div class="hero__stat-label">所海外影视传媒院校</div></div>
+        <div class="hero__stat"><div class="hero__stat-num">8</div><div class="hero__stat-label">大影视传媒就业方向</div></div>
+        <div class="hero__stat"><div class="hero__stat-num">500亿+</div><div class="hero__stat-label">短剧市场规模</div></div>
         <div class="hero__stat"><div class="hero__stat-num">341</div><div class="hero__stat-label">个可申请本硕专业</div></div>
+        <div class="hero__stat"><div class="hero__stat-num">61</div><div class="hero__stat-label">个核心岗位与晋升路径</div></div>
       </div>
       <div class="hero__actions reveal reveal-5">
-        <a class="hero__cta" onclick="Router.go('planning')">
-          规划我的未来 <span class="hero__cta-sub">/ Plan Your Future</span>
-        </a>
-        <a class="hero__ghost" onclick="Router.go('assessment')">
+        <a class="hero__cta" onclick="PlanningViews.goToAssessment()">
           职业测评 <span class="hero__cta-sub">/ Assessment</span>
         </a>
-        <a class="hero__ghost" onclick="Router.go('home',{scrollTo:'#courses'})">
+        <a class="hero__ghost" onclick="Router.go('planning')">
+          探索就业全景 <span class="hero__cta-sub">/ Explore Industries</span>
+        </a>
+        <a class="hero__ghost" onclick="Router.go('course-products')">
           浏览课程产品 <span class="hero__cta-sub">/ Courses</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP（8 个关键问题，内容/文案复刻 archive 站首页 home-hub 原文） -->
+  <section class="home-section" id="roadmap">
+    <div class="section-eyebrow">Explore · Match · Plan</div>
+    <h2 class="section-title">从行业认知到个人规划</h2>
+    <p class="section-desc">从下面的问题出发，找到你现在最需要解决的部分；首次使用也可以按 01—08 顺序完成。</p>
+    <hr class="section-divider">
+    <div class="roadmap-grid" id="roadmap-grid"></div>
+  </section>
+
+  <!-- AI+影视：内容产业的黄金赛道（内容复刻 archive 站首页 #thesis 原文，样式改用本项目 token） -->
+  <section class="home-section" id="thesis">
+    <div class="section-eyebrow">Why Film, Media &amp; Content</div>
+    <h2 class="section-title">AI+影视：内容产业的黄金赛道</h2>
+    <p class="section-desc"><strong>为什么影视传媒在 AI 时代，反而更值钱。</strong>先看核心判断，再按需展开细节。影视传媒最稀缺的部分，从来不是设备，而是对故事、情绪、文化和内容价值的判断。</p>
+    <hr class="section-divider">
+
+    <div class="thesis-grid">
+      <details class="ind-detail" open>
+        <summary class="ind-detail__head"><h4>AI 最难替代的<em>部分</em></h4><span>The Argument · 核心主张</span></summary>
+        <div class="ind-detail__body">
+          <p class="thesis-preview">影视传媒真正稀缺的，不是设备操作，而是判断什么值得被讲、怎样让人信服地看完。这正是 AI 最难替代的部分。</p>
+          <div class="thesis-cols">
+            <div class="thesis-col thesis-col--can">
+              <div class="thesis-col__label">AI 正在替代的</div>
+              <div class="thesis-col__items">
+                <div class="thesis-col__item">生成 4K 级别电影画面和镜头运动</div>
+                <div class="thesis-col__item">完成过去需要团队几天的后期剪辑</div>
+                <div class="thesis-col__item">生成专业级配音和声音设计</div>
+                <div class="thesis-col__item">制作视觉概念图和角色概念稿</div>
+                <div class="thesis-col__item">批量生产广告素材和文案草案</div>
+                <div class="thesis-col__item">扫描海量剧本和 IP 做数据分析</div>
+                <div class="thesis-col__item">自动转录、剪辑、分发内容</div>
+              </div>
+            </div>
+            <div class="thesis-col thesis-col--cannot">
+              <div class="thesis-col__label">AI 结构性无法替代的</div>
+              <div class="thesis-col__items">
+                <div class="thesis-col__item">判断这个故事值不值得被拍</div>
+                <div class="thesis-col__item">感知哪个创意在当下文化语境里成立</div>
+                <div class="thesis-col__item">理解为什么某个角色让人产生共情</div>
+                <div class="thesis-col__item">决定品牌应该用什么情感和观众对话</div>
+                <div class="thesis-col__item">识别什么内容是真正稀缺的</div>
+                <div class="thesis-col__item">在危机中判断如何重建信任</div>
+                <div class="thesis-col__item">决定哪个 IP 值得投数亿进行改编</div>
+              </div>
+            </div>
+          </div>
+          <div class="thesis-pullquote">
+            <div class="thesis-pullquote__text">影视传媒真正教给你的，从来不是怎么操作设备，<br>而是：<em>什么样的故事值得被讲述。怎样让人信服地看完。</em></div>
+            <div class="thesis-pullquote__sub">这件事，AI 做不到。不是现在做不到，而是在可预见的未来，结构性地做不到。</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="ind-detail">
+        <summary class="ind-detail__head"><h4>内容供给无限膨胀，<em>判断力反而更稀缺</em></h4><span>The Paradox · 内容悖论</span></summary>
+        <div class="ind-detail__body">
+          <p class="thesis-preview">AI 让内容越来越容易被生产，但真正值钱的，变成了“哪个内容值得被生产”的判断能力。</p>
+          <div class="thesis-stats">
+            <div class="thesis-stat"><div class="thesis-stat__num">500亿+</div><div class="thesis-stat__label">2024年短剧市场规模</div><div class="thesis-stat__sub">同比增长 268%</div></div>
+            <div class="thesis-stat"><div class="thesis-stat__num">80%+</div><div class="thesis-stat__label">互联网流量来自视频内容</div><div class="thesis-stat__sub">Cisco Global Forecast</div></div>
+            <div class="thesis-stat"><div class="thesis-stat__num">每分钟</div><div class="thesis-stat__label">500小时视频上传至YouTube</div><div class="thesis-stat__sub">内容密度已超人类可消费极限</div></div>
+            <div class="thesis-stat"><div class="thesis-stat__num">3x</div><div class="thesis-stat__label">AI时代内容岗位需求增速</div><div class="thesis-stat__sub">相比技术岗位增速的对比</div></div>
+          </div>
+          <div class="thesis-demand-grid">
+            <div class="thesis-demand"><div class="thesis-demand__q">当所有品牌都能用 AI 批量生成广告……</div><div class="thesis-demand__a">谁来决定哪支广告能让人记住这个品牌？——<strong>懂叙事的创意总监</strong>，不是 AI。</div></div>
+            <div class="thesis-demand"><div class="thesis-demand__q">当平台每天收到十万个剧本和 IP……</div><div class="thesis-demand__a">谁来决定哪三个值得绿灯开发？——<strong>受过叙事训练的内容开发</strong>，不是算法。</div></div>
+            <div class="thesis-demand"><div class="thesis-demand__q">当游戏公司用 AI 写了海量 NPC 台词……</div><div class="thesis-demand__a">谁来设计叙事骨架让玩家真正被故事打动？——<strong>叙事设计师</strong>，不是工具。</div></div>
+            <div class="thesis-demand"><div class="thesis-demand__q">当 AI 能生成任何风格的视觉内容……</div><div class="thesis-demand__a">谁来判断哪个画面在情感上是"对的"？——<strong>有影视训练的内容创作者</strong>，不是模型。</div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="ind-detail">
+        <summary class="ind-detail__head"><h4>影视传媒 × AI = <em>当代最强复合能力</em></h4><span>The Multiplier · 乘法效应</span></summary>
+        <div class="ind-detail__body">
+          <p class="thesis-preview">不是 AI 取代影视传媒，而是影视传媒训练出的叙事判断力，正在被 AI 工具成倍放大。</p>
+          <div class="thesis-formula">
+            <div class="thesis-formula__box"><div class="thesis-formula__name">叙事判断力</div><div class="thesis-formula__en">STORYTELLING JUDGMENT</div></div>
+            <div class="thesis-formula__op">×</div>
+            <div class="thesis-formula__box"><div class="thesis-formula__name">AI 工具矩阵</div><div class="thesis-formula__en">AI TOOL STACK</div></div>
+            <div class="thesis-formula__op">=</div>
+            <div class="thesis-formula__box thesis-formula__box--result"><div class="thesis-formula__name">超级内容个体</div><div class="thesis-formula__en">SUPER CONTENT CREATOR</div></div>
+          </div>
+          <div class="thesis-cap-grid">
+            <div class="thesis-cap"><div class="thesis-cap__icon">🎬</div><div class="thesis-cap__title">一人完成完整短片</div><div class="thesis-cap__desc">脚本 + AI生成画面 + 剪辑 + 配乐 + 配音，完整创作链条，一周以内。</div></div>
+            <div class="thesis-cap"><div class="thesis-cap__icon">🧠</div><div class="thesis-cap__title">AI 公司创意核心</div><div class="thesis-cap__desc">Runway、可灵、即梦等 AI 公司最急需：用叙事直觉训练模型、评估内容输出质量。</div></div>
+            <div class="thesis-cap"><div class="thesis-cap__icon">💡</div><div class="thesis-cap__title">内容开发决策者</div><div class="thesis-cap__desc">用 AI 扫描十万部 IP，最终由你决定哪三个值得绿灯——这个判断永远是人的。</div></div>
+            <div class="thesis-cap"><div class="thesis-cap__icon">🎯</div><div class="thesis-cap__title">品牌创意总监</div><div class="thesis-cap__desc">用 AI 在48小时生成200个创意草案，再用叙事审美筛选出那一个让品牌被记住的方向。</div></div>
+            <div class="thesis-cap"><div class="thesis-cap__icon">🌐</div><div class="thesis-cap__title">全球内容策略师</div><div class="thesis-cap__desc">懂故事 + 懂平台 + 懂 AI 工具，在抖音、Netflix、品牌方都吃得开的复合型人才。</div></div>
+            <div class="thesis-cap"><div class="thesis-cap__icon">⚡</div><div class="thesis-cap__title">效率是指数级的</div><div class="thesis-cap__desc">过去需要团队完成的工作，一个具备叙事判断力的人 + AI 工具，可以以数倍速度产出。</div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="ind-detail">
+        <summary class="ind-detail__head"><h4>不只是拍电影，<em>八大影视传媒行业都需要内容人才</em></h4><span>Eight Industries · 八大行业</span></summary>
+        <div class="ind-detail__body">
+          <p class="thesis-preview">影视传媒的就业边界远比想象中宽，平台内容、品牌传播、新闻纪录、演艺经纪、AI内容工具都在吸纳这套能力模型。</p>
+          <div class="thesis-industry-grid">
+            <div class="thesis-industry"><div class="thesis-industry__icon">📺</div><div class="thesis-industry__name">流媒体与长视频</div><div class="thesis-industry__en">STREAMING &amp; LONG-FORM</div><div class="thesis-industry__why">内容开发是平台的核心护城河。<strong>Netflix、爱奇艺、腾讯视频</strong>——绿灯决策始终由人来做，不是算法。</div></div>
+            <div class="thesis-industry"><div class="thesis-industry__icon">📱</div><div class="thesis-industry__name">短视频与社交内容</div><div class="thesis-industry__en">SHORT VIDEO &amp; SOCIAL</div><div class="thesis-industry__why">算法分发内容，但<strong>什么值得被创作</strong>——这是平台内容策略师的核心判断，也是影视训练的直接输出。</div></div>
+            <div class="thesis-industry"><div class="thesis-industry__icon">🎮</div><div class="thesis-industry__name">游戏与互动叙事</div><div class="thesis-industry__en">GAMES &amp; INTERACTIVE</div><div class="thesis-industry__why"><strong>叙事设计师</strong>是游戏行业增长最快的岗位之一，米哈游、网易正在主动从影视圈招募编剧和叙事人才。</div></div>
+            <div class="thesis-industry"><div class="thesis-industry__icon">🎯</div><div class="thesis-industry__name">品牌内容与广告</div><div class="thesis-industry__en">BRAND CONTENT &amp; ADS</div><div class="thesis-industry__why">每个品牌都是一个内容公司。<strong>AI可以批量生产素材</strong>，但哪个创意能让人记住这个品牌，仍然是人的判断。</div></div>
+            <div class="thesis-industry"><div class="thesis-industry__icon">🎙️</div><div class="thesis-industry__name">新闻、纪录片与播客</div><div class="thesis-industry__en">JOURNALISM &amp; DOCUMENTARY</div><div class="thesis-industry__why">当 AI 能制造假新闻，<strong>真相的发现与深度报道反而更有价值</strong>。深度内容是信息时代的稀缺资源。</div></div>
+            <div class="thesis-industry"><div class="thesis-industry__icon">🎤</div><div class="thesis-industry__name">演艺经纪与文化产业</div><div class="thesis-industry__en">ENTERTAINMENT &amp; TALENT</div><div class="thesis-industry__why">沉浸式演出、虚拟偶像、现场文化体验——<strong>内容最高溢价的形态</strong>，叙事能力在这里达到最大价值。</div></div>
+            <div class="thesis-industry"><div class="thesis-industry__icon">🤖</div><div class="thesis-industry__name">AI 内容工具与平台</div><div class="thesis-industry__en">AI CONTENT TOOLS</div><div class="thesis-industry__why">Runway、可灵、即梦——这些公司最缺的是<strong>有叙事直觉的人类</strong>来告诉 AI 什么是好内容。全新蓝海。</div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="ind-detail">
+        <summary class="ind-detail__head"><h4>唯一真正<em>无法被替代</em>的能力</h4><span>The Core · 核心竞争力</span></summary>
+        <div class="ind-detail__body">
+          <p class="thesis-preview">技术会持续替代执行，但无法替代对“当下这个时刻什么故事是必要的”的感知、判断和文化理解。</p>
+          <div class="thesis-closing">
+            <p class="thesis-closing__body">
+              AI 可以学会绘画、剪辑、写文案、生成视频。但它无法感知哪个故事在<strong>当下这个时刻</strong>是必要的——
+              那需要一个活在当代、懂得人类处境、有大量创作经验沉淀的人来判断。<br><br>
+              这种判断力，来自系统的叙事训练：大量的阅读、创作、拆解和反思。
+              <strong>它是人类经验的结晶，是情感共鸣的识别系统，是文化理解的雷达。</strong><br><br>
+              在技术壁垒全面消失的 AI 时代，这反而成了最后的护城河。
+              <strong>学会讲故事的人，不会被 AI 取代——他们会驾驭 AI，去讲更多、更大、更有力量的故事。</strong>
+            </p>
+            <div class="thesis-closing__tags">
+              <span class="skill-tag">叙事判断力</span>
+              <span class="skill-tag">内容品味</span>
+              <span class="skill-tag">情感共情</span>
+              <span class="skill-tag">文化感知</span>
+              <span class="skill-tag">故事结构</span>
+              <span class="skill-tag">创作直觉</span>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div style="text-align:center;margin-top:var(--space-6);">
+      <button class="section-cta" onclick="Router.go('planning')">探索就业岗位 <span class="u-en">/ Explore Jobs →</span></button>
     </div>
   </section>
 
@@ -154,15 +312,8 @@
   <section class="home-section" id="offers">
     <div class="section-eyebrow">Offers 2026–2027</div>
     <h2 class="section-title">offer 展示</h2>
-    <p class="section-desc">2026–2027 申请季影视传媒方向录取战报。覆盖美国、英国、港澳与全球影视传媒院校的本科 / 硕士 offer 成果，点击切换地区查看各院校 offer 数量。</p>
-    <div id="offers-total"></div>
+    <p class="section-desc">2026–2027 申请季影视传媒方向录取战报。覆盖美国、英国、港澳与全球影视传媒院校的本科 / 硕士 offer 成果。</p>
     <hr class="section-divider">
-    <div class="filter-bar" id="offers-country-tabs">
-      <button class="filter-btn is-active" data-group="US" onclick="OffersPage.switchGroup('US',this)">🇺🇸 美国</button>
-      <button class="filter-btn" data-group="UK" onclick="OffersPage.switchGroup('UK',this)">🇬🇧 英国</button>
-      <button class="filter-btn" data-group="HK_SG" onclick="OffersPage.switchGroup('HK_SG',this)">🇭🇰 港澳</button>
-      <button class="filter-btn" data-group="OTHER" onclick="OffersPage.switchGroup('OTHER',this)">🌏 其他</button>
-    </div>
     <div id="offers-grid"></div>
   </section>
 
@@ -223,15 +374,82 @@
 </div>
 
 <!-- ════════════════════════════════════════
+     SCHOOLS LIBRARY PAGE（院校库 · 内容建设中）
+════════════════════════════════════════ -->
+<div id="page-schools" class="page">
+  <section class="home-section" style="padding-top:var(--space-9);">
+    <div class="section-eyebrow">School Library</div>
+    <h2 class="section-title">院校库</h2>
+    <p class="section-desc">按国家、专业方向与产业匹配度检索海外影视传媒院校与项目，独立于产业全景页面查看。</p>
+    <hr class="section-divider">
+    <div class="page-placeholder">
+      <div class="page-placeholder__title">内容建设中</div>
+      <div class="page-placeholder__desc">院校库正在整理中，即将上线。在此之前可以先在「产业全景与岗位」页面里按产业查看推荐院校与专业。</div>
+      <button class="section-cta" onclick="Router.go('planning')">先去看产业全景与院校推荐 →</button>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════════════
      PLANNING PAGE
 ════════════════════════════════════════ -->
 <div id="page-planning" class="page">
   <section class="plan-hero">
-    <h1 class="plan-hero__title">产业全景 <em>× 岗位规划</em></h1>
+    <h1 class="plan-hero__title">产业全景图 <em>× 全链路规划</em></h1>
     <p class="plan-hero__sub">从八大影视传媒产业方向出发，深入了解每个赛道的头部企业、核心岗位、招聘门槛与对应升学路径。点击企业查看岗位详情，点击岗位方向查看匹配院校与专业。</p>
   </section>
-  <nav class="industry-nav" id="industry-nav"></nav>
-  <div id="industry-sections"></div>
+
+  <div class="planning-tabs-wrap">
+    <div class="filter-bar" id="planning-view-tabs">
+      <button class="filter-btn is-active" data-view="panorama" onclick="PlanningViews.switch('panorama',this)">产业全景</button>
+      <button class="filter-btn" data-view="assessment" onclick="PlanningViews.switch('assessment',this)">职业测评</button>
+      <button class="filter-btn" data-view="jobs" onclick="PlanningViews.switch('jobs',this)">岗位详情</button>
+      <button class="filter-btn" data-view="career" onclick="PlanningViews.switch('career',this)">我的规划</button>
+    </div>
+  </div>
+  <div class="cp-cart" id="cp-cart"></div>
+
+  <!-- 视图一：产业全景（原有内容与格式不变） -->
+  <div class="planning-view is-active" id="pv-panorama">
+    <nav class="industry-nav" id="industry-nav"></nav>
+    <div id="industry-sections"></div>
+  </div>
+
+  <!-- 视图二：职业测评（原独立页面 page-assessment 迁移为本页视图，顺序排在
+       产业全景与岗位详情之间；完成测评后会把 Top 3 匹配岗位自动覆盖式写入
+       页面顶部共享的 #cp-cart「职业目标选择」，逻辑见 assessment.js 的
+       AssessmentPage._syncCareerTargets，对齐 archive 站职业测评的自动填充规则。 -->
+  <div class="planning-view" id="pv-assessment">
+    <p class="as-view-intro">6 道题、10 个能力维度，输出你最匹配的产业方向与岗位目标；完成后会自动把 Top 3 匹配岗位加入本页顶部的「职业目标选择」，可直接在「我的规划」视图生成报告。</p>
+    <div class="as-progress">
+      <div class="as-progress__bar"><div class="as-progress__fill" id="as-progress-fill"></div></div>
+      <div class="as-progress__label" id="as-progress-label">0 / 6</div>
+    </div>
+    <div class="as-stage" id="as-stage"></div>
+  </div>
+
+  <!-- 视图三：岗位详情（岗位库 —— 搜索 + 详细岗位介绍，同一套 careers / role_recruitment 数据） -->
+  <div class="planning-view" id="pv-jobs">
+    <div class="jobs-view">
+      <div class="jobs-view__list">
+        <p class="pl-task__meta" style="margin-top:0">点击岗位卡片右侧的「+」可加入职业目标（最多 3 个），用于在「我的规划」视图生成完整报告。</p>
+        <input class="jobs-search" id="jobs-search-input" type="search" placeholder="搜索岗位、方向或关键词…">
+        <div class="filter-bar" id="jobs-industry-filter" style="margin-top:var(--space-3);"></div>
+        <div class="job-dir-list" id="jobs-role-list"></div>
+      </div>
+      <div class="jobs-view__detail" id="jobs-role-detail">
+        <div class="pl-empty">从左侧选择一个岗位方向，查看详细介绍。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 视图四：我的规划（完整复刻归档项目「我的规划」的报告生成逻辑：
+       模式选择 → 职业目标（读取 CareerCart）→ 国家/层级/申请季 + 候选专业手动选择
+       → DDL解析／作品集归并／专业分布／阶段路线图／职业资源匹配／按月时间线／PDF导出。
+       整个视图由 assets/js/pages/career-plan.js 的 CareerPlanPage 渲染到下面这一个容器里。 -->
+  <div class="planning-view" id="pv-career">
+    <div class="cp-flow" id="cp-flow"></div>
+  </div>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -241,6 +459,11 @@
   <section class="timeline-hero">
     <h1 class="timeline-hero__title">升学与求职时间轴</h1>
     <p class="timeline-hero__sub">选择申请季与国家 / 地区路线，查看从出国前准备到毕业入职的完整月度路径。点击任一节点，查看该阶段的作品集准备、AI 工具、关键行动与产出物。</p>
+    <div class="hero__actions" style="margin-top:var(--space-4);">
+      <a class="hero__cta" onclick="PlanningViews.goToCareer()">
+        查看我的规划 <span class="hero__cta-sub">/ Career Planning</span>
+      </a>
+    </div>
   </section>
   <div class="timeline-section">
 
@@ -301,68 +524,8 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     ASSESSMENT PAGE（职业测评）
-════════════════════════════════════════ -->
-<div id="page-assessment" class="page">
-  <section class="as-hero">
-    <div class="as-hero__eyebrow">Career Assessment</div>
-    <h1 class="as-hero__title">职业测评 · <em>找到你的影视传媒坐标</em></h1>
-    <p class="as-hero__sub">6 道题、10 个能力维度，输出你最匹配的产业方向与岗位目标，并给出可执行的升学 / 求职准备建议。结果可直接带入「我的规划」生成行动清单。</p>
-  </section>
-  <div class="as-progress">
-    <div class="as-progress__bar"><div class="as-progress__fill" id="as-progress-fill"></div></div>
-    <div class="as-progress__label" id="as-progress-label">0 / 6</div>
-  </div>
-  <div class="as-stage" id="as-stage"></div>
-</div>
-
-<!-- ════════════════════════════════════════
      PLAN PAGE（我的规划）
 ════════════════════════════════════════ -->
-<div id="page-plan" class="page">
-  <section class="plan-hero">
-    <h1 class="plan-hero__title">我的规划 <em>× 行动清单</em></h1>
-    <p class="plan-hero__sub">选择申请季、目标产业方向与目标岗位，自动生成按月推进的行动清单（作品集、AI 工具、实习与投递节奏），并推荐匹配院校专业与在售课程。规划保存在本地浏览器，可随时修改或清空。</p>
-  </section>
-  <div class="pl-layout">
-    <aside class="pl-side">
-      <div class="pl-card">
-        <div class="pl-card__label">规划模式</div>
-        <div class="pl-modes" id="pl-modes"></div>
-      </div>
-      <div class="pl-card">
-        <div class="pl-card__label">规划目标</div>
-        <div class="pl-fields">
-          <div>
-            <label class="pl-field__label" for="pl-cohort">申请季</label>
-            <select id="pl-cohort"></select>
-          </div>
-          <div>
-            <label class="pl-field__label" for="pl-industry">目标产业方向</label>
-            <select id="pl-industry"></select>
-          </div>
-          <div>
-            <label class="pl-field__label" for="pl-role">目标岗位方向</label>
-            <select id="pl-role"></select>
-          </div>
-        </div>
-        <div class="pl-actions" style="margin-top:var(--space-4);">
-          <button class="pl-btn pl-btn--primary" onclick="PlanPage.generate()">生成规划</button>
-          <button class="pl-btn pl-btn--ghost" onclick="PlanPage.reset()">清空</button>
-        </div>
-      </div>
-      <div class="pl-card">
-        <div class="pl-card__label">从测评带入</div>
-        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-3);">
-          还未确定方向？先完成职业测评，系统会把最匹配的产业方向与岗位目标自动填入本页。
-        </p>
-        <button class="pl-btn" onclick="Router.go('assessment')">前往职业测评</button>
-      </div>
-    </aside>
-    <div class="pl-main" id="pl-main"></div>
-  </div>
-</div>
-
 <!-- ═══ COURSE OVERLAY ═══ -->
 <div id="course-overlay" class="course-overlay">
   <div class="course-overlay__backdrop"></div>
@@ -407,8 +570,8 @@
         <a onclick="Router.go('timeline')"><strong>成长时间轴</strong><span class="u-en">Timeline</span></a>
         <a onclick="Router.go('course-products')"><strong>课程产品</strong><span class="u-en">Courses</span></a>
         <a onclick="Router.go('planning')"><strong>产业全景与岗位</strong><span class="u-en">Industry &amp; Jobs</span></a>
-        <a onclick="Router.go('assessment')"><strong>职业测评</strong><span class="u-en">Assessment</span></a>
-        <a onclick="Router.go('plan')"><strong>我的规划</strong><span class="u-en">My Plan</span></a>
+        <a onclick="PlanningViews.goToAssessment()"><strong>职业测评</strong><span class="u-en">Assessment</span></a>
+        <a onclick="PlanningViews.goToCareer()"><strong>我的规划</strong><span class="u-en">Career Plan</span></a>
       </div>
       <div class="site-footer__col">
         <h2 class="site-footer__col-title">科系板块<span class="u-en">Sections</span></h2>
@@ -468,13 +631,15 @@
 <script src="assets/js/products-film.js"></script>
 <script src="assets/js/pages/home.js"></script>
 <script src="assets/js/pages/offers.js"></script>
+<script src="assets/js/pages/career-cart.js"></script>
 <script src="assets/js/pages/planning.js"></script>
+<script src="assets/js/pages/job-library.js"></script>
 <script src="assets/js/pages/portfolio.js"></script>
 <script src="assets/js/pages/timeline.js"></script>
 <script src="assets/js/course-demo.js"></script>
 <script src="assets/js/pages/course-products.js"></script>
 <script src="assets/js/pages/assessment.js"></script>
-<script src="assets/js/pages/plan.js"></script>
+<script src="assets/js/pages/career-plan.js"></script>
 <script src="assets/js/effects.js"></script>
 <script src="assets/js/hero-video.js"></script>
 <script>
@@ -490,19 +655,27 @@
   }
   HomePage.build();
   OffersPage.build();
+  CareerCart.build();
   PlanningPage.build();
+  CareerPlanPage.build();
   PortfolioPage.build();
   TimelinePage.build();
   CourseProductsPage.build();
   AssessmentPage.build();
-  PlanPage.build();
   Search.init();
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-  /* Restore page from URL hash on load/refresh */
-  const PAGES = ['portfolio', 'planning', 'timeline', 'course-products', 'assessment', 'plan'];
+  /* Restore page from URL hash on load/refresh。
+     'assessment' 不再是独立页面，改成先进 planning 页再切到「职业测评」视图，
+     兼容旧的 #assessment 书签／外链；旧的独立「我的规划」页面（'plan'）已下线，
+     其功能已被 Planning 页「我的规划」视图完整取代，'plan' 书签同样重定向过去。 */
+  const PAGES = ['portfolio', 'planning', 'timeline', 'course-products', 'schools'];
   const hashPage = location.hash.replace('#', '');
-  if (PAGES.includes(hashPage)) {
+  if (hashPage === 'assessment') {
+    PlanningViews.goToAssessment();
+  } else if (hashPage === 'plan') {
+    PlanningViews.goToCareer();
+  } else if (PAGES.includes(hashPage)) {
     Router.go(hashPage);
   } else {
     window.scrollTo(0, 0);

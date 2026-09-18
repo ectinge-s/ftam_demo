@@ -1,0 +1,89 @@
+{
+ "film_tv": [
+  "University of Southern California",
+  "New York University",
+  "UCLA",
+  "American Film Institute",
+  "Columbia University",
+  "Chapman University",
+  "Loyola Marymount University",
+  "Emerson College",
+  "National Film and Television School",
+  "Bournemouth University"
+ ],
+ "digital_platform": [
+  "University of Southern California",
+  "New York University",
+  "Emerson College",
+  "Northwestern University",
+  "University of the Arts London",
+  "The London School of Economic and Political Science",
+  "Goldsmith, University of London",
+  "University of Leeds",
+  "Hong Kong Baptist University",
+  "City University of Hong Kong"
+ ],
+ "advertising_brand": [
+  "University of Southern California",
+  "Northwestern University",
+  "Syracuse University",
+  "Boston University",
+  "Savannah College of Art and Design",
+  "University of the Arts London",
+  "London College of Communication",
+  "Goldsmith, University of London",
+  "University of Leeds",
+  "Hong Kong Baptist University"
+ ],
+ "entertainment": [
+  "University of Southern California",
+  "New York University",
+  "Berklee College of Music",
+  "Columbia University",
+  "University of the Arts London",
+  "Royal Central School of Speech and Drama",
+  "Goldsmith, University of London",
+  "The Hong Kong Academy for Performing Arts"
+ ],
+ "media_program": [
+  "Northwestern University",
+  "Columbia University",
+  "University of California, Berkeley",
+  "New York University",
+  "University of Southern California",
+  "Emerson College",
+  "University of the Arts London",
+  "National Film and Television School",
+  "Hong Kong Baptist University"
+ ],
+ "corporate_pr": [
+  "University of Southern California",
+  "Northwestern University",
+  "Georgetown University",
+  "Boston University",
+  "The London School of Economic and Political Science",
+  "King's College London",
+  "University of the Arts London",
+  "Hong Kong Baptist University"
+ ],
+ "rights_ip": [
+  "University of Southern California",
+  "New York University",
+  "UCLA",
+  "Columbia University",
+  "Chapman University",
+  "National Film and Television School",
+  "University of the Arts London",
+  "Hong Kong Baptist University"
+ ],
+ "ai_filmtech": [
+  "University of Southern California",
+  "New York University",
+  "Savannah College of Art and Design",
+  "DePaul University",
+  "Bournemouth University",
+  "University of the Arts London",
+  "National Film and Television School",
+  "City University of Hong Kong"
+ ]
+}

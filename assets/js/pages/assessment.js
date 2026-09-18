@@ -1,14 +1,23 @@
 /* ═══════════════════════════════════════════
-   ASSESSMENT PAGE — 影视传媒职业方向测评
+   ASSESSMENT VIEW — 影视传媒职业方向测评
    ───────────────────────────────────────────
-   沿用 IST_demo 的「单页状态机 + 进度条」交互骨架，
+   原本是独立页面（page-assessment），现改为 Planning 页
+   （产业全景图 × 全链路规划）内的一个视图，顺序排在「产业全景」
+   与「岗位详情」之间；渲染目标容器（as-progress-fill /
+   as-progress-label / as-stage）随页面结构迁移到 #pv-assessment，
+   本文件的 DOM 挂载逻辑不变，沿用「单页状态机 + 进度条」交互骨架。
    题库与画像逻辑来自源项目（data/assessment.json +
    10 维能力模型 + 岗位规则匹配）：
      1) 6 道题依次作答（背景题 / 多选题 / 双组题）
      2) 归一化为 10 个能力维度画像
      3) 用规则加权把画像匹配到岗位库（DATA.careers，61 个岗位方向）
      4) 汇总出最匹配的产业方向、代表人物与职业取舍建议
-     5) 结果落盘 localStorage，一键带入「我的规划」
+     5) 结果落盘 localStorage；同时把 Top 3 匹配岗位整体覆盖式同步到跨视图共享的
+        「职业目标选择」（CareerCart，对齐 archive 站逻辑），
+        与「岗位详情」「我的规划」两个视图共用同一份数据；结果页按钮直接跳转到
+        已同步好数据的「我的规划」视图（原独立的「我的规划」页面与其
+        AS_PLAN_SEED 单岗位种子机制已下线，由「我的规划」读取 CareerCart 的
+        完整逻辑取代，功能上是超集，不存在退化）。
 ═══════════════════════════════════════════ */
 
 const AS_DIMS = {
@@ -35,7 +44,6 @@ const AS_ROLE_RULES = [
 ];
 
 const AS_STORE = 'sfk_film_assessment_v1';
-const AS_PLAN_SEED = 'sfk_film_plan_seed_v1';
 
 const DIM_GIFTS = {
   story: '能够从人物、冲突与细节中发现故事',
@@ -118,6 +126,12 @@ const AssessmentPage = {
     if (label) label.textContent = done + ' / ' + qs.length;
   },
 
+  // 每次切换题目或展示结果时滚动到 as-stage 顶部，避免长页面下用户看不到新内容
+  _scrollToStageTop() {
+    const el = document.getElementById('as-stage');
+    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  },
+
   _optionsHtml(q, a) {
     if (q.kind === 'dual') {
       return q.groups.map(g => `
@@ -175,16 +189,36 @@ const AssessmentPage = {
     });
     const prev = stage.querySelector('[data-act="prev"]');
     const next = stage.querySelector('[data-act="next"]');
-    if (prev) prev.onclick = () => { if (this._step > 0) { this._step--; this.renderQuestion(); } };
+    if (prev) prev.onclick = () => { if (this._step > 0) { this._step--; this.renderQuestion(); this._scrollToStageTop(); } };
     if (next) next.onclick = () => {
       if (!this._complete(q, this._ans[q.id])) return;
-      if (this._step < qs.length - 1) { this._step++; this.renderQuestion(); }
-      else {
+      if (this._step < qs.length - 1) {
+        this._step++; this.renderQuestion();
+        this._scrollToStageTop();
+      } else {
         this._result = this._compute();
+        this._syncCareerTargets(this._result);
         this._save();
         this.renderResult();
+        this._scrollToStageTop();
+        if (window.CareerCart && typeof CareerCart.open === 'function') CareerCart.open();
       }
     };
+  },
+
+  /* 测评一算出新结果，就把 Top 3 匹配岗位整体覆盖式同步到跨视图共享的
+     「职业目标选择」（CareerCart）：只在刚生成新结果时触发一次，不会在
+     单纯重新打开已保存的旧结果时（build() 里的 saved.result 分支）重复
+     覆盖，避免把用户后续在「岗位详情」里手动调整过的选择又冲掉。
+     roleId 这里要转成 Number——_roles() 内部用 String(c.role_id) 做画像
+     匹配的 key，但 CareerCart / JobLibrary 全站统一用原始数值型 role_id。 */
+  _syncCareerTargets(r) {
+    if (!window.CareerCart || typeof CareerCart.setFromAssessment !== 'function') return;
+    const top3 = ((r && r.top) || []).slice(0, 3).map(x => x.role).filter(Boolean);
+    if (!top3.length) return;
+    CareerCart.setFromAssessment(top3.map(role => ({
+      roleId: Number(role.id), industryId: role.industryId, directionZh: role.title, directionEn: role.en,
+    })));
   },
 
   _pick(q, btn) {
@@ -213,6 +247,7 @@ const AssessmentPage = {
     this._ans = {}; this._step = 0; this._result = null;
     this._save();
     this.renderQuestion();
+    this._scrollToStageTop();
   },
 
   /* ═══ 打分引擎 ═══ */
@@ -462,7 +497,7 @@ const AssessmentPage = {
                 </div>
                 <div class="as-chips" style="margin-top:var(--space-3)">
                   <button class="as-btn" style="padding:6px 12px;font-size:var(--text-xs)"
-                          onclick="Search.jumpTo('job','${x.role.industryId}','${x.role.title.replace(/'/g, "\\'")}')">查看岗位详情</button>
+                          onclick="PlanningPage.openJobSidebar('${x.role.industryId}','${x.role.title.replace(/'/g, "\\'")}')">查看岗位详情</button>
                 </div>
               </article>`).join('')}
           </div>
@@ -490,7 +525,8 @@ const AssessmentPage = {
 
         <div class="as-actions">
           <button class="as-btn" onclick="AssessmentPage.retake()">重新测评</button>
-          <button class="as-btn as-btn--primary" onclick="AssessmentPage.toPlan()">生成我的规划</button>
+          <button class="as-btn" onclick="PlanningViews.goToJobs()">进入岗位库</button>
+          <button class="as-btn as-btn--primary" onclick="PlanningViews.goToCareer()">前往我的规划 →</button>
         </div>
         <p style="font-size:var(--text-xs);color:var(--color-text-faint);line-height:1.7">
           本测评用于职业探索与教育规划，不属于心理测量或就业承诺。结果与答题记录仅保存在当前浏览器。
@@ -498,24 +534,6 @@ const AssessmentPage = {
       </div>`;
   },
 
-  /* 把测评结论写入「我的规划」的本地种子 */
-  toPlan() {
-    const r = this._result;
-    if (!r) return;
-    const topRole = (r.top[0] || {}).role || null;
-    try {
-      localStorage.setItem(AS_PLAN_SEED, JSON.stringify({
-        // 以主目标岗位所属方向为准，保证「方向 + 岗位」在规划页中一定可匹配
-        industryId: (topRole && topRole.industryId) || (r.industries[0] || {}).id || '',
-        roleTitle: topRole ? topRole.title : '',
-        profile: r.profile,
-        name: r.name,
-        date: r.date,
-      }));
-    } catch (e) { /* 忽略 */ }
-    if (window.PlanPage && typeof PlanPage.applySeed === 'function') PlanPage.applySeed();
-    Router.go('plan');
-  },
 };
 
 window.AssessmentPage = AssessmentPage;

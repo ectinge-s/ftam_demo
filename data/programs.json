@@ -21892,5 +21892,190 @@
   ],
   "prestige_score": 86,
   "industry_rank": 13
+ },
+ {
+  "id": "berklee-un-manual01",
+  "country": "US",
+  "country_group": "US",
+  "school_zh": "伯克利音乐学院",
+  "school_en": "Berklee College of Music",
+  "school_short": "Berklee",
+  "school_college": "音乐产业",
+  "school_city": "波士顿，马萨诸塞",
+  "school_region": "美东北",
+  "program_name_en": "BM in Music Business/Management",
+  "program_name_zh": "音乐商业与管理学士",
+  "degree_type": "BM",
+  "level": "undergraduate",
+  "duration": "4 年",
+  "fee": "",
+  "ai_level": "weak",
+  "scope_tier": "core-entertainment",
+  "gpa_requirement": "",
+  "language_scores": "TOEFL 79+ / IELTS 6.5+（具体以官网当季要求为准）",
+  "deadline": "以官网当季 Berklee 本科招生日历为准",
+  "audience": "希望进入音乐产业商务、版权、艺人经纪与厂牌运营方向的学生",
+  "background_note": "全球最知名的当代音乐学院之一，音乐商业/管理专业训练版权、发行、艺人管理、演出与厂牌运营的实务能力。",
+  "portfolio_required": false,
+  "portfolio_note": "",
+  "caution": "以官网当季 Guidance 为准；音乐主科申请通常仍需面试/试奏材料。",
+  "school_intro": "伯克利是当代流行音乐教育的标杆院校，音乐商业/管理专业依托波士顿及纽约的音乐产业网络，专注培养版权、发行、艺人经纪与厂牌运营人才。",
+  "school_ai": "AI 相关内容更多体现在音乐制作与合成工具课程中，音乐商业/管理专业本身仍以产业实务、法律与谈判训练为核心。",
+  "school_advantages": "音乐产业校友网络和实习资源全球领先，紧密对接厂牌、版权公司与演出经纪机构。",
+  "school_positioning": "音乐产业商务人才的顶尖训练地。",
+  "school_ranking": "在音乐类院校中长期被视为音乐商业/产业管理方向的代表性学校之一。",
+  "school_tags": [
+   "音乐产业",
+   "艺人经纪",
+   "版权与发行",
+   "厂牌运营"
+  ],
+  "school_faculty": [],
+  "school_alumni": [],
+  "sfk_total": 0,
+  "has_sfk_data": false,
+  "source": "manual-archive-parity",
+  "program_url": "https://college.berklee.edu/music-business-management/bachelor-of-music-in-music-business-management",
+  "industry_tags": [
+   "entertainment"
+  ],
+  "primary_tags": [
+   "management",
+   "sound"
+  ],
+  "secondary_tags": [
+   "arts",
+   "brand"
+  ],
+  "keyword_tags": [
+   "management",
+   "sound",
+   "arts",
+   "brand"
+  ],
+  "prestige_score": 80,
+  "industry_rank": 30
+ },
+ {
+  "id": "rcssd-un-manual01",
+  "country": "UK",
+  "country_group": "UK",
+  "school_zh": "皇家中央演讲戏剧学院",
+  "school_en": "Royal Central School of Speech and Drama",
+  "school_short": "RCSSD",
+  "school_college": "表演与戏剧",
+  "school_city": "伦敦",
+  "school_region": "英国",
+  "program_name_en": "MA Advanced Theatre Practice",
+  "program_name_zh": "高阶剧场实践硕士（表演/导演/制作/设计等路径）",
+  "degree_type": "MA",
+  "level": "graduate",
+  "duration": "1 年",
+  "fee": "",
+  "ai_level": "weak",
+  "scope_tier": "core-entertainment",
+  "gpa_requirement": "",
+  "language_scores": "IELTS 6.5+（单项不低于 6.0，具体以官网当季要求为准）",
+  "deadline": "以官网当季研究生招生日历为准",
+  "audience": "希望往表演、导演、剧场制作与设计方向发展的学生",
+  "background_note": "隶属伦敦大学体系的表演艺术专业学院，MA Advanced Theatre Practice 覆盖表演、导演、制作与舞台设计等多条实践路径。",
+  "portfolio_required": true,
+  "portfolio_note": "通常需要提交创作作品集/表演样本并参加面试，具体材料以当季课程页面为准。",
+  "caution": "不同路径（表演/导演/设计等）材料要求略有差异，需按官网当季课程页面核实。",
+  "school_intro": "英国历史最悠久的表演艺术专业学院之一，隶属伦敦大学，以剧场实践训练和西区/国家剧院等产业连接见长。",
+  "school_ai": "以现场表演与剧场工艺训练为主，AI 相关内容未见作为课程主轴。",
+  "school_advantages": "与英国国家剧院、西区剧场及影视表演行业连接紧密，师资多来自一线从业者。",
+  "school_positioning": "英国剧场表演与制作训练的代表性学院。",
+  "school_ranking": "英国表演艺术类院校中具有代表性，长期为西区与国家级剧院输送人才。",
+  "school_tags": [
+   "表演",
+   "剧场",
+   "导演",
+   "舞台设计"
+  ],
+  "school_faculty": [],
+  "school_alumni": [],
+  "sfk_total": 0,
+  "has_sfk_data": false,
+  "source": "manual-archive-parity",
+  "program_url": "https://www.cssd.ac.uk/postgraduate-courses",
+  "industry_tags": [
+   "entertainment"
+  ],
+  "primary_tags": [
+   "arts"
+  ],
+  "secondary_tags": [
+   "management"
+  ],
+  "keyword_tags": [
+   "arts",
+   "management"
+  ],
+  "prestige_score": 78,
+  "industry_rank": 34
+ },
+ {
+  "id": "georgetown-un-manual01",
+  "country": "US",
+  "country_group": "US",
+  "school_zh": "乔治城大学",
+  "school_en": "Georgetown University",
+  "school_short": "Georgetown",
+  "school_college": "传播与公共关系",
+  "school_city": "华盛顿特区",
+  "school_region": "美中大西洋",
+  "program_name_en": "MA in Communication, Culture & Technology (CCT)",
+  "program_name_zh": "传播、文化与技术硕士",
+  "degree_type": "MA",
+  "level": "graduate",
+  "duration": "1-2 年",
+  "fee": "",
+  "ai_level": "embed",
+  "scope_tier": "core-pr",
+  "gpa_requirement": "",
+  "language_scores": "TOEFL 100+ / IELTS 7.0+（具体以官网当季要求为准）",
+  "deadline": "以官网当季研究生招生日历为准",
+  "audience": "希望往企业传播、公共关系、战略传播与科技政策方向发展的学生",
+  "background_note": "跨学科硕士项目，结合传播理论、文化研究与技术趋势，毕业生常见去向包括企业传播、公关咨询、科技政策与媒体机构。",
+  "portfolio_required": false,
+  "portfolio_note": "",
+  "caution": "项目偏研究与政策分析导向，适合有志于战略传播/智库/科技政策路径的学生，与纯创作型院校侧重不同。",
+  "school_intro": "位于华盛顿特区的顶尖研究型大学，CCT 项目依托首都的政策、智库与媒体资源，专注传播、文化与技术交叉领域的战略研究与实践。",
+  "school_ai": "课程涵盖技术与社会、数据与传播等模块，AI 相关议题通常嵌入传播政策与技术伦理讨论中。",
+  "school_advantages": "华盛顿特区地理位置带来智库、政府机构与媒体机构的实习和networking资源，校友广泛分布在企业传播、公关与政策领域。",
+  "school_positioning": "战略传播与科技政策交叉训练的代表性项目。",
+  "school_ranking": "乔治城大学整体是美国顶尖研究型大学之一，CCT 是其传播类硕士中较有代表性的跨学科项目。",
+  "school_tags": [
+   "战略传播",
+   "公共关系",
+   "科技政策",
+   "跨学科"
+  ],
+  "school_faculty": [],
+  "school_alumni": [],
+  "sfk_total": 0,
+  "has_sfk_data": false,
+  "source": "manual-archive-parity",
+  "program_url": "https://cct.georgetown.edu/",
+  "industry_tags": [
+   "corporate_pr"
+  ],
+  "primary_tags": [
+   "pr",
+   "management"
+  ],
+  "secondary_tags": [
+   "journalism",
+   "tech"
+  ],
+  "keyword_tags": [
+   "pr",
+   "management",
+   "journalism",
+   "tech"
+  ],
+  "prestige_score": 82,
+  "industry_rank": 22
  }
 ]

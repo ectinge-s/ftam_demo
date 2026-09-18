@@ -29,17 +29,17 @@
 .navbar__logo-mark {
   flex-shrink: 0; width: var(--logo-size); height: var(--logo-size);
   display: block; object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(233,132,219,.42));
+  filter: drop-shadow(0 0 6px rgba(233,166,203,.45));
 }
 .navbar__logo-text {
   font-family: var(--font-cn); font-weight: 700; font-size: var(--text-sm);
   color: var(--color-text); letter-spacing: .01em;
 }
-/* 标准字取色与图形同源：官方科系专色 #E984DB（C0 M43 Y6 K9） */
+/* 导航栏「SFK」标准字：辅助色金琥珀（VI 令牌 --color-accent，深色导航条内自动切亮金） */
 .navbar__logo-text .u-en {
-  font-family: var(--font-en); color: var(--sfk-dept);
+  font-family: var(--font-en); color: var(--color-accent);
   letter-spacing: .06em; margin-right: 5px;
-  text-shadow: 0 0 16px rgba(233,132,219,.32);
+  text-shadow: 0 0 16px rgba(231,195,107,.35);
 }
 .navbar__links { display: flex; gap: 2px; flex: 1; }
 .navbar__btn {
@@ -899,7 +899,9 @@
 }
 .featured-rail {
   display: flex; gap: var(--space-4); width: max-content;
-  will-change: transform; animation: featured-scroll-fwd 42s linear infinite;
+  will-change: transform;
+  /* 时长由 home.js 按恒定像素/秒动态写入 --marquee-duration；42s 只是 JS 未执行时的兜底值 */
+  animation: featured-scroll-fwd var(--marquee-duration, 42s) linear infinite;
 }
 .featured-rail-wrap:hover .featured-rail,
 .featured-rail.is-paused { animation-play-state: paused; }

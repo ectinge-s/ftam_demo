@@ -20,43 +20,29 @@
         完整逻辑取代，功能上是超集，不存在退化）。
 ═══════════════════════════════════════════ */
 
-const AS_DIMS = {
-  story: '故事创作', reality: '真实观察', visual: '视觉表达', organize: '统筹协作',
-  business: '商业传播', tech: '技术创新', stability: '稳定偏好', public: '公共价值',
-  pace: '高频执行', people: '人物沟通',
-};
-
-/* 岗位规则：正则命中岗位文本后，为维度加权（沿用源项目规则） */
-const AS_ROLE_RULES = [
-  { m: /编剧|剧本|故事开发|IP改编|内容开发/, w: { story: 5, reality: 1, organize: 1 }, why: ['喜欢建立人物、结构与世界观', '愿意长期阅读、写作和反复迭代'] },
-  { m: /导演(?!助理)|MV导演|创意导演|总导演/, w: { story: 3, visual: 5, people: 1, organize: 1 }, why: ['重视视听表达和整体创作判断', '愿意承担作品最终方向'] },
-  { m: /纪录片|调查记者|视频记者|新闻/, w: { reality: 5, public: 4, people: 2, visual: 1 }, why: ['偏好真实人物、现场观察与公共议题', '能够通过采访和调研建立内容'] },
-  { m: /播客|音频/, w: { reality: 3, people: 3, story: 2, public: 1 }, why: ['适合通过谈话、声音和长期选题建立内容', '重视人物沟通与信息组织'] },
-  { m: /制片|项目管理|执行导演|统筹|制作人/, w: { organize: 5, people: 2, business: 1, pace: 2 }, why: ['擅长协调资源、时间和团队', '能够在复杂项目中持续推进结果'] },
-  { m: /摄影|剪辑|声音|美术|视效|调色|后期|数字绘景/, w: { visual: 5, tech: 2, organize: 1 }, why: ['对画面、声音和制作质量敏感', '愿意通过专业技能形成竞争力'] },
-  { m: /品牌|广告|创意策划|商业|营销|宣发/, w: { business: 5, visual: 2, pace: 2, people: 1 }, why: ['能够在创意与商业目标之间建立连接', '接受客户反馈和明确交付'] },
-  { m: /公关|企业传播|媒体关系|国际传播|舆情/, w: { business: 4, people: 4, public: 2, stability: 2 }, why: ['适合组织信息并与多方沟通', '能够理解组织声誉与传播目标'] },
-  { m: /平台|运营|短视频|直播|账号|MCN/, w: { pace: 5, business: 4, tech: 1 }, why: ['适应快速迭代和持续发布', '愿意结合用户反馈与数据优化内容'] },
-  { m: /经纪|艺人|演出|演唱会|舞台/, w: { people: 5, organize: 3, business: 2, visual: 1 }, why: ['擅长人物沟通和长期关系管理', '能够适应现场、高协作和娱乐项目'] },
-  { m: /AI|虚拟|实时|Unreal|数字人|生成式/, w: { tech: 6, visual: 2, organize: 1 }, why: ['愿意持续学习快速变化的工具', '适合把技术转化为新的内容工作流'] },
-  { m: /版权|IP运营|版权经理|发行/, w: { story: 2, business: 4, organize: 3, stability: 2 }, why: ['兼顾内容价值、合同和商业判断', '适合长期管理项目与权利关系'] },
-  { m: /数据|分析|核验|事实核查/, w: { tech: 3, reality: 3, public: 2, stability: 1 }, why: ['擅长证据、信息和结构化判断', '愿意处理复杂材料并进行核验'] },
-];
+// 10 维能力模型的中文名 / 描述，以及「岗位文本 → 维度加权」规则，全部来自
+// data/assessment.json（dimensions / dimensionGifts / roleRules），改维度名称、
+// 描述或加权规则只需要编辑这份 json。roleRules 的 match 字段是正则源码字符串，
+// 沿用 data/career_planning.json 的 rolePools 同一套「正则存字符串，用时编译」
+// 约定；asRoleRules() 参与打分的地方调用较频繁，这里编译一次后缓存。
+function asDims() { return (DATA.assessment && DATA.assessment.dimensions) || {}; }
+function asGifts() { return (DATA.assessment && DATA.assessment.dimensionGifts) || {}; }
+let _asRoleRulesCache = null;
+function asRoleRules() {
+  if (_asRoleRulesCache) return _asRoleRulesCache;
+  const src = (DATA.assessment && DATA.assessment.roleRules) || [];
+  _asRoleRulesCache = src.map(r => ({ m: new RegExp(r.match), w: r.weights, why: r.why }));
+  return _asRoleRulesCache;
+}
+let _asFamilyRulesCache = null;
+function asFamilyRules() {
+  if (_asFamilyRulesCache) return _asFamilyRulesCache;
+  const cfg = (DATA.assessment && DATA.assessment.familyRules) || { rules: [], default: 'other' };
+  _asFamilyRulesCache = { rules: (cfg.rules || []).map(r => ({ m: new RegExp(r.match), family: r.family })), default: cfg.default || 'other' };
+  return _asFamilyRulesCache;
+}
 
 const AS_STORE = 'sfk_film_assessment_v1';
-
-const DIM_GIFTS = {
-  story: '能够从人物、冲突与细节中发现故事',
-  reality: '对真实世界保持敏锐，并愿意追问事实背后的原因',
-  visual: '对画面、声音、节奏和整体呈现有天然感受力',
-  organize: '能把复杂任务拆开，并推动不同的人一起完成目标',
-  business: '能理解受众、平台与客户，也知道创意需要产生真实结果',
-  tech: '对新工具和新流程保持好奇，并愿意把技术转化为表达',
-  stability: '重视长期积累和可持续成长，而不是只追逐短期刺激',
-  public: '希望内容不仅好看，也能回应真实的人和社会',
-  pace: '有快速行动、持续迭代和把想法落地的能量',
-  people: '容易理解他人，也有通过沟通建立信任与内容的潜力',
-};
 
 const AssessmentPage = {
   _ans: {},
@@ -265,7 +251,7 @@ const AssessmentPage = {
 
   _raw() {
     const raw = {};
-    Object.keys(AS_DIMS).forEach(k => raw[k] = 0);
+    Object.keys(asDims()).forEach(k => raw[k] = 0);
     this._questions().forEach(q => {
       if (q.scored === false) return;
       this._selectedOptions(q, this._ans[q.id]).forEach(o => {
@@ -278,7 +264,7 @@ const AssessmentPage = {
   _profile() {
     const raw = this._raw();
     const out = {};
-    Object.keys(AS_DIMS).forEach(k => {
+    Object.keys(asDims()).forEach(k => {
       const max = this._questions().reduce((s, q) => s + this._maxContribution(q, k), 0) || 1;
       out[k] = Math.max(0, Math.min(100, Math.round((raw[k] || 0) / max * 100)));
     });
@@ -287,9 +273,9 @@ const AssessmentPage = {
 
   _roleVector(role) {
     const v = {};
-    Object.keys(AS_DIMS).forEach(k => v[k] = 0);
+    Object.keys(asDims()).forEach(k => v[k] = 0);
     const text = `${role.title} ${role.en} ${role.intro} ${role.workFocus} ${role.industry}`;
-    AS_ROLE_RULES.forEach(r => { if (r.m.test(text)) Object.entries(r.w).forEach(([k, n]) => v[k] += n); });
+    asRoleRules().forEach(r => { if (r.m.test(text)) Object.entries(r.w).forEach(([k, n]) => v[k] += n); });
     if (!Object.values(v).some(Boolean)) { v.organize = 1; v.visual = 1; }
     return v;
   },
@@ -297,7 +283,7 @@ const AssessmentPage = {
   _scoreRole(role, p) {
     const rv = this._roleVector(role);
     let dot = 0, den = 0;
-    Object.keys(AS_DIMS).forEach(k => { if (rv[k] > 0) { dot += (p[k] || 0) * rv[k]; den += rv[k]; } });
+    Object.keys(asDims()).forEach(k => { if (rv[k] > 0) { dot += (p[k] || 0) * rv[k]; den += rv[k]; } });
     const fit = den ? dot / den : 0;
     const breadth = Object.values(rv).filter(x => x > 0).length;
     return Math.max(0, Math.min(98, Math.round(fit * 0.92 + breadth * 1.2)));
@@ -305,26 +291,22 @@ const AssessmentPage = {
 
   _reasons(role, p) {
     const text = `${role.title} ${role.intro}`;
-    const matched = AS_ROLE_RULES.filter(r => r.m.test(text)).flatMap(r => r.why);
+    const matched = asRoleRules().filter(r => r.m.test(text)).flatMap(r => r.why);
     const rv = this._roleVector(role);
     const dims = Object.keys(rv).filter(k => rv[k] > 0)
       .sort((a, b) => (p[b] || 0) * rv[b] - (p[a] || 0) * rv[a]).slice(0, 2)
-      .map(k => `你的「${AS_DIMS[k]}」倾向与该岗位要求较一致`);
+      .map(k => `你的「${asDims()[k]}」倾向与该岗位要求较一致`);
     return [...new Set(dims.concat(matched))].slice(0, 3);
   },
 
+  // 岗位归类规则来自 data/assessment.json 的 familyRules（按顺序命中，
+  // 命中第一条即返回；都不命中用 familyRules.default 兜底），改分类规则
+  // 只需要编辑这份 json，不用碰代码。
   _family(role) {
     const t = `${role.title} ${role.industry}`;
-    if (/AI|虚拟|数字人|实时|Unreal|智能/.test(t)) return 'tech';
-    if (/编剧|剧本|故事|内容开发|IP开发|改编/.test(t)) return 'story';
-    if (/导演|摄影|剪辑|声音|美术|视效|后期|调色/.test(t)) return 'craft';
-    if (/纪录片|新闻|记者|播客|调查|非虚构/.test(t)) return 'reality';
-    if (/制片|统筹|项目|执行导演|制作人/.test(t)) return 'production';
-    if (/品牌|广告|传播|公关|营销|宣发/.test(t)) return 'business';
-    if (/平台|运营|短视频|直播|账号|MCN/.test(t)) return 'platform';
-    if (/经纪|艺人|演出|舞台/.test(t)) return 'people';
-    if (/版权|发行|IP运营/.test(t)) return 'rights';
-    return 'other';
+    const cfg = asFamilyRules();
+    const hit = cfg.rules.find(r => r.m.test(t));
+    return hit ? hit.family : cfg.default;
   },
 
   _evidence() {
@@ -386,7 +368,7 @@ const AssessmentPage = {
     const industries = [...indMap.values()].sort((a, b) => b.score - a.score);
 
     const dims = Object.entries(p).sort((a, b) => b[1] - a[1]);
-    const name = dims.slice(0, 2).map(x => AS_DIMS[x[0]]).join(' × ');
+    const name = dims.slice(0, 2).map(x => asDims()[x[0]]).join(' × ');
     const stageQ = this._questions().find(x => x.id === 'stage');
     const stage = (stageQ && stageQ.options[this._ans.stage]) ? stageQ.options[this._ans.stage].t : '';
 
@@ -430,7 +412,7 @@ const AssessmentPage = {
         <div class="as-goals">
           ${picked.slice(0, 3).map(it => `
             <article class="as-goal">
-              <div class="as-goal__rank">${(it.strongest || []).map(k => AS_DIMS[k]).join(' × ')}</div>
+              <div class="as-goal__rank">${(it.strongest || []).map(k => asDims()[k]).join(' × ')}</div>
               <div class="as-goal__title">${it.f.name}</div>
               <div class="as-goal__meta">${it.f.headline || ''}<br>${it.f.matchCopy || it.f.intro || ''}</div>
             </article>`).join('')}
@@ -456,13 +438,13 @@ const AssessmentPage = {
             <div class="as-persona__name">${r.name || '探索型画像'}</div>
             <p class="as-persona__desc">
               ${r.stage ? `当前阶段：${r.stage}。` : ''}结果呈现的是职业倾向，不是能力鉴定；没有正式工作经历也不会被判定为能力不足。
-              你身上最难得的组合，是「${AS_DIMS[dims[0][0]]}」带来的${DIM_GIFTS[dims[0][0]]}，同时又拥有「${AS_DIMS[dims[1] ? dims[1][0] : dims[0][0]]}」所代表的${DIM_GIFTS[dims[1] ? dims[1][0] : dims[0][0]]}。
+              你身上最难得的组合，是「${asDims()[dims[0][0]]}」带来的${asGifts()[dims[0][0]]}，同时又拥有「${asDims()[dims[1] ? dims[1][0] : dims[0][0]]}」所代表的${asGifts()[dims[1] ? dims[1][0] : dims[0][0]]}。
             </p>
           </div>
           <div class="as-dims">
             ${dims.map(([k, v]) => `
               <div class="as-dim">
-                <div class="as-dim__name">${AS_DIMS[k]}</div>
+                <div class="as-dim__name">${asDims()[k]}</div>
                 <div class="as-dim__track"><div class="as-dim__fill" style="width:${Math.max(0, Math.min(100, v))}%"></div></div>
                 <div class="as-dim__val">${Math.max(0, Math.min(100, v))}</div>
               </div>`).join('')}

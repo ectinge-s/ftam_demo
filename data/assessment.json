@@ -5,6 +5,238 @@
   "background": 1,
   "core": 5
  },
+ "dimensions": {
+  "story": "故事创作",
+  "reality": "真实观察",
+  "visual": "视觉表达",
+  "organize": "统筹协作",
+  "business": "商业传播",
+  "tech": "技术创新",
+  "stability": "稳定偏好",
+  "public": "公共价值",
+  "pace": "高频执行",
+  "people": "人物沟通"
+ },
+ "dimensionGifts": {
+  "story": "能够从人物、冲突与细节中发现故事",
+  "reality": "对真实世界保持敏锐，并愿意追问事实背后的原因",
+  "visual": "对画面、声音、节奏和整体呈现有天然感受力",
+  "organize": "能把复杂任务拆开，并推动不同的人一起完成目标",
+  "business": "能理解受众、平台与客户，也知道创意需要产生真实结果",
+  "tech": "对新工具和新流程保持好奇，并愿意把技术转化为表达",
+  "stability": "重视长期积累和可持续成长，而不是只追逐短期刺激",
+  "public": "希望内容不仅好看，也能回应真实的人和社会",
+  "pace": "有快速行动、持续迭代和把想法落地的能量",
+  "people": "容易理解他人，也有通过沟通建立信任与内容的潜力"
+ },
+ "roleRules": [
+  {
+   "match": "编剧|剧本|故事开发|IP改编|内容开发",
+   "weights": {
+    "story": 5,
+    "reality": 1,
+    "organize": 1
+   },
+   "why": [
+    "喜欢建立人物、结构与世界观",
+    "愿意长期阅读、写作和反复迭代"
+   ]
+  },
+  {
+   "match": "导演(?!助理)|MV导演|创意导演|总导演",
+   "weights": {
+    "story": 3,
+    "visual": 5,
+    "people": 1,
+    "organize": 1
+   },
+   "why": [
+    "重视视听表达和整体创作判断",
+    "愿意承担作品最终方向"
+   ]
+  },
+  {
+   "match": "纪录片|调查记者|视频记者|新闻",
+   "weights": {
+    "reality": 5,
+    "public": 4,
+    "people": 2,
+    "visual": 1
+   },
+   "why": [
+    "偏好真实人物、现场观察与公共议题",
+    "能够通过采访和调研建立内容"
+   ]
+  },
+  {
+   "match": "播客|音频",
+   "weights": {
+    "reality": 3,
+    "people": 3,
+    "story": 2,
+    "public": 1
+   },
+   "why": [
+    "适合通过谈话、声音和长期选题建立内容",
+    "重视人物沟通与信息组织"
+   ]
+  },
+  {
+   "match": "制片|项目管理|执行导演|统筹|制作人",
+   "weights": {
+    "organize": 5,
+    "people": 2,
+    "business": 1,
+    "pace": 2
+   },
+   "why": [
+    "擅长协调资源、时间和团队",
+    "能够在复杂项目中持续推进结果"
+   ]
+  },
+  {
+   "match": "摄影|剪辑|声音|美术|视效|调色|后期|数字绘景",
+   "weights": {
+    "visual": 5,
+    "tech": 2,
+    "organize": 1
+   },
+   "why": [
+    "对画面、声音和制作质量敏感",
+    "愿意通过专业技能形成竞争力"
+   ]
+  },
+  {
+   "match": "品牌|广告|创意策划|商业|营销|宣发",
+   "weights": {
+    "business": 5,
+    "visual": 2,
+    "pace": 2,
+    "people": 1
+   },
+   "why": [
+    "能够在创意与商业目标之间建立连接",
+    "接受客户反馈和明确交付"
+   ]
+  },
+  {
+   "match": "公关|企业传播|媒体关系|国际传播|舆情",
+   "weights": {
+    "business": 4,
+    "people": 4,
+    "public": 2,
+    "stability": 2
+   },
+   "why": [
+    "适合组织信息并与多方沟通",
+    "能够理解组织声誉与传播目标"
+   ]
+  },
+  {
+   "match": "平台|运营|短视频|直播|账号|MCN",
+   "weights": {
+    "pace": 5,
+    "business": 4,
+    "tech": 1
+   },
+   "why": [
+    "适应快速迭代和持续发布",
+    "愿意结合用户反馈与数据优化内容"
+   ]
+  },
+  {
+   "match": "经纪|艺人|演出|演唱会|舞台",
+   "weights": {
+    "people": 5,
+    "organize": 3,
+    "business": 2,
+    "visual": 1
+   },
+   "why": [
+    "擅长人物沟通和长期关系管理",
+    "能够适应现场、高协作和娱乐项目"
+   ]
+  },
+  {
+   "match": "AI|虚拟|实时|Unreal|数字人|生成式",
+   "weights": {
+    "tech": 6,
+    "visual": 2,
+    "organize": 1
+   },
+   "why": [
+    "愿意持续学习快速变化的工具",
+    "适合把技术转化为新的内容工作流"
+   ]
+  },
+  {
+   "match": "版权|IP运营|版权经理|发行",
+   "weights": {
+    "story": 2,
+    "business": 4,
+    "organize": 3,
+    "stability": 2
+   },
+   "why": [
+    "兼顾内容价值、合同和商业判断",
+    "适合长期管理项目与权利关系"
+   ]
+  },
+  {
+   "match": "数据|分析|核验|事实核查",
+   "weights": {
+    "tech": 3,
+    "reality": 3,
+    "public": 2,
+    "stability": 1
+   },
+   "why": [
+    "擅长证据、信息和结构化判断",
+    "愿意处理复杂材料并进行核验"
+   ]
+  }
+ ],
+ "familyRules": {
+  "rules": [
+   {
+    "match": "AI|虚拟|数字人|实时|Unreal|智能",
+    "family": "tech"
+   },
+   {
+    "match": "编剧|剧本|故事|内容开发|IP开发|改编",
+    "family": "story"
+   },
+   {
+    "match": "导演|摄影|剪辑|声音|美术|视效|后期|调色",
+    "family": "craft"
+   },
+   {
+    "match": "纪录片|新闻|记者|播客|调查|非虚构",
+    "family": "reality"
+   },
+   {
+    "match": "制片|统筹|项目|执行导演|制作人",
+    "family": "production"
+   },
+   {
+    "match": "品牌|广告|传播|公关|营销|宣发",
+    "family": "business"
+   },
+   {
+    "match": "平台|运营|短视频|直播|账号|MCN",
+    "family": "platform"
+   },
+   {
+    "match": "经纪|艺人|演出|舞台",
+    "family": "people"
+   },
+   {
+    "match": "版权|发行|IP运营",
+    "family": "rights"
+   }
+  ],
+  "default": "other"
+ },
  "questions": [
   {
    "id": "stage",

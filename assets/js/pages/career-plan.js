@@ -95,10 +95,11 @@ function cpCountryOrder() {
 function cpMaxTargets() {
   return (DATA.career_planning && DATA.career_planning.principles && DATA.career_planning.principles.maxCareerTargets) || 3;
 }
-const CP_FALLBACK_DDL = { US: [12, 1], UK: [1, 15], CA: [1, 15], AU: [10, 31], NZ: [11, 30], HK: [12, 1], MO: [1, 15], JP: [11, 1], KR: [10, 15] };
-
+// 各国申请截止日期兜底（真实截止日期解析失败时用），来自
+// data/career_planning.json 的 deadlines.fallback_by_country，改日期只需要改 json。
 function cpFallbackDeadline(country, cycleYear) {
-  const [m, d] = CP_FALLBACK_DDL[country] || [12, 1];
+  const ddl = (DATA.career_planning && DATA.career_planning.deadlines && DATA.career_planning.deadlines.fallback_by_country) || {};
+  const [m, d] = ddl[country] || [12, 1];
   return new Date(m >= 8 ? cycleYear - 1 : cycleYear, m - 1, d);
 }
 function cpFormatDate(d) {
@@ -111,65 +112,78 @@ function cpCycleYear(s) { return 2000 + (parseInt(s.cohort, 10) || 27); }
 /* ── 作品集/材料要求归类（移植并简化自归档项目 requirementKind） ──
    归档版本按「单条要求」分类；当前 programs.json 的 portfolio_note
    是整段自由文本，这里对整段文本做一次整体归类，用于跨院校归并、
-   去重展示，而不是逐条拆分。 */
+   去重展示，而不是逐条拆分。
+   规则本身（正则、标题、优先级、天数偏移）来自 data/career_planning.json
+   的 requirementRules，跟 rolePools 一样「正则存字符串，用时编译」；改判断
+   规则或文案只需要编辑这份 json。 */
+let _cpReqRulesCache = null;
+function cpRequirementRules() {
+  if (_cpReqRulesCache) return _cpReqRulesCache;
+  const cfg = (DATA.career_planning && DATA.career_planning.requirementRules) || { rules: [], default: { kind: 'materials-integration', title: '已有材料整合与规格适配', priority: 9, offsetDays: -45 } };
+  _cpReqRulesCache = {
+    promptSpecific: new RegExp(cfg.promptSpecificMatch || '(?!)', 'i'),
+    rules: (cfg.rules || []).map(r => ({
+      ...r,
+      re: new RegExp(r.match, 'i'),
+      excludeRe: r.excludeMatch ? new RegExp(r.excludeMatch, 'i') : null,
+    })),
+    default: cfg.default,
+  };
+  return _cpReqRulesCache;
+}
 function cpPromptSpecific(text) {
-  return /(当季(?:命题|题目)|官方(?:命题|题目)|本年度(?:命题|题目)|给定.{0,18}(?:主题|关键词|情境|场景|素材|图片|台词|开头|结尾)|指定.{0,18}(?:主题|关键词|情境|场景|素材|图片|台词|开头|结尾)|从以下.{0,28}(?:选择|材料|场景|主题)|以.{1,24}为题|必须包含.{0,30}(?:台词|关键词|物件|情节)|(?:开头|结尾)必须|using the following|based on the following|respond to the following|choose one of the following|given (?:theme|image|scenario|scene|material|line|dialogue|keyword)|provided (?:theme|image|scenario|scene|material|line|dialogue|keyword)|must include|must begin with|must end with|current (?:year|cycle).{0,18}prompt|official.{0,18}prompt)/i.test(String(text || ''));
+  return cpRequirementRules().promptSpecific.test(String(text || ''));
 }
 
 function cpRequirementKind(text) {
   const lower = String(text || '').toLowerCase();
   const specific = cpPromptSpecific(text);
-  if (/video introduction|introductory video|video self-portrait|self-introduction video|自我介绍视频|自画像视频|面对镜头/.test(lower))
-    return { kind: 'video-intro', title: '视频自我介绍 / 表达类材料', priority: 6 };
-  if (/scholarly writing|academic writing|academic paper|critical essay|research paper|学术论文|学术写作|批评文章|研究论文/.test(lower))
-    return { kind: 'academic-paper', title: '学术论文／批评写作', priority: 5 };
-  if (/portfolio list|creative resume|作品清单|创作清单|项目清单|个人职责/.test(lower))
-    return { kind: 'project-list', title: '创作项目清单与职责说明', priority: 8 };
-  if (/photo|photograph|storyboard|visual research|image portfolio|静态作品|摄影作品|分镜|视觉研究|设计作品/.test(lower) && !/film|video|影片|短片/.test(lower))
-    return { kind: 'visual-material', title: '视觉材料／摄影与分镜', priority: 4 };
-  if (/audio|sound sample|声音作品|音频/.test(lower))
-    return { kind: 'sound-material', title: '声音材料', priority: 4 };
-  if (/treatment|concept|synopsis|outline|logline|screenplay|short story|short scene|narrative scene|writing sample|creative writing|dramatic writing|大纲|梗概|故事概念|项目概念|项目提案|剧本|短篇小说|短故事|故事写作|场景写作|创意写作|写作样本/.test(lower))
-    return specific
-      ? { kind: 'prompt-writing', title: '独立命题写作', priority: 3 }
-      : { kind: 'creative-writing', title: '通用创意写作母版（剧本／故事大纲／Treatment）', priority: 3 };
-  const filmLike = /short film|film|video|visual sample|narrative work|media sample|reel|visual submission|creative submission|moving image|影片|短片|影像|样片/.test(lower);
-  if (filmLike)
-    return specific
-      ? { kind: 'prompt-film', title: '命题短片', priority: 2 }
-      : { kind: 'main-film', title: '主短片／主要影像作品', priority: 1 };
-  const genuinelySpecial = /project dossier|creative dossier|director(?:'s)? statement|artist statement|production book|project proposal|pitch deck|mood ?board|research proposal|creative response|portfolio (?:commentary|reflection)|technical prototype|source code|workflow documentation|项目档案|创作档案|导演阐述|艺术家陈述|制作手册|完整项目提案|提案演示|情绪板|研究计划|创作回应|作品反思|技术原型|源代码|工作流文档/i.test(lower);
-  if (genuinelySpecial)
-    return { kind: 'special-material', title: '明确指定补充材料', priority: 7 };
-  return { kind: 'materials-integration', title: '已有材料整合与规格适配', priority: 9 };
+  const cfg = cpRequirementRules();
+  for (const r of cfg.rules) {
+    if (!r.re.test(lower)) continue;
+    if (r.excludeRe && r.excludeRe.test(lower)) continue;
+    const v = specific && r.whenSpecific ? r.whenSpecific : r;
+    return { kind: v.kind, title: v.title, priority: v.priority };
+  }
+  const d = cfg.default;
+  return { kind: d.kind, title: d.title, priority: d.priority };
 }
 
 function cpOutputOffset(kind) {
-  return kind === 'main-film' ? -150 : kind === 'prompt-film' ? -90 : kind === 'academic-paper' ? -100
-    : kind === 'creative-writing' ? -90 : kind === 'prompt-writing' ? -60 : -45;
+  const cfg = cpRequirementRules();
+  for (const r of cfg.rules) {
+    if (r.kind === kind) return r.offsetDays;
+    if (r.whenSpecific && r.whenSpecific.kind === kind) return r.whenSpecific.offsetDays;
+  }
+  return cfg.default.offsetDays;
 }
 
-/* ── 专业方向分类（移植自归档项目 programTrack / TRACK_META） ── */
-const CP_TRACK_META = {
-  'film-production': { label: '影视制作与创作', copy: '导演、编剧、制片、摄影、剪辑、声音与完整影像创作。' },
-  'media-communication': { label: '传媒与传播', copy: '媒体、传播、新闻、品牌内容与内容产业研究。' },
-  'film-studies': { label: '影视研究与学术', copy: '电影史论、媒体研究、批评写作与研究型申请。' },
-  'film-technology': { label: '影视技术与AI', copy: '虚拟制作、VFX、沉浸式影像与AI影视工作流。' },
-  'experimental': { label: '实验影像与跨媒介', copy: '实验电影、移动影像、视觉艺术与跨媒介创作。' },
-};
+/* ── 专业方向分类（移植自归档项目 programTrack / TRACK_META） ──
+   方向名称/简介与分类规则（正则、字段、排除条件）来自
+   data/career_planning.json 的 programTracks / programTrackRules，
+   规则按顺序命中、第一条命中即返回，都不命中用 default 兜底。 */
+function cpTrackMeta() { return (DATA.career_planning && DATA.career_planning.programTracks) || {}; }
+let _cpTrackRulesCache = null;
+function cpProgramTrackRules() {
+  if (_cpTrackRulesCache) return _cpTrackRulesCache;
+  const cfg = (DATA.career_planning && DATA.career_planning.programTrackRules) || { rules: [], default: 'film-production' };
+  _cpTrackRulesCache = {
+    rules: (cfg.rules || []).map(r => ({ ...r, re: new RegExp(r.match), excludeRe: r.excludeMatch ? new RegExp(r.excludeMatch) : null })),
+    default: cfg.default || 'film-production',
+  };
+  return _cpTrackRulesCache;
+}
 function cpProgramTrack(p) {
   const name = String(p.program_name_en || p.program_name_zh || '').toLowerCase();
   const detail = [p.degree_type, p.background_note, p.portfolio_note].filter(Boolean).join(' ').toLowerCase();
-  const text = name + ' ' + detail;
-  if (/virtual production|technology|technologies|artificial intelligence|\bai\b|immersive|\bxr\b|\bvr\b|\bar\b|vfx|visual effects|arts technology|technical art|虚拟制作|影视技术|人工智能|沉浸式/.test(name)) return 'film-technology';
-  if (/cinema studies|film studies|media studies|moving image studies|screen studies|critical studies|电影研究|影视研究|媒体研究/.test(name)) return 'film-studies';
-  if (/communication|journalism|public relations|advertising|media and communication|global media|creative industries|science communication|传播|新闻|广告|公关|媒体产业/.test(name) && !/production|producing|filmmaking/.test(name)) return 'media-communication';
-  if (/production|producing|directing|cinematograph|screenwriting|writing for (?:film|screen|television)|filmmaking|screen arts|documentary|editing|sound design|film and television|电影制作|导演|摄影|剪辑|声音|编剧|制片/.test(name)) return 'film-production';
-  if (/fine art|experimental|moving image art|visual art|cross-media|纯艺|实验影像|跨媒介/.test(name)) return 'experimental';
-  if (/virtual production|technology|artificial intelligence|immersive|vfx|虚拟制作|影视技术|人工智能/.test(text)) return 'film-technology';
-  if (/cinema studies|film studies|media studies|critical|theory|history|research|电影研究|影视研究|媒体研究|理论|批评|历史/.test(text) && !/production|producing|filmmaking/.test(name)) return 'film-studies';
-  if (/communication|journalism|public relations|advertising|global media|传播|新闻|广告|公关/.test(text)) return 'media-communication';
-  return 'film-production';
+  const fields = { name, text: name + ' ' + detail };
+  const cfg = cpProgramTrackRules();
+  for (const r of cfg.rules) {
+    if (!r.re.test(fields[r.field])) continue;
+    if (r.excludeRe && r.excludeRe.test(fields[r.excludeField || r.field])) continue;
+    return r.track;
+  }
+  return cfg.default;
 }
 
 /* ── 职业资源匹配（移植自归档项目 resourceLibrary / careerResources / careerConfig，
@@ -226,13 +240,9 @@ function cpAiToolsForTarget(mainTarget) {
            站内已有的 CourseOverlay 弹层，与「课程产品」页共用同一份数据）
         2) 站内 115 条行业课程库（data/courses_industry.json），按职业目标
            关键词命中，命中不到则退回按产业方向匹配 ── */
-const CP_FLAGSHIP_BY_MODE = {
-  study: ['changemakers', 'masterclass'],
-  'study-career': ['changemakers', 'internship'],
-  career: ['internship', 'summerwinter'],
-};
 function cpFlagshipProducts(mode) {
-  const ids = CP_FLAGSHIP_BY_MODE[mode] || ['changemakers'];
+  const byMode = (DATA.career_planning && DATA.career_planning.flagshipProductsByMode) || {};
+  const ids = byMode[mode] || ['changemakers'];
   return ids.filter(id => window.PRODUCTS && window.PRODUCTS[id]).map(id => ({ id, p: window.PRODUCTS[id] }));
 }
 function cpIndustryCourseMatches(targets) {
@@ -365,7 +375,7 @@ function cpProgramTrackSummary(picks) {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(p);
   });
-  return [...groups.entries()].map(([key, items]) => ({ key, meta: CP_TRACK_META[key], items })).sort((a, b) => b.items.length - a.items.length);
+  return [...groups.entries()].map(([key, items]) => ({ key, meta: cpTrackMeta()[key], items })).sort((a, b) => b.items.length - a.items.length);
 }
 function cpProgramTrackHtml(tracks) {
   if (!tracks.length) return '<div class="pl-empty">暂无已选专业。</div>';
@@ -445,21 +455,21 @@ function cpLearningResourceCandidates(trackKeys) {
     .map(r => ({ ...r, recommended: !r.trackKeys.length || !trackSet.size || r.trackKeys.some(k => trackSet.has(k)) }))
     .sort((a, b) => Number(b.recommended) - Number(a.recommended));
 }
-const CP_SEASON_MONTH = { winter: 1, spring: 3, summer: 7, autumn: 10 };
-const CP_SEASON_LABEL = { winter: '冬季', spring: '春季', summer: '夏季', autumn: '秋季' };
+function cpSeasons() { return (DATA.career_planning && DATA.career_planning.seasons) || {}; }
 function cpLearningTermOptions(resource, cycleYear) {
   const now = new Date();
   const floor = cpMonthStart(now);
+  const seasons = cpSeasons();
   function collect(maxYear, extend) {
     const options = [];
     for (let year = now.getFullYear(); year <= maxYear; year++) {
       (resource.seasons || []).forEach(season => {
-        const month = CP_SEASON_MONTH[season];
+        const month = seasons[season] && seasons[season].month;
         if (!month) return;
         const date = new Date(year, month - 1, 1);
         if (date < floor) return;
         if (!extend && date > new Date(cycleYear, 6, 31)) return;
-        options.push({ value: year + '-' + String(month).padStart(2, '0'), label: year + '年' + (CP_SEASON_LABEL[season] || season) + (extend ? '（下一批次）' : ''), date });
+        options.push({ value: year + '-' + String(month).padStart(2, '0'), label: year + '年' + ((seasons[season] && seasons[season].label) || season) + (extend ? '（下一批次）' : ''), date });
       });
     }
     return options.sort((a, b) => a.date - b.date);
@@ -571,11 +581,10 @@ function cpMonthlyTimelineHtml(groups) {
    但归档代码里实际展示的每一句文案都是由 replace() 用真实计算出的变量（方向分布、
    职业目标、重点/候选院校数量等）拼出来的固定模板句，并非取自那份缺失的配置本身；
    这里把这些模板句原样复刻，全部用当前真实选择计算，不引入任何编造数据。
-   planEncouragement 三段鼓励语在归档里本就是写死的静态文案，与数据源无关，直接复用。 ── */
+   planEncouragement 三段鼓励语现由 data/career_planning.json 的 planEncouragement 提供。 ── */
 function cpPlanEncouragement(mode) {
-  if (mode === 'study') return '你不需要一次完成所有学校的所有材料；真正高效的准备，是先做出属于你的核心作品，再用清晰的方法把它适配到不同院校。你现在的每一次积累，都在让未来的选择变得更多。';
-  if (mode === 'study-career') return '你正在做的不是两份互相争抢时间的规划，而是在把申请作品、行业实践与职业目标连接成同一条成长线。只要按阶段推进，你会比只为递交材料而准备的人更早拥有自己的行业起点。';
-  return '职业方向不是一次选择就被固定，而是在一次次真实项目中被验证和放大。你已经开始把兴趣说清楚，接下来只需要让作品、实习和行动替你证明。';
+  const cfg = (DATA.career_planning && DATA.career_planning.planEncouragement) || {};
+  return cfg[mode] || cfg.career || '';
 }
 function cpValueProposition(state, r) {
   const name = state.studentName || '你';
@@ -838,7 +847,7 @@ const CareerPlanPage = {
             const track = cpProgramTrack(p);
             return `<button type="button" class="cp-program-card${on ? ' is-selected' : ''}" onclick="CareerPlanPage.toggleProgram('${p.id}')">
               <span class="cp-program-check">${on ? '✓' : ''}</span>
-              <span><b>${p.program_name_zh || p.program_name_en}</b><small>${CP_TRACK_META[track].label} · ${p.degree_type || ''} · ${(p.deadline || 'DDL待核实').slice(0, 40)}</small></span>
+              <span><b>${p.program_name_zh || p.program_name_en}</b><small>${cpTrackMeta()[track].label} · ${p.degree_type || ''} · ${(p.deadline || 'DDL待核实').slice(0, 40)}</small></span>
             </button>`;
           }).join('')}
         </div>
@@ -970,7 +979,7 @@ const CareerPlanPage = {
       const current = (sel && sel.month) || (opts[0] && opts[0].value) || '';
       return `
         <article class="cp-learning-card${sel ? ' is-selected' : ''}">
-          <div class="cp-learning-flags"><small>${c.program_type || ''}${c.seasons.length ? ' · ' + c.seasons.map(x => CP_SEASON_LABEL[x] || x).join(' / ') : ''}</small><em>${c.recommended ? '与所选专业方向匹配' : '可选扩展'}</em></div>
+          <div class="cp-learning-flags"><small>${c.program_type || ''}${c.seasons.length ? ' · ' + c.seasons.map(x => (cpSeasons()[x] && cpSeasons()[x].label) || x).join(' / ') : ''}</small><em>${c.recommended ? '与所选专业方向匹配' : '可选扩展'}</em></div>
           <b>${c.role_or_course}</b>
           ${c.description ? `<p>${c.description}</p>` : ''}
           ${c.outcomes ? `<p class="cp-learning-outcomes"><strong>预期产出：</strong>${c.outcomes}</p>` : ''}
@@ -1075,16 +1084,12 @@ const CareerPlanPage = {
   },
   _modeStepHtml() {
     const s = this._state;
-    const choices = [
-      ['study', '我的留学规划', '聚焦作品集、创作命题、具体专业、DDL 与作品准备。'],
-      ['study-career', '留学 + 就业双规划', '把作品集、申请、职业目标、实习与校招放进同一条时间线。'],
-      ['career', '我的职业规划', '围绕职业目标安排实习、AI 工具、商业作品集与校招节点。'],
-    ];
+    const choices = (DATA.career_planning && DATA.career_planning.planModeChoices) || [];
     return `<div class="pl-card">
       <div class="pl-card__label">选择规划入口</div>
       <p class="pl-task__meta" style="margin:0 0 var(--space-4)">职业目标可以直接在「岗位详情」中选择；职业规划与留学 + 就业双规划都需要先确认至少 1 个职业目标。</p>
       <div class="pl-modes pl-modes--cards">
-        ${choices.map(([id, label, desc]) => `<button type="button" class="pl-mode${s.mode === id ? ' is-active' : ''}" onclick="CareerPlanPage.setMode('${id}')"><span class="pl-mode__title">${label}</span><span class="pl-mode__desc">${desc}</span></button>`).join('')}
+        ${choices.map(c => `<button type="button" class="pl-mode${s.mode === c.id ? ' is-active' : ''}" onclick="CareerPlanPage.setMode('${c.id}')"><span class="pl-mode__title">${c.label}</span><span class="pl-mode__desc">${c.desc}</span></button>`).join('')}
       </div>
       ${this._stepFooterHtml('mode')}
     </div>`;
@@ -1120,7 +1125,7 @@ const CareerPlanPage = {
   },
   _schoolsStepHtml() {
     const s = this._state;
-    const trackChips = Object.entries(CP_TRACK_META).map(([key, meta]) =>
+    const trackChips = Object.entries(cpTrackMeta()).map(([key, meta]) =>
       `<button class="filter-btn${s.trackFilter === key ? ' is-active' : ''}" onclick="CareerPlanPage.filterTrack('${key}')">${meta.label}</button>`).join('');
     const countryCodes = this._schoolCountryChipCodes();
     const countryChips = countryCodes.map(code =>

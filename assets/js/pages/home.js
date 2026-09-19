@@ -235,15 +235,23 @@ const HomePage = {
   },
 
   // ── Resources (marquee) ────────────────────────────────────────
+  // data/resources.json（2026-09-18 logo 更新后）里每条合作方都带真实 logo 文件名，
+  // 图片实体存放在 assets/img/logo/ 下；渲染真实 <img> 优先，只有当某条数据缺 logo
+  // 字段，或图片加载失败（文件名对不上/文件缺失）时，才退回名称首字文字标兜底，
+  // 不再需要按产业方向轮流分配颜色（旧数据全无 logo 时的临时方案）。
+  // data/resources.json 现拆分为 active（已配真实 logo，参与展示）与 pending
+  // （2026-09-18 logo 更新前的旧机构名录，暂无 logo，先保留数据但不渲染，
+  // 待补齐 logo 后再迁入 active）。
   buildResources() {
-    const COOP = DATA.resources || [];
-    // 来源数据未提供合作方 logo 图片，改用名称首字/缩写文字标（.coop-card__logo--text），
-    // 配色先随手轮流取用站内品牌色令牌（不追究每家具体属于哪个产业），保证视觉上有区分度。
-    const BRAND_TINTS = ['film', 'platform', 'brand', 'culture', 'media', 'pr', 'ip', 'ai'];
-    const card = (c, i) => {
-      const tint = `var(--color-${BRAND_TINTS[i % BRAND_TINTS.length]})`;
+    const COOP = (DATA.resources && DATA.resources.active) || [];
+    const card = c => {
+      const initial = (c.nameCn || c.nameEn || '').slice(0, 1);
+      const logoSrc = c.logo ? `assets/img/logo/${encodeURIComponent(c.logo)}` : '';
+      const logoInner = logoSrc
+        ? `<img src="${logoSrc}" alt="${c.nameEn}" loading="lazy" data-fallback-text="${initial}" onerror="HomePage.logoFallback(this)">`
+        : initial;
       return `<div class="coop-card">
-      <div class="coop-card__logo coop-card__logo--text" style="--coop-tint:${tint}">${c.initial || (c.nameCn || '').slice(0, 1)}</div>
+      <div class="coop-card__logo${logoSrc ? '' : ' coop-card__logo--text'}">${logoInner}</div>
       <div class="coop-card__name-en">${c.nameEn}</div>
       <div class="coop-card__name-cn">${c.nameCn}</div>
     </div>`;
@@ -251,7 +259,7 @@ const HomePage = {
     const fill = (id, items) => {
       const el = document.getElementById(id);
       if (!el) return;
-      const cardsHtml = items.map((c, i) => card(c, i));
+      const cardsHtml = items.map(card);
       el.innerHTML = [...cardsHtml, ...cardsHtml].join('');
     };
     fill('coop-row-a', COOP);
@@ -272,12 +280,14 @@ const HomePage = {
 
   // ── Featured Courses (homepage teaser rail) ─────────────────────
   // Full course catalog now lives on its own page (#page-course-products);
-  // the homepage just teases all 7 products in a horizontal scroll rail.
-  FEATURED_ORDER: ['changemakers', 'longform2', 'longform3', 'internship', 'summerwinter', 'bizpractice', 'masterclass'],
+  // the homepage just teases all products in a horizontal scroll rail, in
+  // the order they appear in data/course_products.json (object key order),
+  // so adding/removing/reordering a product only means editing that json.
 
   buildFeaturedCourses() {
     const rail = document.getElementById('featured-courses-rail');
     if (!rail || !window.PRODUCTS) return;
+    const featuredOrder = Object.keys(window.PRODUCTS);
     const card = id => {
       const p = window.PRODUCTS[id];
       if (!p) return '';
@@ -296,7 +306,7 @@ const HomePage = {
     };
     // Duplicate the list once so the marquee (translateX 0 -> -50%) loops seamlessly —
     // same technique as the resources coop marquee below.
-    rail.innerHTML = [...this.FEATURED_ORDER, ...this.FEATURED_ORDER].map(card).join('');
+    rail.innerHTML = [...featuredOrder, ...featuredOrder].map(card).join('');
     // 同一套恒定像素速度算法，卡片更宽所以给稍慢一点的速度，方便看清标题。
     this._applyMarqueeSpeed(rail, 45);
 
@@ -440,6 +450,15 @@ const HomePage = {
           </div>
         </div>`).join('')}
     </div>`;
+  },
+
+  // 资源网络合作方 logo 加载失败时的兜底：把 <img> 换成名称首字文字标，
+  // 避免 data/resources.json 里 logo 文件名和 assets/img/logo/ 实际文件对不上时显示裂图。
+  logoFallback(img) {
+    const wrap = img.parentElement;
+    if (!wrap) return;
+    wrap.classList.add('coop-card__logo--text');
+    wrap.textContent = img.dataset.fallbackText || '';
   },
 };
 window.HomePage = HomePage;

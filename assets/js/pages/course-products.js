@@ -6,14 +6,16 @@
    long-form-style content (see assets/js/course-demo.js).
 ═══════════════════════════════════════════ */
 const CourseProductsPage = {
-  LONGFORM_ORDER: ['changemakers', 'longform2', 'longform3'],
-  CATALOG_ORDER: ['internship', 'summerwinter', 'bizpractice', 'masterclass'],
-
+  // 长线/目录两组的顺序直接取 data/course_products.json 的对象 key 顺序
+  // （按 group 字段分流），新增/调整产品只需要改 json，不用同时维护这两个数组。
   build() {
+    const keys = Object.keys(window.PRODUCTS || {});
+    const longformOrder = keys.filter(id => window.PRODUCTS[id].group === 'longform');
+    const catalogOrder = keys.filter(id => window.PRODUCTS[id].group === 'catalog');
     const lf = document.getElementById('cp-longform-grid');
     const cat = document.getElementById('cp-catalog-grid');
-    if (lf) lf.innerHTML = this.LONGFORM_ORDER.map(id => this._longformCard(id)).join('');
-    if (cat) cat.innerHTML = this.CATALOG_ORDER.map(id => this._catalogCard(id)).join('');
+    if (lf) lf.innerHTML = longformOrder.map(id => this._longformCard(id)).join('');
+    if (cat) cat.innerHTML = catalogOrder.map(id => this._catalogCard(id)).join('');
   },
 
   _longformCard(id) {

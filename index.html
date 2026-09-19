@@ -49,32 +49,24 @@
   </button>
 </nav>
 
-<!-- ═══ EXPANDABLE NAV MENU ═══ -->
+<!-- ═══ EXPANDABLE NAV MENU ═══
+     不再纵向堆叠全部导航；左侧大字为 Planning 页四个视图的直达入口，
+     右侧小字为另外三个独立页面，两组即为「关键入口」，不再重复首页锚点链接
+     （首页板块锚点已在桌面 .navbar__links 常驻可达，缩窄屏下横向滚动即可）。 -->
 <div id="nav-menu-overlay" class="nav-menu-overlay" aria-hidden="true">
   <div class="nav-menu-overlay__inner">
-    <div class="nav-menu-overlay__group">
-      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home')">科系介绍</a>
-      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#thesis'})">AI+影视</a>
-      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#offers'})">offer展示</a>
-      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#instructors'})">导师团队</a>
-      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#resources'})">资源网络</a>
-      <a class="nav-menu-overlay__link" onclick="NavMenu.go('home',{scrollTo:'#courses'})">精选课程</a>
-    </div>
-    <span class="nav-menu-overlay__div" aria-hidden="true"></span>
-    <div class="nav-menu-overlay__group">
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('portfolio')">案例展示</a>
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('schools')">院校库</a>
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('course-products')">课程产品</a>
-    </div>
-    <span class="nav-menu-overlay__div" aria-hidden="true"></span>
-    <div class="nav-menu-overlay__group">
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('planning')">产业全景与岗位</a>
+    <div class="nav-menu-overlay__col nav-menu-overlay__col--primary">
+      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.go('planning')">产业全景</a>
       <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.close(); PlanningViews.goToAssessment();">职业测评</a>
-      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.close(); PlanningViews.goToCareer();">我的规划</a>
+      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.close(); PlanningViews.goToJobs();">岗位详解</a>
+      <a class="nav-menu-overlay__link nav-menu-overlay__link--page" onclick="NavMenu.close(); PlanningViews.goToCareer();">全链路规划</a>
     </div>
-    <a class="nav-menu-overlay__cta" onclick="NavMenu.go('planning')">
-      产业全景图 <span class="u-en" style="opacity:.85;">×</span> 全链路规划
-    </a>
+    <span class="nav-menu-overlay__div" aria-hidden="true"></span>
+    <div class="nav-menu-overlay__col nav-menu-overlay__col--secondary">
+      <a class="nav-menu-overlay__link" onclick="NavMenu.go('portfolio')">案例展示</a>
+      <a class="nav-menu-overlay__link" onclick="NavMenu.go('course-products')">课程产品</a>
+      <a class="nav-menu-overlay__link" onclick="NavMenu.go('schools')">院校库</a>
+    </div>
   </div>
 </div>
 
@@ -148,7 +140,7 @@
       <div class="hero__stats reveal reveal-4">
         <div class="hero__stat"><div class="hero__stat-num">8</div><div class="hero__stat-label">大影视传媒就业方向</div></div>
         <div class="hero__stat"><div class="hero__stat-num">500亿+</div><div class="hero__stat-label">短剧市场规模</div></div>
-        <div class="hero__stat"><div class="hero__stat-num">341</div><div class="hero__stat-label">个可申请本硕专业</div></div>
+        <div class="hero__stat"><div class="hero__stat-num">344</div><div class="hero__stat-label">个可申请本硕专业</div></div>
         <div class="hero__stat"><div class="hero__stat-num">61</div><div class="hero__stat-label">个核心岗位与晋升路径</div></div>
       </div>
       <div class="hero__actions reveal reveal-5">
@@ -337,7 +329,7 @@
   <section class="home-section" id="resources">
     <div class="section-eyebrow">Network</div>
     <h2 class="section-title">资源网络</h2>
-    <p class="section-desc">横跨影视内容、内容平台、广告品牌、演艺娱乐、新闻节目、企业公关、出版版权与 AI 影视科技八大产业方向，深度合作的内容公司、平台方、品牌与公关机构、出版社与版权机构，直连升学与就业的第一线。</p>
+    <p class="section-desc">横跨内容制作、主流媒体、品牌公关、科技平台与艺术文化多个领域，深度合作的海外院校、主流媒体机构、内容与动画厂牌、品牌公关公司与科技平台，直连升学与就业的第一线。</p>
     <hr class="section-divider">
     <div class="coop-marquee-section">
       <div class="coop-marquee-wrap"><div class="coop-marquee-track" id="coop-row-a"></div></div>
@@ -586,34 +578,23 @@
       </div>
     </div>
 
+    <!-- 只保留关键入口：核心页面 + 全链路规划四视图 + 联系方式；
+         原「科系板块」（首页锚点，桌面导航常驻可达）与「八大产业方向」（8 条过细，
+         内容本身在首页/产业全景页已有完整入口）两栏整体移除，减少与主导航重复。 -->
     <div class="site-footer__grid">
       <div class="site-footer__col">
-        <h2 class="site-footer__col-title">页面导航<span class="u-en">Pages</span></h2>
+        <h2 class="site-footer__col-title">核心页面<span class="u-en">Pages</span></h2>
         <a onclick="Router.go('home')"><strong>科系介绍</strong><span class="u-en">Home</span></a>
         <a onclick="Router.go('portfolio')"><strong>案例展示</strong><span class="u-en">Cases</span></a>
-        <a onclick="Router.go('timeline')"><strong>成长时间轴</strong><span class="u-en">Timeline</span></a>
         <a onclick="Router.go('course-products')"><strong>课程产品</strong><span class="u-en">Courses</span></a>
-        <a onclick="Router.go('planning')"><strong>产业全景与岗位</strong><span class="u-en">Industry &amp; Jobs</span></a>
+        <a onclick="Router.go('schools')"><strong>院校库</strong><span class="u-en">Schools</span></a>
+      </div>
+      <div class="site-footer__col">
+        <h2 class="site-footer__col-title">全链路规划<span class="u-en">Planning</span></h2>
+        <a onclick="Router.go('planning')"><strong>产业全景</strong><span class="u-en">Panorama</span></a>
         <a onclick="PlanningViews.goToAssessment()"><strong>职业测评</strong><span class="u-en">Assessment</span></a>
-        <a onclick="PlanningViews.goToCareer()"><strong>我的规划</strong><span class="u-en">Career Plan</span></a>
-      </div>
-      <div class="site-footer__col">
-        <h2 class="site-footer__col-title">科系板块<span class="u-en">Sections</span></h2>
-        <a onclick="Router.go('home',{scrollTo:'#offers'})"><strong>offer 展示</strong><span class="u-en">Offers</span></a>
-        <a onclick="Router.go('home',{scrollTo:'#instructors'})"><strong>导师团队</strong><span class="u-en">Instructors</span></a>
-        <a onclick="Router.go('home',{scrollTo:'#resources'})"><strong>资源网络</strong><span class="u-en">Network</span></a>
-        <a onclick="Router.go('home',{scrollTo:'#courses'})"><strong>精选课程</strong><span class="u-en">Featured Courses</span></a>
-      </div>
-      <div class="site-footer__col">
-        <h2 class="site-footer__col-title">八大产业方向<span class="u-en">Industries</span></h2>
-        <a onclick="Router.goToIndustry('film_tv')"><strong>影视内容产业</strong><span class="u-en">Film &amp; TV</span></a>
-        <a onclick="Router.goToIndustry('digital_platform')"><strong>数字内容与平台</strong><span class="u-en">Platforms</span></a>
-        <a onclick="Router.goToIndustry('advertising_brand')"><strong>广告、品牌与商业创意</strong><span class="u-en">Brand &amp; Creative</span></a>
-        <a onclick="Router.goToIndustry('entertainment')"><strong>演艺娱乐产业</strong><span class="u-en">Entertainment</span></a>
-        <a onclick="Router.goToIndustry('media_program')"><strong>新闻传媒与节目制作</strong><span class="u-en">News &amp; Programme</span></a>
-        <a onclick="Router.goToIndustry('corporate_pr')"><strong>企业传播与公共关系</strong><span class="u-en">Corporate PR</span></a>
-        <a onclick="Router.goToIndustry('rights_ip')"><strong>出版、版权与IP开发</strong><span class="u-en">Publishing &amp; IP</span></a>
-        <a onclick="Router.goToIndustry('ai_filmtech')"><strong>AI影视科技</strong><span class="u-en">AI Film Tech</span></a>
+        <a onclick="PlanningViews.goToJobs()"><strong>岗位详解</strong><span class="u-en">Jobs</span></a>
+        <a onclick="PlanningViews.goToCareer()"><strong>全链路规划</strong><span class="u-en">Career Plan</span></a>
       </div>
       <div class="site-footer__col">
         <h2 class="site-footer__col-title">规划咨询<span class="u-en">Get in Touch</span></h2>
@@ -652,7 +633,6 @@
 <script src="assets/js/data.js"></script>
 <script src="assets/js/router.js"></script>
 <script src="assets/js/components.js"></script>
-<script src="assets/js/products-film.js"></script>
 <script src="assets/js/pages/home.js"></script>
 <script src="assets/js/pages/offers.js"></script>
 <script src="assets/js/pages/career-cart.js"></script>

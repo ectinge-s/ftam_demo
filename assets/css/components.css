@@ -996,14 +996,16 @@
   opacity: 1; visibility: visible; pointer-events: auto; transform: none;
 }
 .nav-menu-overlay__inner {
+  /* 左右两栏：左侧大字为 Planning 四视图直达入口，右侧小字为另外三个独立页面 */
   position: relative; z-index: 1;
-  display: flex; flex-direction: column; align-items: center; gap: var(--space-6);
-  max-width: 640px; padding: var(--space-6);
+  display: flex; flex-direction: row; align-items: flex-start; justify-content: center;
+  gap: var(--space-8); max-width: 720px; padding: var(--space-6);
 }
-.nav-menu-overlay__group {
-  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+.nav-menu-overlay__col {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3);
 }
-.nav-menu-overlay__div { width: 64px; height: 1px; background: var(--color-border-2); }
+.nav-menu-overlay__col--secondary { gap: var(--space-2); padding-top: 8px; }
+.nav-menu-overlay__div { width: 1px; align-self: stretch; background: var(--color-border-2); }
 .nav-menu-overlay__link {
   font-family: var(--font-cn); font-weight: 700; font-size: var(--text-xl);
   color: var(--color-text-secondary); cursor: pointer;
@@ -1015,26 +1017,21 @@
   content: "↗"; font-size: .5em; margin-left: 6px; vertical-align: super; color: var(--color-text-faint);
 }
 .nav-menu-overlay__link--page:hover::after { color: var(--color-accent); }
-.nav-menu-overlay__cta {
-  margin-top: var(--space-2); padding: 12px 30px; cursor: pointer;
-  background: var(--color-primary); color: #fff; font-size: var(--text-sm); font-weight: 600;
-  border-radius: var(--radius-pill); box-shadow: var(--glow-primary-soft);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-.nav-menu-overlay__cta:hover { transform: translateY(-1px); box-shadow: var(--glow-primary); }
 body.nav-menu-open { overflow: hidden; }
 
 @keyframes navMenuRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
-  .nav-menu-overlay.is-open .nav-menu-overlay__group,
-  .nav-menu-overlay.is-open .nav-menu-overlay__cta { animation: navMenuRise .5s var(--ease-out) both; }
-  .nav-menu-overlay.is-open .nav-menu-overlay__group:nth-child(3) { animation-delay: .07s; }
-  .nav-menu-overlay.is-open .nav-menu-overlay__cta { animation-delay: .14s; }
+  .nav-menu-overlay.is-open .nav-menu-overlay__col { animation: navMenuRise .5s var(--ease-out) both; }
+  .nav-menu-overlay.is-open .nav-menu-overlay__col--secondary { animation-delay: .07s; }
 }
 
 @media (max-width: 640px) {
   .nav-menu-overlay__link { font-size: var(--text-lg); }
   .nav-menu-overlay__link--page { font-size: var(--text-xl); }
+  .nav-menu-overlay__inner { flex-direction: column; align-items: center; gap: var(--space-5); }
+  .nav-menu-overlay__col { align-items: center; }
+  .nav-menu-overlay__col--secondary { padding-top: 0; }
+  .nav-menu-overlay__div { width: 64px; height: 1px; align-self: center; }
 }
 
 /* ── SITE FOOTER (shared across all pages) ── */
@@ -1066,7 +1063,7 @@ body.nav-menu-open { overflow: hidden; }
 .site-footer__brand-name .u-en { font-family: var(--font-en); color: var(--sfk-dept); letter-spacing: .06em; margin-right: 5px; text-shadow: 0 0 16px rgba(233,132,219,.32); }
 .site-footer__brand-desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.7; }
 
-.site-footer__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
+.site-footer__grid { display: grid; grid-template-columns: repeat(3, minmax(160px, 220px)); justify-content: flex-start; gap: var(--space-6) var(--space-8); }
 .site-footer__col { display: flex; flex-direction: column; gap: 11px; }
 .site-footer__col-title {
   font-family: var(--font-cn); font-weight: 700; font-size: var(--text-xs);
@@ -1102,7 +1099,7 @@ body.nav-menu-open { overflow: hidden; }
 .site-footer__bottom p { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-faint); letter-spacing: .01em; }
 
 @media (max-width: 900px) {
-  .site-footer__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-6) var(--space-5); }
+  .site-footer__grid { grid-template-columns: repeat(2, minmax(160px, 220px)); gap: var(--space-6) var(--space-5); }
 }
 @media (max-width: 560px) {
   .site-footer__grid { grid-template-columns: 1fr; }

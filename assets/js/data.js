@@ -26,6 +26,8 @@ const DATA = (() => {
     'timeline',          /* 升学 / 求职时间轴（申请季 × 国家路线） */
     'courses_academic',  /* 海外院校课程 */
     'courses_industry',  /* 行业课程 / 实习 / 行业资源 */
+    'course_products',   /* 「课程产品」页 7 张长线/目录卡片完整内容（原 products-film.js 内联数据，
+                             现迁移至此），data.js 加载后仍挂到 window.PRODUCTS 保持旧引用不变 */
     'assessment',        /* 职业测评题库（来源项目原样迁移） */
     'figures',           /* 代表人物与维度标签 */
     'career_planning',   /* 职业规划岗位池与原则 */
@@ -51,6 +53,10 @@ const DATA = (() => {
     window.SFK_GROUP_LABELS = (cache.school_priority && cache.school_priority._meta
       && cache.school_priority._meta.group_labels) || {};
     window.SCHOOL_RECS = cache.school_recs || [];
+    /* 「课程产品」页 7 张卡片完整内容，原由 assets/js/products-film.js 内联定义，
+       现迁移至 data/course_products.json；course-demo.js / course-products.js /
+       career-plan.js / home.js 四处消费方保持读 window.PRODUCTS 不变。 */
+    window.PRODUCTS = cache.course_products || {};
     /* 8 大产业方向 → 中文学术分支名，供 ProgramScorer / 案例筛选复用 */
     window.IND_ACAD = {};
     (cache.industries || []).forEach(i => { window.IND_ACAD[i.id] = i.acad; });

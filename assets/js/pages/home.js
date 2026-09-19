@@ -29,7 +29,8 @@ const HomePage = {
   //   home-hub 的 8 个问题原文，用现有站内路由把每一条接到对应的真实功能上：
   //   01 AI+影视 → 首页新增的 #thesis 板块；02 八大行业 → 产业全景；
   //   03 职业测评；04 岗位库（61个岗位）；05 院校库（新增独立页面）；
-  //   06 课程产品；07 成长时间轴（页面仍在，只是不再放主导航第二组）；
+  //   06 课程产品；07 成长时间轴（原独立页面已改为 overlay，见 timeline.js
+  //   TimelinePage.openOverlay()，Planning 页头也新增了同一入口）；
   //   08 我的规划。现在 8 条都有真实落地页，不再需要「即将上线」占位。 ──
   ROADMAP: [
     { num: '01', title: '为什么影视传媒是AI时代的黄金赛道？', desc: '先看内容产业、生产方式和新岗位。', action: "Router.go('home',{scrollTo:'#thesis'})" },
@@ -38,7 +39,7 @@ const HomePage = {
     { num: '04', title: '具体岗位每天做什么、怎么进入？', desc: '查看 61 个岗位并进行对比。', action: 'PlanningViews.goToJobs()' },
     { num: '05', title: '哪些院校和专业真正匹配目标岗位？', desc: '按具体专业、培养方式和要求比较。', action: "Router.go('schools')" },
     { num: '06', title: '斯芬克有哪些影视学习与行业资源？', desc: '查看海外教授、行业项目与课程海报。', action: "Router.go('course-products')" },
-    { num: '07', title: '作品、申请、实习应该什么时候开始？', desc: '查看申请与职业准备时间。', action: "Router.go('timeline')" },
+    { num: '07', title: '作品、申请、实习应该什么时候开始？', desc: '查看申请与职业准备时间。', action: 'TimelinePage.openOverlay()' },
     { num: '08', title: '怎样把方向变成一份可执行规划？', desc: '生成留学、双规划或职业规划。', action: 'PlanningViews.goToCareer()' },
   ],
 

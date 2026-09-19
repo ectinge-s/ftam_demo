@@ -119,7 +119,7 @@
    换成「深梅子底 + 纸白文字 + 暖金强调」，且每个取值都重新按深底校验 AA。
    浅色正文区不使用本作用域。 */
 .hero, .plan-hero, .timeline-hero, .navbar, .nav-menu-overlay, .sidebar, .sidebar-overlay,
-.course-overlay, .school-overlay, .minicourse-modal, .img-modal-backdrop, .sticky-collapse__btn, footer,
+.course-overlay, .school-overlay, .timeline-overlay, .minicourse-modal, .img-modal-backdrop, .sticky-collapse__btn, footer,
 .hero-sound {
   --color-bg:          #20101A;
   --color-surface:     #2E1A26;

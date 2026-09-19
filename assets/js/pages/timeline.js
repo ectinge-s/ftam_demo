@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   TIMELINE PAGE — 升学与求职时间轴（甘特图）
+   TIMELINE OVERLAY — 升学与求职时间轴（甘特图）
    ───────────────────────────────────────────
    数据源：data/timeline.json（DATA.timeline）
      data.timeline = { cats, cohorts, routes, views, tracks, bars }
@@ -7,6 +7,12 @@
    横轴：该 track 的 12 个压缩月份列（跨月超过 12 个月时按比例压缩）
    纵轴：年份分组 × 维度（关键节点 / 专业成长 / 求职准备），同类重叠自动分层
    点击任一条 → 侧栏查看该阶段的作品集 / AI 工具 / 关键行动 / 阶段产出
+
+   原为独立页面 #page-timeline，此前已从主导航移除、只能靠首页 roadmap 卡片
+   「07」间接进入；现改为全屏 overlay（DOM 见 index.html #timeline-overlay），
+   视觉与交互仿站内已有的 .course-overlay / .school-overlay（同一套「深色舞台」
+   token 作用域，见 style.css DARK STAGE SCOPE），从 Planning 页头「查看时间线」
+   按钮打开。数据结构、筛选逻辑与甘特图渲染本身未改动。
 ═══════════════════════════════════════════ */
 
 const TL_CAT_CLS = { '关键节点': 'milestone', '专业成长': 'growth', '求职准备': 'career' };
@@ -32,6 +38,36 @@ const TimelinePage = {
     this._renderTabGroup('tl-tabs-view', views, this._view, 'selectView');
 
     this._render();
+    this._bindOverlay();
+  },
+
+  // ── 全屏 overlay（结构+交互仿 schools.js 的 _bindOverlay/_openOverlay/closeOverlay）──
+  _bindOverlay() {
+    const overlay = document.getElementById('timeline-overlay');
+    if (!overlay || overlay.dataset.bound) return;
+    overlay.dataset.bound = '1';
+    // 关闭时连带关掉可能由 openBar() 在 overlay 内部打开的 Sidebar 详情栏
+    // （先关 Sidebar 再关自己，顺序对应 Sidebar._outerOverlayOpen() 里
+    // 「外层 overlay 还开着就跳过自己的滚动锁清理」的判断——必须在 Sidebar
+    // 关闭时仍能读到 .timeline-overlay.is-open，清理工作才会正确地全部
+    // 落到最后关闭的 closeOverlay() 身上），仿 course-demo.js 里
+    // MiniCourseModal.close() + CourseOverlay.close() 的级联关闭写法。
+    const closeAll = () => { Sidebar.close(); this.closeOverlay(); };
+    overlay.querySelector('.timeline-overlay__backdrop')?.addEventListener('click', closeAll);
+    overlay.querySelector('.timeline-overlay__close')?.addEventListener('click', closeAll);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+  },
+  openOverlay() {
+    const overlay = document.getElementById('timeline-overlay');
+    if (!overlay) return;
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    const body = document.getElementById('timeline-overlay-body');
+    if (body) body.scrollTop = 0;
+  },
+  closeOverlay() {
+    document.getElementById('timeline-overlay')?.classList.remove('is-open');
+    document.body.style.overflow = '';
   },
 
   selectCohort(v) { this._cohort = v; this._renderTabGroup('tl-tabs-cohort', this._data.cohorts || [], v, 'selectCohort'); this._render(); },

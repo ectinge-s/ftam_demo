@@ -116,10 +116,15 @@
 .search-result-item__sub { font-size: var(--text-xs); color: var(--color-text-muted); }
 .search-results__empty { padding: var(--space-5); text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); }
 
-/* ── SIDEBAR OVERLAY ── */
+/* ── SIDEBAR OVERLAY ──
+   z-index 提到 1400/1401（原 1100/1101）：timeline.js 的 TimelinePage.openBar()
+   现在会从 .timeline-overlay（z-index:1200）内部调用 Sidebar.open()，Sidebar
+   必须能盖在任何全屏内容 overlay（course/school/timeline，均 1200）之上，
+   仿照 .minicourse-modal（1350，同样是「从 1200 overlay 内部再弹一层」的场景）
+   再留出余量；planning.js / portfolio.js 里 Sidebar 原有的独立页面用法不受影响。 */
 .sidebar-overlay {
   display: none; position: fixed; inset: 0;
-  z-index: 1100; background: rgba(38,24,31,.4);
+  z-index: 1400; background: rgba(38,24,31,.4);
   transition: opacity var(--transition-med);
 }
 .sidebar-overlay.is-open { display: block; }
@@ -128,7 +133,7 @@
   width: var(--sidebar-w); background: var(--color-bg);
   border-left: 1px solid var(--color-border-2);
   box-shadow: var(--shadow-pop);
-  z-index: 1101; overflow-y: auto;
+  z-index: 1401; overflow-y: auto;
   transform: translateX(100%); transition: transform var(--transition-med);
   display: flex; flex-direction: column;
 }

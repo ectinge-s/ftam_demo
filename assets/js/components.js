@@ -13,11 +13,23 @@
    隐性 autoscroll。 */
 const Sidebar = {
   _scrollY: 0,
+  // 是否已有其它全屏内容 overlay（course/school/timeline）在外层打开——
+  // 例如 TimelinePage.openBar() 会从已打开的 .timeline-overlay 内部再调用
+  // Sidebar.open()。这种情况下页面滚动早已被外层 overlay 自己的
+  // body.style.overflow='hidden' 锁住，Sidebar 不需要（也不能）再叠加自己
+  // 这套 position:fixed + top 负偏移的锁定/记录逻辑：否则外层 overlay 自己
+  // 关闭时并不知道要清理 Sidebar 留下的这些内联样式，会把 body 永久卡在
+  // position:fixed 状态，页面从此无法滚动。有外层 overlay 开着时，Sidebar
+  // 的 open/close 只负责自己的显隐，滚动锁的加锁与解锁全部交给外层 overlay。
+  _outerOverlayOpen() {
+    return !!document.querySelector('.course-overlay.is-open, .school-overlay.is-open, .timeline-overlay.is-open');
+  },
   open(html) {
-    this._scrollY = window.scrollY || document.documentElement.scrollTop || 0;
     document.getElementById('sidebar-content').innerHTML = html;
     document.getElementById('sidebar').classList.add('is-open');
     document.getElementById('sidebar-overlay').classList.add('is-open');
+    if (this._outerOverlayOpen()) return;
+    this._scrollY = window.scrollY || document.documentElement.scrollTop || 0;
     document.body.style.position = 'fixed';
     document.body.style.top = `-${this._scrollY}px`;
     document.body.style.width = '100%';
@@ -26,6 +38,7 @@ const Sidebar = {
   close() {
     document.getElementById('sidebar').classList.remove('is-open');
     document.getElementById('sidebar-overlay').classList.remove('is-open');
+    if (this._outerOverlayOpen()) return;
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';

@@ -402,7 +402,10 @@
 ════════════════════════════════════════ -->
 <div id="page-planning" class="page">
   <section class="plan-hero">
-    <h1 class="plan-hero__title">产业全景图 <em>× 全链路规划</em></h1>
+    <div class="plan-hero__title-row">
+      <h1 class="plan-hero__title">产业全景图 <em>× 全链路规划</em></h1>
+      <button type="button" class="section-cta plan-hero__timeline-btn" onclick="TimelinePage.openOverlay()">查看时间线 <span class="u-en">/ Timeline</span></button>
+    </div>
     <p class="plan-hero__sub">从八大影视传媒产业方向出发，深入了解每个赛道的头部企业、核心岗位、招聘门槛与对应升学路径。点击企业查看岗位详情，点击岗位方向查看匹配院校与专业。</p>
   </section>
 
@@ -459,54 +462,9 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     TIMELINE PAGE
-════════════════════════════════════════ -->
-<div id="page-timeline" class="page">
-  <section class="timeline-hero">
-    <h1 class="timeline-hero__title">升学与求职时间轴</h1>
-    <p class="timeline-hero__sub">选择申请季与国家 / 地区路线，查看从出国前准备到毕业入职的完整月度路径。点击任一节点，查看该阶段的作品集准备、AI 工具、关键行动与产出物。</p>
-    <div class="hero__actions" style="margin-top:var(--space-4);">
-      <a class="hero__cta" onclick="PlanningViews.goToCareer()">
-        查看我的规划 <span class="hero__cta-sub">/ Career Planning</span>
-      </a>
-    </div>
-  </section>
-  <div class="timeline-section">
-
-    <!-- Selectors（由 data/timeline.json 驱动渲染） -->
-    <div class="tl-controls">
-      <div class="tl-ctrl-group">
-        <div class="tl-ctrl-label">申请季</div>
-        <div class="tl-seg-tabs" id="tl-tabs-cohort"></div>
-      </div>
-      <div class="tl-ctrl-group">
-        <div class="tl-ctrl-label">国家 / 地区路线</div>
-        <div class="tl-seg-tabs" id="tl-tabs-route"></div>
-      </div>
-      <div class="tl-ctrl-group">
-        <div class="tl-ctrl-label">视图</div>
-        <div class="tl-seg-tabs" id="tl-tabs-view"></div>
-      </div>
-    </div>
-
-    <!-- Track 摘要 -->
-    <div class="tl-legend" id="tl-track-summary" style="align-items:flex-start;"></div>
-
-    <!-- Legend -->
-    <div class="tl-legend">
-      <div class="tl-legend__item"><div class="tl-legend__dot tl-legend__dot--milestone"></div>关键节点</div>
-      <div class="tl-legend__item"><div class="tl-legend__dot tl-legend__dot--growth"></div>专业成长</div>
-      <div class="tl-legend__item"><div class="tl-legend__dot tl-legend__dot--career"></div>求职准备</div>
-    </div>
-
-    <!-- Gantt -->
-    <div class="tl-gantt-wrap" id="tl-gantt-wrap">
-      <div class="tl-gantt" id="tl-gantt"></div>
-    </div>
-
-  </div>
-</div>
+<!-- 原独立「升学与求职时间轴」页面（#page-timeline）已改为全屏 overlay，
+     结构与逻辑迁移至下方 #timeline-overlay（紧邻 course-overlay / schools-overlay），
+     通过 Planning 页头「查看时间线」按钮打开，见 TimelinePage.openOverlay()。 -->
 
 <!-- ════════════════════════════════════════
      COURSE PRODUCTS PAGE
@@ -548,6 +506,58 @@
   <div class="school-overlay__panel">
     <button class="school-overlay__close" aria-label="Close">✕</button>
     <div id="schools-overlay-body" class="school-overlay__body"></div>
+  </div>
+</div>
+
+<!-- ═══ TIMELINE OVERLAY（升学与求职时间轴 · 甘特图，全屏浮层，仿 course-overlay /
+     school-overlay；由 Planning 页头「查看时间线」按钮打开，见 timeline.js
+     TimelinePage.openOverlay()。内容与筛选逻辑对齐 archive 站 timeline，
+     UI 沿用本项目既有的 tl-* 甘特图样式，未改动） ═══ -->
+<div id="timeline-overlay" class="timeline-overlay">
+  <div class="timeline-overlay__backdrop"></div>
+  <div class="timeline-overlay__panel">
+    <button class="timeline-overlay__close" aria-label="Close">✕</button>
+    <div id="timeline-overlay-body" class="timeline-overlay__body">
+      <div class="timeline-overlay__eyebrow">Timeline</div>
+      <h2 class="timeline-overlay__title">升学与求职时间轴</h2>
+      <p class="timeline-overlay__hint">选择申请季与国家 / 地区路线，查看从出国前准备到毕业入职的完整月度路径。点击任一节点，查看该阶段的作品集准备、AI 工具、关键行动与产出物。</p>
+      <div class="hero__actions" style="margin-bottom:var(--space-5);">
+        <a class="hero__cta" onclick="TimelinePage.closeOverlay(); PlanningViews.goToCareer();">
+          查看我的规划 <span class="hero__cta-sub">/ Career Planning</span>
+        </a>
+      </div>
+
+      <!-- Selectors（由 data/timeline.json 驱动渲染） -->
+      <div class="tl-controls">
+        <div class="tl-ctrl-group">
+          <div class="tl-ctrl-label">申请季</div>
+          <div class="tl-seg-tabs" id="tl-tabs-cohort"></div>
+        </div>
+        <div class="tl-ctrl-group">
+          <div class="tl-ctrl-label">国家 / 地区路线</div>
+          <div class="tl-seg-tabs" id="tl-tabs-route"></div>
+        </div>
+        <div class="tl-ctrl-group">
+          <div class="tl-ctrl-label">视图</div>
+          <div class="tl-seg-tabs" id="tl-tabs-view"></div>
+        </div>
+      </div>
+
+      <!-- Track 摘要 -->
+      <div class="tl-legend" id="tl-track-summary" style="align-items:flex-start;"></div>
+
+      <!-- Legend -->
+      <div class="tl-legend">
+        <div class="tl-legend__item"><div class="tl-legend__dot tl-legend__dot--milestone"></div>关键节点</div>
+        <div class="tl-legend__item"><div class="tl-legend__dot tl-legend__dot--growth"></div>专业成长</div>
+        <div class="tl-legend__item"><div class="tl-legend__dot tl-legend__dot--career"></div>求职准备</div>
+      </div>
+
+      <!-- Gantt -->
+      <div class="tl-gantt-wrap" id="tl-gantt-wrap">
+        <div class="tl-gantt" id="tl-gantt"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -674,13 +684,17 @@
   /* Restore page from URL hash on load/refresh。
      'assessment' 不再是独立页面，改成先进 planning 页再切到「职业测评」视图，
      兼容旧的 #assessment 书签／外链；旧的独立「我的规划」页面（'plan'）已下线，
-     其功能已被 Planning 页「我的规划」视图完整取代，'plan' 书签同样重定向过去。 */
-  const PAGES = ['portfolio', 'planning', 'timeline', 'course-products', 'schools'];
+     其功能已被 Planning 页「我的规划」视图完整取代，'plan' 书签同样重定向过去；
+     旧的独立「时间轴」页面（'timeline'）已改为 overlay，'timeline' 书签同样
+     重定向为直接打开 overlay，而不是尝试路由到一个已不存在的 #page-timeline。 */
+  const PAGES = ['portfolio', 'planning', 'course-products', 'schools'];
   const hashPage = location.hash.replace('#', '');
   if (hashPage === 'assessment') {
     PlanningViews.goToAssessment();
   } else if (hashPage === 'plan') {
     PlanningViews.goToCareer();
+  } else if (hashPage === 'timeline') {
+    TimelinePage.openOverlay();
   } else if (PAGES.includes(hashPage)) {
     Router.go(hashPage);
   } else {

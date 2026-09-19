@@ -20,15 +20,12 @@
   --color-ai:       var(--color-culture);       /* AI影视科技 */
 }
 
-/* ── 2. 时间轴：补齐 growth / career 两类分类色 ──────────────── */
-.tl-bar--growth {
-  background: linear-gradient(90deg, var(--color-brand), var(--color-platform));
-}
-.tl-bar--career {
-  background: linear-gradient(90deg, var(--color-accent), var(--color-pr));
-}
-.tl-legend__dot--growth { background: var(--color-brand); }
-.tl-legend__dot--career { background: var(--color-arch); }
+/* ── 2. 时间轴分类色：已合并进 pages.css ──────────────────────
+   原来这里给 growth/career 单独打了一套渐变补丁（跟 milestone 在 pages.css
+   里的半透明填充是两套不一致的视觉语言，纯属历史遗留，没有实际信息区别）。
+   现在 .tl-bar--milestone/growth/career 和 .tl-legend__dot--milestone/
+   growth/career 已经在 pages.css 里统一成同一套「实色+细描边」，此处不再
+   重复/覆盖。 */
 
 /* ── 3. 资源网络：无 logo 时的企业首字母标 ─────────────────── */
 .coop-card__logo--text {

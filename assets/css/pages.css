@@ -357,9 +357,17 @@
           mask-image: radial-gradient(120% 120% at 70% 0%, #000 10%, transparent 75%);
 }
 .plan-hero > * { position: relative; z-index: 1; }
-.plan-hero__title { font-size: var(--text-2xl); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; margin-bottom: var(--space-4); }
+/* 标题 + 「查看时间线」按钮同排，紧挨着放、留合理间距即可，
+   不再拉伸到整个 hero 的最右边缘 */
+.plan-hero__title-row { display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.plan-hero__title { font-size: var(--text-2xl); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; margin-bottom: 0; }
 .plan-hero__title em { font-style: normal; color: var(--color-accent); text-shadow: var(--glow-accent-soft); }
+.plan-hero__timeline-btn { flex-shrink: 0; }
 .plan-hero__sub { font-size: var(--text-md); color: var(--color-text-muted); max-width: 640px; line-height: 1.85; text-wrap: pretty; }
+@media (max-width: 640px) {
+  .plan-hero__title-row { flex-direction: column; align-items: stretch; gap: var(--space-4); }
+  .plan-hero__timeline-btn { width: 100%; text-align: center; }
+}
 
 /* ── Industry rail — ONE nav that collapses from big cards → compact tabs on scroll ── */
 .industry-nav {
@@ -1246,12 +1254,11 @@
 .tl-legend { display: flex; gap: var(--space-4); margin-bottom: var(--space-4); flex-wrap: wrap; font-size: var(--text-sm); color: var(--color-text-secondary); }
 .tl-legend__item { display: flex; align-items: center; gap: 6px; }
 .tl-legend__dot { width: 26px; height: 9px; border-radius: 2px; }
+/* 三个分类色统一取自下面 .tl-cat--*（行标签）已经在用的三个 token，
+   图例点 / 行标签 / 甘特条三处保持完全一致，不再各写各的。 */
 .tl-legend__dot--milestone { background: var(--color-accent-bright); }
-.tl-legend__dot--summer    { background: var(--color-success); }
-.tl-legend__dot--biz       { background: var(--color-warning); }
-.tl-legend__dot--master    { background: var(--color-danger); }
-.tl-legend__dot--gpa       { background: var(--color-brand); }
-.tl-legend__dot--internship{ background: var(--color-primary-bright); }
+.tl-legend__dot--growth    { background: var(--color-success); }
+.tl-legend__dot--career    { background: var(--color-primary-bright); }
 
 /* ── Gantt selector controls ── */
 .tl-controls { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 24px; align-items: flex-start; }
@@ -1275,7 +1282,10 @@
 .tl-cat--growth    { border-left-color: var(--color-success);        color: var(--color-success); }
 .tl-cat--career    { border-left-color: var(--color-primary-bright); color: var(--color-primary-bright); }
 .tl-mc { background: var(--color-surface); min-height: 40px; }
-.tl-mc--odd { background: #0C0F18; }
+/* 原来写死 #0C0F18（近黑、色相跟梅子紫底完全不搭），交替列换成同一套梅子紫
+   色阶里最深的 --color-bg，跟 .tl-mc 用的 --color-surface 只是深浅两级，
+   不再跳出整体色调。 */
+.tl-mc--odd { background: var(--color-bg); }
 .tl-bar { border-radius: 4px; display: flex; align-items: center; padding: 0 9px; font-size: 13px; font-family: var(--font-cn); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 34px; margin: 4px 1px; cursor: default; z-index: 2; transition: filter .15s; }
 @media (prefers-reduced-motion: no-preference) {
   .tl-bar { animation: tlBarIn .5s var(--ease-out) both; }
@@ -1284,13 +1294,50 @@
 .tl-bar:hover { filter: brightness(1.15); }
 .tl-bar.is-linked { cursor: pointer; }
 .tl-bar.is-linked::after { content: ' ↗'; font-size: 9px; opacity: .7; flex-shrink: 0; }
-.tl-bar--internship { background: rgba(124,39,85,.22);  color: var(--color-primary-bright); box-shadow: inset 0 0 0 1px rgba(124,39,85,.4); }
-.tl-bar--summer     { background: rgba(26,122,78,.18);  color: var(--color-success);        box-shadow: inset 0 0 0 1px rgba(26,122,78,.38); }
-.tl-bar--biz        { background: rgba(169,78,18,.18);  color: var(--color-warning);        box-shadow: inset 0 0 0 1px rgba(169,78,18,.38); }
-.tl-bar--master     { background: rgba(192,36,59,.18);  color: var(--color-danger);         box-shadow: inset 0 0 0 1px rgba(192,36,59,.36); }
-.tl-bar--gpa        { background: rgba(70,182,255,.18);  color: var(--color-brand);          box-shadow: inset 0 0 0 1px rgba(70,182,255,.42); }
-.tl-bar--milestone  { background: rgba(184,137,31,.15); color: var(--color-accent-bright);  box-shadow: inset 0 0 0 1px rgba(184,137,31,.38); }
+/* 三个真实分类（关键节点/专业成长/求职准备，见 timeline.js TL_CAT_CLS）统一
+   用「实色填充 + 细描边」：此前 milestone 是半透明填充、growth/career 却在
+   film.css 里另用了一套跟本组件无关的产业色渐变（历史上是「先做了 milestone，
+   growth/career 两类是后补的」，两套视觉语言没有实际信息含义上的区别，纯粹
+   是补丁写法不一致），这里合并成一套：底色取 .tl-cat--* 已经在用的三个
+   token，纯色打底、深色文字保证可读，细描边统一用低透明度黑色，不再按分类
+   各写各的描边色。 */
+.tl-bar--milestone { background: var(--color-accent-bright);  color: var(--color-void); box-shadow: inset 0 0 0 1px rgba(0,0,0,.22); }
+.tl-bar--growth    { background: var(--color-success);        color: var(--color-void); box-shadow: inset 0 0 0 1px rgba(0,0,0,.22); }
+.tl-bar--career    { background: var(--color-primary-bright); color: var(--color-void); box-shadow: inset 0 0 0 1px rgba(0,0,0,.22); }
 .tl-gantt-empty { padding: 40px; text-align: center; color: var(--color-text-faint); font-size: 13px; writing-mode: horizontal-tb; }
+
+/* ── 时间轴 · 全屏 overlay（从 Planning 页头「查看时间线」按钮打开），结构仿站内
+   已有的 .course-overlay / .school-overlay，同样加入「深色舞台」token 作用域
+   （见 style.css DARK STAGE SCOPE）。上面这套 .tl-* 甘特图样式本来就是按深底
+   配色写的（比如 .tl-mc--odd 直接写死了近黑色），装进深色 overlay 里颜色才对
+   得上；原先放在浅色 .timeline-section 独立页面里其实是配色错位，这次一并借
+   overlay 化修正，甘特图本身的渲染逻辑未改动。 */
+.timeline-overlay { position: fixed; inset: 0; z-index: 1200; display: none; }
+.timeline-overlay.is-open { display: block; }
+.timeline-overlay__backdrop { position: absolute; inset: 0; background: rgba(32,16,26,.72); backdrop-filter: blur(2px); }
+.timeline-overlay__panel {
+  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+  margin: var(--space-5) auto; max-width: 1180px; max-height: calc(100% - var(--space-6));
+  background: var(--color-bg); border: 1px solid var(--color-border-2); border-radius: var(--radius-md);
+  overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,.55);
+}
+.timeline-overlay.is-open .timeline-overlay__panel { animation: cdRise .32s var(--ease-out) both; }
+.timeline-overlay__close {
+  position: sticky; top: var(--space-4); float: right; margin-right: var(--space-4);
+  width: 32px; height: 32px; border-radius: 50%; background: var(--color-surface-2);
+  border: 1px solid var(--color-border-2); color: var(--color-text-muted);
+  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 4;
+  transition: color .15s, background .15s;
+}
+.timeline-overlay__close:hover { color: var(--color-text); background: var(--color-surface); }
+.timeline-overlay__body { padding: var(--space-8) var(--space-6) var(--space-9); clear: both; }
+.timeline-overlay__eyebrow { font-family: var(--font-en); font-size: 11px; letter-spacing: .04em; color: var(--color-text-faint); text-transform: uppercase; }
+.timeline-overlay__title { font-size: var(--text-xl); font-weight: 700; margin: 4px 0 var(--space-2); }
+.timeline-overlay__hint { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0 0 var(--space-5); max-width: 720px; line-height: 1.8; }
+@media (max-width: 640px) {
+  .timeline-overlay__panel { margin: 0; max-width: 100%; max-height: 100%; border-radius: 0; }
+  .timeline-overlay__body { padding: var(--space-6) var(--space-4) var(--space-8); }
+}
 
 /* ── Sticky collapse bar ── */
 .sticky-collapse {

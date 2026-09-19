@@ -254,9 +254,9 @@ const PlanningPage = {
               <div class="school-match-area__title">代表性可匹配院校</div>
               <div class="school-match-area__actions">
                 <div class="country-pills" id="cpills-${ind.id}">
-                  ${[['US','🇺🇸 美国'],['UK','🇬🇧 英国'],['HK_SG','🇭🇰 港新'],['OTHER','🌏 其他']].map((g,i) =>
-                    `<button class="country-pill${i===0?' is-active':''}" data-group="${g[0]}"
-                             onclick="PlanningPage.switchCountry('${ind.id}','${g[0]}',this)">${g[1]}</button>`
+                  ${Object.entries(window.SFK_GROUP_LABELS || {}).map(([g, label],i) =>
+                    `<button class="country-pill${i===0?' is-active':''}" data-group="${g}"
+                             onclick="PlanningPage.switchCountry('${ind.id}','${g}',this)">${label}</button>`
                   ).join('')}
                 </div>
                 <button class="school-match-area__view-all"
@@ -265,7 +265,7 @@ const PlanningPage = {
                 </button>
               </div>
             </div>
-            ${['US','UK','HK_SG','OTHER'].map((g,i) => `
+            ${Object.keys(window.SFK_GROUP_LABELS || {}).map((g,i) => `
               <div class="school-country-panel${i===0?'':' u-visually-hidden'}" id="sgrid-${ind.id}-${g}">
                 ${this._renderSchoolGrid(ind.id, g, schoolPicks)}
               </div>`).join('')}
@@ -436,7 +436,7 @@ const PlanningPage = {
 
   openFullSchoolSidebar(indId, group) {
     const ind = INDUSTRIES.find(i => i.id === indId);
-    const GROUPS = [['US','🇺🇸 美国'],['UK','🇬🇧 英国'],['HK_SG','🇭🇰 港新'],['OTHER','🌏 其他']];
+    const GROUPS = Object.entries(window.SFK_GROUP_LABELS || {});
     const activeGroup = group || 'US';
 
     const tabs = GROUPS.map(([g, label]) =>

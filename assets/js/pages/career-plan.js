@@ -77,9 +77,24 @@ function cpParseDeadline(text, cycleYear) {
   return candidates[0];
 }
 
-const CP_COUNTRY_LABEL = { US: '美国', UK: '英国', CA: '加拿大', AU: '澳大利亚', NZ: '新西兰', HK: '中国香港', MO: '中国澳门', JP: '日本', KR: '韩国' };
-/* 国家排序对齐归档项目 60-personal-plan.js 的 countryList()：美/英/加/澳/新西兰/港/澳/日/韩 */
-const CP_COUNTRY_ORDER = ['US', 'UK', 'CA', 'AU', 'NZ', 'HK', 'MO', 'JP', 'KR'];
+// 国家标签 / 排序统一从 data/school_priority.json 的 _meta.country_labels /
+// _meta.country_order 读取（跟院校库 schools.js 共用同一份，避免多处维护出现
+// 用词/顺序不一致）；这里用 name_full（"中国香港"/"中国澳门"/"澳大利亚"）
+// 保持本页原有措辞不变，只是数据来源换成 JSON。排序改用院校库同款顺序
+// （美/英/澳/新西兰/港/澳/日/韩/加，加拿大排到最后），跟原来的
+// 美/英/加/澳/新西兰/港/澳/日/韩 相比顺序上有细微调整。
+function cpCountryLabel(code) {
+  const c = (DATA.school_priority && DATA.school_priority._meta && DATA.school_priority._meta.country_labels || {})[code];
+  return (c && c.name_full) || code;
+}
+function cpCountryOrder() {
+  return (DATA.school_priority && DATA.school_priority._meta && DATA.school_priority._meta.country_order) || [];
+}
+// 最多可选职业目标数，跟 CareerCart._max 共用同一份 data/career_planning.json
+// 的 principles.maxCareerTargets，避免两处各写一个「3」。
+function cpMaxTargets() {
+  return (DATA.career_planning && DATA.career_planning.principles && DATA.career_planning.principles.maxCareerTargets) || 3;
+}
 const CP_FALLBACK_DDL = { US: [12, 1], UK: [1, 15], CA: [1, 15], AU: [10, 31], NZ: [11, 30], HK: [12, 1], MO: [1, 15], JP: [11, 1], KR: [10, 15] };
 
 function cpFallbackDeadline(country, cycleYear) {
@@ -566,7 +581,7 @@ function cpValueProposition(state, r) {
   const name = state.studentName || '你';
   const trackText = r.tracks.slice(0, 2).map(t => t.meta.label).join('与') || '影视传媒';
   const roleText = r.targets.slice(0, 3).map(t => t.directionZh).join('、') || '后续发展方向';
-  const countryText = state.countries.length ? state.countries.map(c => CP_COUNTRY_LABEL[c] || c).join('与') : '当前申请地区';
+  const countryText = state.countries.length ? state.countries.map(c => cpCountryLabel(c)).join('与') : '当前申请地区';
   const evidence = '当前已确认的兴趣、经历与能力证据';
   const programCount = r.selectedPrograms.length;
   const detailedCount = (r.priority && r.priority.detailed.length) || 0;
@@ -782,7 +797,7 @@ const CareerPlanPage = {
   _schoolCountryChipCodes() {
     const s = this._state;
     const present = s.countries.length ? new Set(s.countries) : new Set((DATA.programs || []).filter(p => p.level === s.level).map(p => p.country));
-    return CP_COUNTRY_ORDER.filter(c => present.has(c));
+    return cpCountryOrder().filter(c => present.has(c));
   },
   toggleProgram(id) {
     const idx = this._state.selectedProgramIds.indexOf(id);
@@ -814,7 +829,7 @@ const CareerPlanPage = {
     const groupsHtml = ordered.map(g => `
       <section class="cp-school-group">
         <div class="cp-school-head">
-          <div><small>${CP_COUNTRY_LABEL[g.country] || g.country}</small><b>${g.schoolZh}</b>${g.schoolEn ? `<em>${g.schoolEn}</em>` : ''}</div>
+          <div><small>${cpCountryLabel(g.country)}</small><b>${g.schoolZh}</b>${g.schoolEn ? `<em>${g.schoolEn}</em>` : ''}</div>
           <span class="cp-school-rank">${g.rank < 9999 ? '行业参考 #' + String(g.rank).padStart(2, '0') : '扩展院校'}</span>
         </div>
         <div class="cp-program-grid">
@@ -991,10 +1006,10 @@ const CareerPlanPage = {
     const summaryStatsHtml = `
       <div class="pl-summary cp-report-summary">
         <div class="pl-stat"><div class="pl-stat__k">规划类型</div><div class="pl-stat__v" style="font-size:var(--text-md)">${modeLabelText}</div></div>
-        <div class="pl-stat"><div class="pl-stat__k">职业目标</div><div class="pl-stat__v">${r.targets.length}/3</div></div>
+        <div class="pl-stat"><div class="pl-stat__k">职业目标</div><div class="pl-stat__v">${r.targets.length}/${cpMaxTargets()}</div></div>
         <div class="pl-stat"><div class="pl-stat__k">申请层级</div><div class="pl-stat__v">${s.level === 'undergraduate' ? '本科' : '研究生'}</div></div>
         <div class="pl-stat"><div class="pl-stat__k">申请季</div><div class="pl-stat__v">${s.cohort}</div></div>
-        <div class="pl-stat"><div class="pl-stat__k">国家范围</div><div class="pl-stat__v" style="font-size:var(--text-md)">${s.countries.length ? s.countries.map(c => CP_COUNTRY_LABEL[c] || c).join(' + ') : '不限'}</div></div>
+        <div class="pl-stat"><div class="pl-stat__k">国家范围</div><div class="pl-stat__v" style="font-size:var(--text-md)">${s.countries.length ? s.countries.map(c => cpCountryLabel(c)).join(' + ') : '不限'}</div></div>
         <div class="pl-stat"><div class="pl-stat__k">已选专业</div><div class="pl-stat__v">${r.selectedPrograms.length}</div></div>
       </div>`;
 
@@ -1017,7 +1032,7 @@ const CareerPlanPage = {
 
     if (r.mode !== 'study') {
       if (!r.targets.length) {
-        html += '<div class="pl-empty">尚未选择职业目标，请前往「岗位详情」点击卡片上的「+」加入职业目标（最多3个）。</div>';
+        html += `<div class="pl-empty">尚未选择职业目标，请前往「岗位详情」点击卡片上的「+」加入职业目标（最多${cpMaxTargets()}个）。</div>`;
       } else {
         html += this._sectionHtml(++n, '职业目标与三段行业经历', '资源库 ' + cpCareerResources(r.targets).sourceCount + ' 条', this._careerResourceBodyHtml(r.targets));
       }
@@ -1077,8 +1092,8 @@ const CareerPlanPage = {
   _targetStepHtml() {
     const targets = window.CareerCart ? CareerCart.getTargets() : [];
     return `<div class="pl-card">
-      <div class="pl-card__label">确认职业目标（${targets.length}/3）</div>
-      ${targets.length ? this._targetCardsHtml(targets) : `<p class="pl-task__meta" style="margin-top:0">还没有选择职业目标。请前往<strong>「岗位详情」</strong>视图，点击岗位卡片上的「+」加入职业目标，最多可选 3 个（主目标／次目标／探索目标）。</p>`}
+      <div class="pl-card__label">确认职业目标（${targets.length}/${cpMaxTargets()}）</div>
+      ${targets.length ? this._targetCardsHtml(targets) : `<p class="pl-task__meta" style="margin-top:0">还没有选择职业目标。请前往<strong>「岗位详情」</strong>视图，点击岗位卡片上的「+」加入职业目标，最多可选 ${cpMaxTargets()} 个（主目标／次目标／探索目标）。</p>`}
       <div class="pl-actions" style="margin-top:var(--space-3)"><button class="pl-btn" onclick="PlanningViews.switch('jobs', document.querySelector('#planning-view-tabs [data-view=&quot;jobs&quot;]'))">去岗位库选择 →</button><button class="pl-btn" onclick="PlanningViews.goToAssessmentRetake()">重做职业测评</button></div>
       ${this._stepFooterHtml('target')}
     </div>`;
@@ -1086,7 +1101,7 @@ const CareerPlanPage = {
   _scopeStepHtml() {
     const s = this._state;
     const present = new Set((DATA.programs || []).map(p => p.country));
-    const codes = CP_COUNTRY_ORDER.filter(c => present.has(c));
+    const codes = cpCountryOrder().filter(c => present.has(c));
     return `<div class="pl-card">
       <div class="pl-card__label">设置申请范围</div>
       <div class="pl-modes" style="flex-direction:row;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4)">
@@ -1099,7 +1114,7 @@ const CareerPlanPage = {
         </div>
       </div>
       <div class="pl-field__label" style="margin-top:var(--space-4)">国家 / 地区（最多选两个，不选默认不限）</div>
-      <div class="country-pills">${codes.map(c => `<button type="button" class="country-pill${s.countries.includes(c) ? ' is-active' : ''}" onclick="CareerPlanPage.toggleCountry('${c}')">${CP_COUNTRY_LABEL[c] || c}</button>`).join('')}</div>
+      <div class="country-pills">${codes.map(c => `<button type="button" class="country-pill${s.countries.includes(c) ? ' is-active' : ''}" onclick="CareerPlanPage.toggleCountry('${c}')">${cpCountryLabel(c)}</button>`).join('')}</div>
       ${this._stepFooterHtml('scope')}
     </div>`;
   },
@@ -1109,7 +1124,7 @@ const CareerPlanPage = {
       `<button class="filter-btn${s.trackFilter === key ? ' is-active' : ''}" onclick="CareerPlanPage.filterTrack('${key}')">${meta.label}</button>`).join('');
     const countryCodes = this._schoolCountryChipCodes();
     const countryChips = countryCodes.map(code =>
-      `<button class="filter-btn${s.schoolCountryFilter === code ? ' is-active' : ''}" onclick="CareerPlanPage.filterSchoolCountry('${code}')">${CP_COUNTRY_LABEL[code] || code}</button>`).join('');
+      `<button class="filter-btn${s.schoolCountryFilter === code ? ' is-active' : ''}" onclick="CareerPlanPage.filterSchoolCountry('${code}')">${cpCountryLabel(code)}</button>`).join('');
     return `<div class="pl-card">
       <div class="pl-card__label" id="cp-schools-toolbar">选择具体院校与专业</div>
       <input class="jobs-search" oninput="CareerPlanPage.onQueryInput(this.value)" placeholder="搜索学校或专业" value="${cpEsc(s.query)}">
@@ -1240,7 +1255,7 @@ const CareerPlanPage = {
     const name = s.studentName || '未命名学生';
     const modeLabel = r.mode === 'study' ? '留学规划' : r.mode === 'career' ? '职业规划' : '留学+就业双规划';
     const generatedDate = new Date().toLocaleDateString('zh-CN');
-    const countryText = s.countries.length ? s.countries.map(c => CP_COUNTRY_LABEL[c] || c).join(' + ') : '不限';
+    const countryText = s.countries.length ? s.countries.map(c => cpCountryLabel(c)).join(' + ') : '不限';
     const coverMetaHtml = `
       <div class="cover-meta">
         <div><small>规划类型</small><b>${modeLabel}</b></div>
@@ -1253,7 +1268,7 @@ const CareerPlanPage = {
     const summaryHtml = `
       <div class="report-summary">
         <div><small>规划类型</small><b>${modeLabel}</b></div>
-        <div><small>职业目标</small><b>${r.targets.length}/3</b></div>
+        <div><small>职业目标</small><b>${r.targets.length}/${cpMaxTargets()}</b></div>
         <div><small>申请层级</small><b>${s.level === 'undergraduate' ? '本科' : '研究生'}</b></div>
         <div><small>申请季</small><b>${s.cohort}</b></div>
         <div><small>国家范围</small><b>${countryText}</b></div>

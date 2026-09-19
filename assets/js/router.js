@@ -49,11 +49,13 @@ const Router = {
   },
 
   goToPortfolioFilter(branch) {
+    // 案例展示页的筛选栏已改为「层次 / 国家」两个维度（不再是 academic_branch
+    // 分类按钮），但产业规划页仍会按学术分支跳转过来看该方向的案例，所以
+    // 这里改为让 PortfolioPage 按 academic_branch 做一次隐式的内容过滤
+    // （见 PortfolioPage.filterByBranch），而不是去点一个已经不存在的按钮。
     this.go('portfolio');
     setTimeout(() => {
-      const btn = [...document.querySelectorAll('#portfolio-cats .filter-btn')]
-        .find(b => b.textContent.trim() === branch);
-      if (btn) PortfolioPage.filter(branch, btn);
+      if (window.PortfolioPage) PortfolioPage.filterByBranch(branch);
     }, 100);
   },
 

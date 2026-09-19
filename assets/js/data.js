@@ -31,6 +31,8 @@ const DATA = (() => {
     'career_planning',   /* 职业规划岗位池与原则 */
     'internship_resources', /* 实习资源库 */
     'cases',             /* 录取案例原始明细 */
+    'application_requirements', /* 院校库 · 申请要求完整明细（school_zh → undergraduate/graduate → 逐条 program，含完整的分条作品集要求 portfolio[]），迁移自归档站 data/application-requirements.json，比 programs.json 里的 portfolio_note 摘要更完整 */
+    'program_requirements',     /* 院校库 · programs.json 每条 program.id 到 application_requirements 的匹配索引（byProgramId），迁移自归档站 data/program-requirements.json，供按 id 精确定位到上面那份完整明细 */
     'role_recruitment',  /* 岗位招聘画像 */
     'film_resources',    /* 影视资源索引统计 */
     'industry_map',      /* 产业全景：赛道卡片 + 行业详情分区（内容/排版复刻归档站 20-industry-role-library.js） */

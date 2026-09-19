@@ -1204,6 +1204,24 @@
    "UK": "🇬🇧 英国",
    "HK_SG": "🇭🇰 港澳",
    "OTHER": "🌏 其他"
+  },
+  "sidebar_country_quota": {
+   "US": 4,
+   "UK": 4,
+   "HK_SG": 2,
+   "OTHER": 0
+  },
+  "country_order": ["US", "UK", "AU", "NZ", "HK", "MO", "JP", "KR", "CA"],
+  "country_labels": {
+   "US": { "flag": "🇺🇸", "name": "美国", "name_full": "美国" },
+   "UK": { "flag": "🇬🇧", "name": "英国", "name_full": "英国" },
+   "AU": { "flag": "🇦🇺", "name": "澳洲", "name_full": "澳大利亚" },
+   "NZ": { "flag": "🇳🇿", "name": "新西兰", "name_full": "新西兰" },
+   "HK": { "flag": "🇭🇰", "name": "香港", "name_full": "中国香港" },
+   "MO": { "flag": "🇲🇴", "name": "澳门", "name_full": "中国澳门" },
+   "JP": { "flag": "🇯🇵", "name": "日本", "name_full": "日本" },
+   "KR": { "flag": "🇰🇷", "name": "韩国", "name_full": "韩国" },
+   "CA": { "flag": "🇨🇦", "name": "加拿大", "name_full": "加拿大" }
   }
  }
 }

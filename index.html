@@ -21,9 +21,8 @@
     <!-- 官方 VI：影视传媒科系图标（SFK24 新版科系图标系列）。
          深色底统一用反白稿；浅色底请改用 assets/img/brand/sfk-dept-film-media.png（专色 C0 M43 Y6 K9）。
          尺寸与间距统一由 CSS 令牌控制：--logo-size（当前 18px）；间距 = 图标 × --logo-clear-space(25%，官方安全留白)。 -->
-    <img class="navbar__logo-mark" src="assets/img/brand/sfk-dept-film-media--reverse.png"
-         width="18" height="18" alt="" aria-hidden="true" decoding="async">
-    <span class="navbar__logo-text"><span class="u-en">SFK</span>影视传媒</span>
+    <span class="navbar__logo-mark" aria-hidden="true"></span>
+    <span class="navbar__logo-text"><span class="u-en">SFK</span>影视传媒科系</span>
   </span>
   <div class="navbar__links">
     <button class="navbar__btn is-active" onclick="Router.go('home')">科系介绍</button>
@@ -363,31 +362,47 @@
      PORTFOLIO PAGE
 ════════════════════════════════════════ -->
 <div id="page-portfolio" class="page">
-  <section class="home-section" style="padding-top:var(--space-9);">
-    <div class="section-eyebrow">Admission Cases</div>
-    <h2 class="section-title">案例展示</h2>
-    <p class="section-desc">影视传媒方向录取案例精选，覆盖八大产业方向。点击任意卡片查看学生背景、作品、实习与申请策略。</p>
-    <hr class="section-divider">
-    <div class="portfolio-cats" id="portfolio-cats"></div>
-    <div class="portfolio-grid" id="portfolio-grid"></div>
+  <section class="timeline-hero">
+    <h1 class="timeline-hero__title">案例展示</h1>
+    <p class="timeline-hero__sub">影视传媒方向录取案例精选，按本科/研究生与申请国家浏览。点击任意卡片查看学生背景、作品、实习与申请策略。</p>
   </section>
+  <div class="timeline-section">
+    <div class="filter-bar" id="portfolio-level-filter"></div>
+    <div class="filter-bar" id="portfolio-country-filter" style="margin-top:var(--space-2);"></div>
+    <div class="portfolio-grid" id="portfolio-grid"></div>
+  </div>
 </div>
 
 <!-- ════════════════════════════════════════
      SCHOOLS LIBRARY PAGE（院校库 · 内容建设中）
 ════════════════════════════════════════ -->
 <div id="page-schools" class="page">
-  <section class="home-section" style="padding-top:var(--space-9);">
-    <div class="section-eyebrow">School Library</div>
-    <h2 class="section-title">院校库</h2>
-    <p class="section-desc">按国家、专业方向与产业匹配度检索海外影视传媒院校与项目，独立于产业全景页面查看。</p>
-    <hr class="section-divider">
-    <div class="page-placeholder">
-      <div class="page-placeholder__title">内容建设中</div>
-      <div class="page-placeholder__desc">院校库正在整理中，即将上线。在此之前可以先在「产业全景与岗位」页面里按产业查看推荐院校与专业。</div>
-      <button class="section-cta" onclick="Router.go('planning')">先去看产业全景与院校推荐 →</button>
-    </div>
+  <section class="timeline-hero">
+    <h1 class="timeline-hero__title">院校库</h1>
+    <p class="timeline-hero__sub">按国家、产业方向与 AI 匹配度检索 149 所海外影视传媒院校与专业，独立于产业全景页面查看。</p>
   </section>
+  <div class="timeline-section" style="padding-bottom:0;">
+    <div class="schools-kpi" id="schools-kpi"></div>
+  </div>
+
+  <div class="jobs-view" id="schools-jobs-view">
+    <div class="jobs-view__list">
+      <span class="schools-list-toolbar__title">视图</span>
+      <button type="button" class="pl-btn schools-list-toggle" id="schools-list-toggle" onclick="SchoolLibrary.toggleListExpand()">
+        <span class="schools-list-toggle__arrow">▸</span> 展开
+      </button>
+      <input class="jobs-search" id="schools-search-input" type="search" placeholder="搜索院校、地区或关键词…">
+      <div class="filter-bar" id="schools-region-filter" style="margin-top:var(--space-3);"></div>
+      <div class="filter-bar" id="schools-industry-filter" style="margin-top:var(--space-2);"></div>
+      <div class="filter-bar" id="schools-sort-bar" style="margin-top:var(--space-2);"></div>
+      <div class="filter-bar" id="schools-toggle-filter"></div>
+      <p class="pl-task__meta">共 <span id="schools-count">0</span> 所院校</p>
+      <div class="job-dir-list" id="schools-list"></div>
+    </div>
+    <div class="jobs-view__detail" id="schools-detail">
+      <div class="pl-empty">正在加载院校库…</div>
+    </div>
+  </div>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -535,6 +550,15 @@
   </div>
 </div>
 
+<!-- ═══ SCHOOL LIBRARY OVERLAY（院校库 · 申请要求 / 录取案例，全屏浮层，仿 course-overlay） ═══ -->
+<div id="schools-overlay" class="school-overlay">
+  <div class="school-overlay__backdrop"></div>
+  <div class="school-overlay__panel">
+    <button class="school-overlay__close" aria-label="Close">✕</button>
+    <div id="schools-overlay-body" class="school-overlay__body"></div>
+  </div>
+</div>
+
 <!-- ═══ MINI-COURSE DETAIL MODAL ═══ -->
 <div id="minicourse-modal" class="minicourse-modal">
   <div class="minicourse-modal__backdrop"></div>
@@ -634,6 +658,7 @@
 <script src="assets/js/pages/career-cart.js"></script>
 <script src="assets/js/pages/planning.js"></script>
 <script src="assets/js/pages/job-library.js"></script>
+<script src="assets/js/pages/schools.js"></script>
 <script src="assets/js/pages/portfolio.js"></script>
 <script src="assets/js/pages/timeline.js"></script>
 <script src="assets/js/course-demo.js"></script>
@@ -659,6 +684,7 @@
   PlanningPage.build();
   CareerPlanPage.build();
   PortfolioPage.build();
+  SchoolLibrary.build();
   TimelinePage.build();
   CourseProductsPage.build();
   AssessmentPage.build();

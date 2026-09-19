@@ -1,0 +1,4566 @@
+{
+  "version": 2,
+  "generatedFrom": [
+    "programs.json",
+    "application-requirements.json"
+  ],
+  "stats": {
+    "programs": 341,
+    "detailedExact": 272,
+    "detailedFuzzy": 4,
+    "fallback": 65
+  },
+  "byProgramId": {
+    "aftrs-un-2413ce38": {
+      "programId": "aftrs-un-2413ce38",
+      "schoolId": "aftrs",
+      "schoolCn": "AFTRS",
+      "level": "undergraduate",
+      "programName": "Bachelor of Arts Screen: Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "AFTRS",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "aftrs-gr-a9d45e0c": {
+      "programId": "aftrs-gr-a9d45e0c",
+      "schoolId": "aftrs",
+      "schoolCn": "AFTRS",
+      "level": "graduate",
+      "programName": "Master of Arts Screen — 2027 intake suspended",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "AFTRS",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "sejong-un-cdfb312f": {
+      "programId": "sejong-un-cdfb312f",
+      "schoolId": "sejong",
+      "schoolCn": "世宗大学",
+      "level": "undergraduate",
+      "programName": "Film Arts — Film Directing and Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "世宗大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "sejong-gr-72032562": {
+      "programId": "sejong-gr-72032562",
+      "schoolId": "sejong",
+      "schoolCn": "世宗大学",
+      "level": "graduate",
+      "programName": "MFA Film Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "世宗大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "tokyo-polytech-un-e38dff63": {
+      "programId": "tokyo-polytech-un-e38dff63",
+      "schoolId": "tokyo-polytech",
+      "schoolCn": "东京工艺大学",
+      "level": "undergraduate",
+      "programName": "艺术学部 写真学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京工艺大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "tokyo-polytech-un-810354ef": {
+      "programId": "tokyo-polytech-un-810354ef",
+      "schoolId": "tokyo-polytech",
+      "schoolCn": "东京工艺大学",
+      "level": "undergraduate",
+      "programName": "艺术学部 映像学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京工艺大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "tokyo-polytech-gr-3e9d8578": {
+      "programId": "tokyo-polytech-gr-3e9d8578",
+      "schoolId": "tokyo-polytech",
+      "schoolCn": "东京工艺大学",
+      "level": "graduate",
+      "programName": "大学院艺术学研究科 媒体艺术专攻（映像媒体领域）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京工艺大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "tcp-overview": {
+      "programId": "tcp-overview",
+      "schoolId": "tcp",
+      "schoolCn": "东京综合写真专门学校",
+      "level": "unspecified",
+      "programName": "本科等同职业教育：写真艺术专业",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "geidai-graduate-graduate-school-of-film-and-new-media-film-production": {
+      "programId": "geidai-graduate-graduate-school-of-film-and-new-media-film-production",
+      "schoolId": "geidai",
+      "schoolCn": "东京艺术大学",
+      "level": "graduate",
+      "programName": "Graduate School of Film and New Media — Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京艺术大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "geidai-graduate-graduate-school-of-film-and-new-media-film-and-new-med": {
+      "programId": "geidai-graduate-graduate-school-of-film-and-new-media-film-and-new-med",
+      "schoolId": "geidai",
+      "schoolCn": "东京艺术大学",
+      "level": "graduate",
+      "programName": "Graduate School of Film and New Media — Film and New Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京艺术大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "tokyo-zokei-un-02": {
+      "programId": "tokyo-zokei-un-02",
+      "schoolId": "tokyo-zokei",
+      "schoolCn": "东京造形大学",
+      "level": "undergraduate",
+      "programName": "造形学部 设计学科—写真专攻领域",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京造形大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "tokyo-zokei-un-01": {
+      "programId": "tokyo-zokei-un-01",
+      "schoolId": "tokyo-zokei",
+      "schoolCn": "东京造形大学",
+      "level": "undergraduate",
+      "programName": "造形学部 设计学科—电影・影像专攻领域",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京造形大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "tokyo-zokei-gr-01": {
+      "programId": "tokyo-zokei-gr-01",
+      "schoolId": "tokyo-zokei",
+      "schoolCn": "东京造形大学",
+      "level": "graduate",
+      "programName": "大学院 造形研究科—设计研究领域（电影・影像／写真相关研究）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东京造形大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "tuad-un-01": {
+      "programId": "tuad-un-01",
+      "schoolId": "tuad",
+      "schoolCn": "东北艺术工科大学",
+      "level": "undergraduate",
+      "programName": "映像学科—映像创作方向",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东北艺术工科大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "tuad-gr-01": {
+      "programId": "tuad-gr-01",
+      "schoolId": "tuad",
+      "schoolCn": "东北艺术工科大学",
+      "level": "graduate",
+      "programName": "大学院 艺术工学研究科—影像创作／研究方向",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东北艺术工科大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "dongguk-un-75547e27": {
+      "programId": "dongguk-un-75547e27",
+      "schoolId": "dongguk",
+      "schoolCn": "东国大学",
+      "level": "undergraduate",
+      "programName": "Department of Film and Digital Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东国大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "dongguk-gr-12d4abf6": {
+      "programId": "dongguk-gr-12d4abf6",
+      "schoolId": "dongguk",
+      "schoolCn": "东国大学",
+      "level": "graduate",
+      "programName": "Graduate School of Digital Image & Contents — Film & Video Production（中文课程）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东国大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "dongguk-gr-c6de2641": {
+      "programId": "dongguk-gr-c6de2641",
+      "schoolId": "dongguk",
+      "schoolCn": "东国大学",
+      "level": "graduate",
+      "programName": "Graduate School of Digital Image & Contents — Film & Video Production（普通外国人课程）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东国大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "csm-overview": {
+      "programId": "csm-overview",
+      "schoolId": "csm",
+      "schoolCn": "中央圣马丁设计学院",
+      "level": "graduate",
+      "programName": "MA Fashion Communication: Fashion Journalism；MA Communicating Complexity；MA Fashion Communication: Fashion Histories and Theories",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "cau-un-6ff4b414": {
+      "programId": "cau-un-6ff4b414",
+      "schoolId": "cau",
+      "schoolCn": "中央大学",
+      "level": "undergraduate",
+      "programName": "School of Performing Arts and Media — Cinema Major",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "中央大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "cau-gr-83c17439": {
+      "programId": "cau-gr-83c17439",
+      "schoolId": "cau",
+      "schoolCn": "中央大学",
+      "level": "graduate",
+      "programName": "Graduate School of Advanced Imaging Science, Multimedia & Film — Film & Media Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "中央大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "cau-gr-11272e1f": {
+      "programId": "cau-gr-11272e1f",
+      "schoolId": "cau",
+      "schoolCn": "中央大学",
+      "level": "graduate",
+      "programName": "Graduate School of Advanced Imaging Science, Multimedia & Film — Film, Animation & Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "中央大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "ksu-overview": {
+      "programId": "ksu-overview",
+      "schoolId": "ksu",
+      "schoolCn": "九州产业大学",
+      "level": "unspecified",
+      "programName": "修士：艺术研究科（写真・映像领域）；本科：艺术学部 写真・映像媒体学科",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "lcc-overview": {
+      "programId": "lcc-overview",
+      "schoolId": "lcc",
+      "schoolCn": "伦敦传媒学院",
+      "level": "graduate",
+      "programName": "MA Photojournalism and Documentary Photography；MA Journalism: Arts and Lifestyle Journalism；MA Media, Communications and Critical Practice",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "kcl-overview": {
+      "programId": "kcl-overview",
+      "schoolId": "kcl",
+      "schoolCn": "伦敦国王学院",
+      "level": "graduate",
+      "programName": "MA Cultural and Creative Industries；MA Global Media Industries；MA Digital Culture and Society",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "ucl-gr-cdfe44ca": {
+      "programId": "ucl-gr-cdfe44ca",
+      "schoolId": "ucl",
+      "schoolCn": "伦敦大学学院",
+      "level": "graduate",
+      "programName": "MA Immersive Factual Storytelling",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦大学学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "rhul-un-0002162e": {
+      "programId": "rhul-un-0002162e",
+      "schoolId": "rhul",
+      "schoolCn": "伦敦大学皇家霍洛威学院",
+      "level": "undergraduate",
+      "programName": "BA Film, Television and Digital Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦大学皇家霍洛威学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "rhul-gr-e8516fd4": {
+      "programId": "rhul-gr-e8516fd4",
+      "schoolId": "rhul",
+      "schoolCn": "伦敦大学皇家霍洛威学院",
+      "level": "graduate",
+      "programName": "MA Producing Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦大学皇家霍洛威学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "rhul-gr-351d48f4": {
+      "programId": "rhul-gr-351d48f4",
+      "schoolId": "rhul",
+      "schoolCn": "伦敦大学皇家霍洛威学院",
+      "level": "graduate",
+      "programName": "MA Screenwriting for Television and Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦大学皇家霍洛威学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "lse-overview": {
+      "programId": "lse-overview",
+      "schoolId": "lse",
+      "schoolCn": "伦敦政治经济学院",
+      "level": "graduate",
+      "programName": "MSc Media and Communications (Data and Society)；MSc Media and Communications；MSc Global Media and Communications (LSE and USC)",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "lcf-overview": {
+      "programId": "lcf-overview",
+      "schoolId": "lcf",
+      "schoolCn": "伦敦时尚学院",
+      "level": "graduate",
+      "programName": "MA Fashion Journalism and Content Creation",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "lfs-gr-b0981182": {
+      "programId": "lfs-gr-b0981182",
+      "schoolId": "lfs",
+      "schoolCn": "伦敦电影学院",
+      "level": "graduate",
+      "programName": "MA Film Marketing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦电影学院",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "lfs-gr-4d2a2536": {
+      "programId": "lfs-gr-4d2a2536",
+      "schoolId": "lfs",
+      "schoolCn": "伦敦电影学院",
+      "level": "graduate",
+      "programName": "MA Film Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦电影学院",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "lfs-gr-eb23fd0a": {
+      "programId": "lfs-gr-eb23fd0a",
+      "schoolId": "lfs",
+      "schoolCn": "伦敦电影学院",
+      "level": "graduate",
+      "programName": "MA Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦电影学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "lfs-gr-52177d4b": {
+      "programId": "lfs-gr-52177d4b",
+      "schoolId": "lfs",
+      "schoolCn": "伦敦电影学院",
+      "level": "graduate",
+      "programName": "MA International Film Business",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦电影学院",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "lfs-gr-caa8f609": {
+      "programId": "lfs-gr-caa8f609",
+      "schoolId": "lfs",
+      "schoolCn": "伦敦电影学院",
+      "level": "graduate",
+      "programName": "MA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦电影学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "ual-un-32423199": {
+      "programId": "ual-un-32423199",
+      "schoolId": "ual",
+      "schoolCn": "伦敦艺术大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film Practice｜LCC",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦艺术大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "ual-un-c719fc95": {
+      "programId": "ual-un-c719fc95",
+      "schoolId": "ual",
+      "schoolCn": "伦敦艺术大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film and Television｜LCC",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦艺术大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "ual-gr-83ce9925": {
+      "programId": "ual-gr-83ce9925",
+      "schoolId": "ual",
+      "schoolCn": "伦敦艺术大学",
+      "level": "graduate",
+      "programName": "MA Documentary Film｜LCC",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦艺术大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "ual-gr-27f843f1": {
+      "programId": "ual-gr-27f843f1",
+      "schoolId": "ual",
+      "schoolCn": "伦敦艺术大学",
+      "level": "graduate",
+      "programName": "MA Film｜LCC",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦艺术大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "ual-gr-786ff10f": {
+      "programId": "ual-gr-786ff10f",
+      "schoolId": "ual",
+      "schoolCn": "伦敦艺术大学",
+      "level": "graduate",
+      "programName": "MA Screenwriting｜LCC",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伦敦艺术大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "bu-2-un-34e738bf": {
+      "programId": "bu-2-un-34e738bf",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film & TV Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "bu-2-gr-efdd293e": {
+      "programId": "bu-2-gr-efdd293e",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "graduate",
+      "programName": "MA Cinematography for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "bu-2-gr-ad9b2714": {
+      "programId": "bu-2-gr-ad9b2714",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "graduate",
+      "programName": "MA Directing Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "bu-2-gr-162f6851": {
+      "programId": "bu-2-gr-162f6851",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "graduate",
+      "programName": "MA Post Production Editing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "bu-2-gr-e8516fd4": {
+      "programId": "bu-2-gr-e8516fd4",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "graduate",
+      "programName": "MA Producing Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "bu-2-gr-d17f9819": {
+      "programId": "bu-2-gr-d17f9819",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "graduate",
+      "programName": "MA Scriptwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "bu-2-gr-831fa821": {
+      "programId": "bu-2-gr-831fa821",
+      "schoolId": "bu-2",
+      "schoolCn": "伯恩茅斯大学",
+      "level": "graduate",
+      "programName": "MA Sound Design for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "伯恩茅斯大学",
+        "level": "graduate",
+        "index": 5
+      }
+    },
+    "birmingham-overview": {
+      "programId": "birmingham-overview",
+      "schoolId": "birmingham",
+      "schoolCn": "伯明翰大学",
+      "level": "graduate",
+      "programName": "MA Film and Television: Research and Production",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "uf-overview": {
+      "programId": "uf-overview",
+      "schoolId": "uf",
+      "schoolCn": "佛罗里达大学",
+      "level": "graduate",
+      "programName": "Master in Digital Arts & Sciences（MIDAS）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "fsu-un-a8c3476f": {
+      "programId": "fsu-un-a8c3476f",
+      "schoolId": "fsu",
+      "schoolCn": "佛罗里达州立大学",
+      "level": "undergraduate",
+      "programName": "BFA Motion Picture Arts — Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "佛罗里达州立大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "fsu-gr-22c62ced": {
+      "programId": "fsu-gr-22c62ced",
+      "schoolId": "fsu",
+      "schoolCn": "佛罗里达州立大学",
+      "level": "graduate",
+      "programName": "MFA Motion Picture Arts — Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "佛罗里达州立大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "fsu-gr-783bc51e": {
+      "programId": "fsu-gr-783bc51e",
+      "schoolId": "fsu",
+      "schoolCn": "佛罗里达州立大学",
+      "level": "graduate",
+      "programName": "MFA Motion Picture Arts — Writing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "佛罗里达州立大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "opu-overview": {
+      "programId": "opu-overview",
+      "schoolId": "opu",
+      "schoolCn": "冈山县立大学",
+      "level": "unspecified",
+      "programName": "本科：设计学部 视觉设计学科",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "leeds-un-755eaacd": {
+      "programId": "leeds-un-755eaacd",
+      "schoolId": "leeds",
+      "schoolCn": "利兹大学",
+      "level": "undergraduate",
+      "programName": "BA Film, Photography and Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "利兹大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "leeds-gr-0efce3b9": {
+      "programId": "leeds-gr-0efce3b9",
+      "schoolId": "leeds",
+      "schoolCn": "利兹大学",
+      "level": "graduate",
+      "programName": "MA Film Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "利兹大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "leeds-gr-bcc65792": {
+      "programId": "leeds-gr-bcc65792",
+      "schoolId": "leeds",
+      "schoolCn": "利兹大学",
+      "level": "graduate",
+      "programName": "MA Film, Photography and Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "利兹大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "cambridge-overview": {
+      "programId": "cambridge-overview",
+      "schoolId": "cambridge",
+      "schoolCn": "剑桥大学",
+      "level": "graduate",
+      "programName": "MPhil in Sociology (The Sociology of Media and Culture)",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "ucb-overview": {
+      "programId": "ucb-overview",
+      "schoolId": "ucb",
+      "schoolCn": "加州大学伯克利分校",
+      "level": "graduate",
+      "programName": "Master of Journalism（Documentary Track）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "ucsb-overview": {
+      "programId": "ucsb-overview",
+      "schoolId": "ucsb",
+      "schoolCn": "加州大学圣塔芭芭拉分校",
+      "level": "undergraduate",
+      "programName": "MS Media Arts and Technology",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "ucla-un-e315e950": {
+      "programId": "ucla-un-e315e950",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "undergraduate",
+      "programName": "BA Film, Television & Digital Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "ucla-gr-7330fdc4": {
+      "programId": "ucla-gr-7330fdc4",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "graduate",
+      "programName": "MA Cinema & Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "graduate",
+        "index": 5
+      }
+    },
+    "ucla-gr-dd42d075": {
+      "programId": "ucla-gr-dd42d075",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "graduate",
+      "programName": "MFA Cinematography",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "ucla-gr-d92b7ade": {
+      "programId": "ucla-gr-d92b7ade",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "graduate",
+      "programName": "MFA Producers Program",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "ucla-gr-ba856d80": {
+      "programId": "ucla-gr-ba856d80",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "graduate",
+      "programName": "MFA Production/Directing – Documentary",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "ucla-gr-30ac6d09": {
+      "programId": "ucla-gr-30ac6d09",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "graduate",
+      "programName": "MFA Production/Directing – Narrative",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "ucla-gr-382dcf31": {
+      "programId": "ucla-gr-382dcf31",
+      "schoolId": "ucla",
+      "schoolCn": "加州大学洛杉矶分校",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州大学洛杉矶分校",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "calarts-un-c1715339": {
+      "programId": "calarts-un-c1715339",
+      "schoolId": "calarts",
+      "schoolCn": "加州艺术学院",
+      "level": "undergraduate",
+      "programName": "BFA Film and Video",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州艺术学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "calarts-gr-f8ca5ea7": {
+      "programId": "calarts-gr-f8ca5ea7",
+      "schoolId": "calarts",
+      "schoolCn": "加州艺术学院",
+      "level": "graduate",
+      "programName": "MFA Film Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州艺术学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "calarts-gr-b8af99f1": {
+      "programId": "calarts-gr-b8af99f1",
+      "schoolId": "calarts",
+      "schoolCn": "加州艺术学院",
+      "level": "graduate",
+      "programName": "MFA Film and Video",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州艺术学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "uic-overview": {
+      "programId": "uic-overview",
+      "schoolId": "uic",
+      "schoolCn": "北师香港浸会大学",
+      "level": "graduate",
+      "programName": "Master of Arts (MA) in Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "warwick-overview": {
+      "programId": "warwick-overview",
+      "schoolId": "warwick",
+      "schoolCn": "华威大学",
+      "level": "graduate",
+      "programName": "MA in Film and Television Studies",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "usc-un-78389b82": {
+      "programId": "usc-un-78389b82",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "undergraduate",
+      "programName": "BA Cinema & Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "undergraduate",
+        "index": 2
+      }
+    },
+    "usc-un-eff86008": {
+      "programId": "usc-un-eff86008",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "undergraduate",
+      "programName": "BFA Film & Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "usc-un-3c883551": {
+      "programId": "usc-un-3c883551",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "undergraduate",
+      "programName": "BFA Writing for Screen & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "usc-gr-7330fdc4": {
+      "programId": "usc-gr-7330fdc4",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "graduate",
+      "programName": "MA Cinema & Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "usc-gr-90714550": {
+      "programId": "usc-gr-90714550",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "graduate",
+      "programName": "MFA Film & Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "usc-gr-091c1f55": {
+      "programId": "usc-gr-091c1f55",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "graduate",
+      "programName": "MFA Peter Stark Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "usc-gr-122ffeff": {
+      "programId": "usc-gr-122ffeff",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "graduate",
+      "programName": "MFA Peter Stark Producing Program",
+      "matchStatus": "detailed-fuzzy",
+      "matchScore": 0.862,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "usc-gr-6031a6a8": {
+      "programId": "usc-gr-6031a6a8",
+      "schoolId": "usc",
+      "schoolCn": "南加州大学",
+      "level": "graduate",
+      "programName": "MFA Writing for Screen & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "南加州大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "southampton-overview": {
+      "programId": "southampton-overview",
+      "schoolId": "southampton",
+      "schoolCn": "南安普顿大学",
+      "level": "graduate",
+      "programName": "MA Global Advertising and Branding；MA Fashion Marketing and Branding",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "cardiff-overview": {
+      "programId": "cardiff-overview",
+      "schoolId": "cardiff",
+      "schoolCn": "卡迪夫大学",
+      "level": "graduate",
+      "programName": "MA Broadcast Journalism；MA International Journalism；MA Magazine Journalism",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "nuas-overview": {
+      "programId": "nuas-overview",
+      "schoolId": "nuas",
+      "schoolCn": "名古屋学艺大学",
+      "level": "unspecified",
+      "programName": "本科：媒体造形学部 映像媒体学科",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "nua-overview": {
+      "programId": "nua-overview",
+      "schoolId": "nua",
+      "schoolCn": "名古屋艺术大学",
+      "level": "unspecified",
+      "programName": "修士：媒体造形研究科；本科：艺术学科 设计领域（媒体交流方向）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "columbia-un-0f03f9ce": {
+      "programId": "columbia-un-0f03f9ce",
+      "schoolId": "columbia",
+      "schoolCn": "哥伦比亚大学",
+      "level": "undergraduate",
+      "programName": "BA Film and Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "哥伦比亚大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "columbia-gr-b4ecc10d": {
+      "programId": "columbia-gr-b4ecc10d",
+      "schoolId": "columbia",
+      "schoolCn": "哥伦比亚大学",
+      "level": "graduate",
+      "programName": "MFA Film — Creative Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "哥伦比亚大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "columbia-gr-0f964af2": {
+      "programId": "columbia-gr-0f964af2",
+      "schoolId": "columbia",
+      "schoolCn": "哥伦比亚大学",
+      "level": "graduate",
+      "programName": "MFA Film — Screenwriting & Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "哥伦比亚大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "columbia-gr-d83510e1": {
+      "programId": "columbia-gr-d83510e1",
+      "schoolId": "columbia",
+      "schoolCn": "哥伦比亚大学",
+      "level": "graduate",
+      "programName": "MFA Film — Writing for Film & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "哥伦比亚大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "exeter-overview": {
+      "programId": "exeter-overview",
+      "schoolId": "exeter",
+      "schoolCn": "埃克塞特大学",
+      "level": "graduate",
+      "programName": "MA International Film Business",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "melbourne-un-08cce6fa": {
+      "programId": "melbourne-un-08cce6fa",
+      "schoolId": "melbourne",
+      "schoolCn": "墨尔本大学",
+      "level": "undergraduate",
+      "programName": "Bachelor of Fine Arts (Film and Television)",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "墨尔本大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "melbourne-gr-2196e31d": {
+      "programId": "melbourne-gr-2196e31d",
+      "schoolId": "melbourne",
+      "schoolCn": "墨尔本大学",
+      "level": "graduate",
+      "programName": "Master of Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "墨尔本大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "melbourne-gr-b6c3fc43": {
+      "programId": "melbourne-gr-b6c3fc43",
+      "schoolId": "melbourne",
+      "schoolCn": "墨尔本大学",
+      "level": "graduate",
+      "programName": "Master of Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "墨尔本大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "uoft-un-7f439f4e": {
+      "programId": "uoft-un-7f439f4e",
+      "schoolId": "uoft",
+      "schoolCn": "多伦多大学",
+      "level": "undergraduate",
+      "programName": "Cinema Studies — Arts & Science",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "多伦多大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "uoft-gr-02e7e893": {
+      "programId": "uoft-gr-02e7e893",
+      "schoolId": "uoft",
+      "schoolCn": "多伦多大学",
+      "level": "graduate",
+      "programName": "MA Cinema Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "多伦多大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "tfs-overview": {
+      "programId": "tfs-overview",
+      "schoolId": "tfs",
+      "schoolCn": "多伦多电影学院",
+      "level": "unspecified",
+      "programName": "Film Production Diploma",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "tmu-undergraduate-bfa-image-arts-film": {
+      "programId": "tmu-undergraduate-bfa-image-arts-film",
+      "schoolId": "tmu",
+      "schoolCn": "多伦多都会大学",
+      "level": "undergraduate",
+      "programName": "BFA Image Arts: Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "多伦多都会大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "tama-art-overview": {
+      "programId": "tama-art-overview",
+      "schoolId": "tama-art",
+      "schoolCn": "多摩美术大学",
+      "level": "unspecified",
+      "programName": "本科：信息设计学科 信息设计方向（影像・摄影延展）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "oua-un-03": {
+      "programId": "oua-un-03",
+      "schoolId": "oua",
+      "schoolCn": "大阪艺术大学",
+      "level": "undergraduate",
+      "programName": "艺术学部 写真学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "大阪艺术大学",
+        "level": "undergraduate",
+        "index": 2
+      }
+    },
+    "oua-un-02": {
+      "programId": "oua-un-02",
+      "schoolId": "oua",
+      "schoolCn": "大阪艺术大学",
+      "level": "undergraduate",
+      "programName": "艺术学部 放送学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "大阪艺术大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "oua-un-01": {
+      "programId": "oua-un-01",
+      "schoolId": "oua",
+      "schoolCn": "大阪艺术大学",
+      "level": "undergraduate",
+      "programName": "艺术学部 映像学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "大阪艺术大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "oua-gr-01": {
+      "programId": "oua-gr-01",
+      "schoolId": "oua",
+      "schoolCn": "大阪艺术大学",
+      "level": "graduate",
+      "programName": "大学院 艺术研究科—电影／影像相关研究领域",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "大阪艺术大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "auckland-undergraduate-ba-screen-production-media-and-screen-studies-p": {
+      "programId": "auckland-undergraduate-ba-screen-production-media-and-screen-studies-p",
+      "schoolId": "auckland",
+      "schoolCn": "奥克兰大学",
+      "level": "undergraduate",
+      "programName": "BA — Screen Production / Media and Screen Studies pathway",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "奥克兰大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "auckland-graduate-ma-media-and-screen-studies": {
+      "programId": "auckland-graduate-ma-media-and-screen-studies",
+      "schoolId": "auckland",
+      "schoolCn": "奥克兰大学",
+      "level": "graduate",
+      "programName": "MA Media and Screen Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "奥克兰大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "auckland-graduate-ma-screen-production": {
+      "programId": "auckland-graduate-ma-screen-production",
+      "schoolId": "auckland",
+      "schoolCn": "奥克兰大学",
+      "level": "graduate",
+      "programName": "MA Screen Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "奥克兰大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "aut-undergraduate-bachelor-of-communication-studies-screen-production": {
+      "programId": "aut-undergraduate-bachelor-of-communication-studies-screen-production",
+      "schoolId": "aut",
+      "schoolCn": "奥克兰理工大学",
+      "level": "undergraduate",
+      "programName": "Bachelor of Communication Studies — Screen Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "奥克兰理工大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "aut-graduate-postgraduate-communication-studies-screen-media-productio": {
+      "programId": "aut-graduate-postgraduate-communication-studies-screen-media-productio",
+      "schoolId": "aut",
+      "schoolCn": "奥克兰理工大学",
+      "level": "graduate",
+      "programName": "Postgraduate Communication Studies — Screen / Media production pathway",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "奥克兰理工大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "westminster-un-a4a00eef": {
+      "programId": "westminster-un-a4a00eef",
+      "schoolId": "westminster",
+      "schoolCn": "威斯特敏斯特大学",
+      "level": "undergraduate",
+      "programName": "Film BA Honours",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "威斯特敏斯特大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "westminster-gr-ccda842e": {
+      "programId": "westminster-gr-ccda842e",
+      "schoolId": "westminster",
+      "schoolCn": "威斯特敏斯特大学",
+      "level": "graduate",
+      "programName": "Business of Film MA",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "威斯特敏斯特大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "westminster-gr-de6cb310": {
+      "programId": "westminster-gr-de6cb310",
+      "schoolId": "westminster",
+      "schoolCn": "威斯特敏斯特大学",
+      "level": "graduate",
+      "programName": "Film, Television and Moving Image MA",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "威斯特敏斯特大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "westminster-gr-97c2895a": {
+      "programId": "westminster-gr-97c2895a",
+      "schoolId": "westminster",
+      "schoolCn": "威斯特敏斯特大学",
+      "level": "graduate",
+      "programName": "MA Screenwriting and Producing for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "威斯特敏斯特大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "shobi-overview": {
+      "programId": "shobi-overview",
+      "schoolId": "shobi",
+      "schoolCn": "尚美学园大学",
+      "level": "unspecified",
+      "programName": "修士：艺术信息研究科 信息表现专攻（映像・音响）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "lingnan-overview": {
+      "programId": "lingnan-overview",
+      "schoolId": "lingnan",
+      "schoolCn": "岭南大学",
+      "level": "graduate",
+      "programName": "MA in Creative and Media Industries；MSc in Cross-disciplinary Technologies+；MSc in Arts Technology and Business",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "bristol-un-6995939a": {
+      "programId": "bristol-un-6995939a",
+      "schoolId": "bristol",
+      "schoolCn": "布里斯托大学",
+      "level": "undergraduate",
+      "programName": "BA Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "布里斯托大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "bristol-gr-80034de8": {
+      "programId": "bristol-gr-80034de8",
+      "schoolId": "bristol",
+      "schoolCn": "布里斯托大学",
+      "level": "graduate",
+      "programName": "MA Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "布里斯托大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "ic-overview": {
+      "programId": "ic-overview",
+      "schoolId": "ic",
+      "schoolCn": "帝国理工学院",
+      "level": "graduate",
+      "programName": "MSc Science Media Production；MSc Science Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "hcu-overview": {
+      "programId": "hcu-overview",
+      "schoolId": "hcu",
+      "schoolCn": "广岛市立大学",
+      "level": "unspecified",
+      "programName": "修士：艺术学研究科 造形计划研究",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "concordia-undergraduate-bfa-film-production": {
+      "programId": "concordia-undergraduate-bfa-film-production",
+      "schoolId": "concordia",
+      "schoolCn": "康考迪亚大学",
+      "level": "undergraduate",
+      "programName": "BFA Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "康考迪亚大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "concordia-undergraduate-bfa-film-and-moving-image-studies": {
+      "programId": "concordia-undergraduate-bfa-film-and-moving-image-studies",
+      "schoolId": "concordia",
+      "schoolCn": "康考迪亚大学",
+      "level": "undergraduate",
+      "programName": "BFA Film and Moving Image Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "康考迪亚大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "concordia-graduate-ma-film-and-moving-image-studies": {
+      "programId": "concordia-graduate-ma-film-and-moving-image-studies",
+      "schoolId": "concordia",
+      "schoolCn": "康考迪亚大学",
+      "level": "graduate",
+      "programName": "MA Film and Moving Image Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "康考迪亚大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "concordia-graduate-mfa-cinematic-arts": {
+      "programId": "concordia-graduate-mfa-cinematic-arts",
+      "schoolId": "concordia",
+      "schoolCn": "康考迪亚大学",
+      "level": "graduate",
+      "programName": "MFA Cinematic Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "康考迪亚大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "konkuk-un-1815447b": {
+      "programId": "konkuk-un-1815447b",
+      "schoolId": "konkuk",
+      "schoolCn": "建国大学",
+      "level": "undergraduate",
+      "programName": "Department of Moving Images",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "建国大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "konkuk-gr-5979e6aa": {
+      "programId": "konkuk-gr-5979e6aa",
+      "schoolId": "konkuk",
+      "schoolCn": "建国大学",
+      "level": "graduate",
+      "programName": "Graduate Moving Image / Film Production Pathway",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "建国大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "hongik-overview": {
+      "programId": "hongik-overview",
+      "schoolId": "hongik",
+      "schoolCn": "弘益大学",
+      "level": "unspecified",
+      "programName": "School / Department of Film & Animation；Graduate Department of Film, Video & Animation",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "ut-austin-un-89b01738": {
+      "programId": "ut-austin-un-89b01738",
+      "schoolId": "ut-austin",
+      "schoolCn": "德克萨斯大学奥斯汀分校",
+      "level": "undergraduate",
+      "programName": "BS Radio-Television-Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德克萨斯大学奥斯汀分校",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "ut-austin-gr-77d74483": {
+      "programId": "ut-austin-gr-77d74483",
+      "schoolId": "ut-austin",
+      "schoolCn": "德克萨斯大学奥斯汀分校",
+      "level": "graduate",
+      "programName": "MA Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德克萨斯大学奥斯汀分校",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "ut-austin-gr-a8a6429c": {
+      "programId": "ut-austin-gr-a8a6429c",
+      "schoolId": "ut-austin",
+      "schoolCn": "德克萨斯大学奥斯汀分校",
+      "level": "graduate",
+      "programName": "MFA Film and Media Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德克萨斯大学奥斯汀分校",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "ut-austin-gr-382dcf31": {
+      "programId": "ut-austin-gr-382dcf31",
+      "schoolId": "ut-austin",
+      "schoolCn": "德克萨斯大学奥斯汀分校",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德克萨斯大学奥斯汀分校",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "sydney-un-df835781": {
+      "programId": "sydney-un-df835781",
+      "schoolId": "sydney",
+      "schoolCn": "悉尼大学",
+      "level": "undergraduate",
+      "programName": "Bachelor of Visual Arts — Screen Arts pathway",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "悉尼大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "sydney-gr-4fae4e4c": {
+      "programId": "sydney-gr-4fae4e4c",
+      "schoolId": "sydney",
+      "schoolCn": "悉尼大学",
+      "level": "graduate",
+      "programName": "Master of Film and Screen Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "悉尼大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "vuw-undergraduate-ba-film": {
+      "programId": "vuw-undergraduate-ba-film",
+      "schoolId": "vuw",
+      "schoolCn": "惠灵顿维多利亚大学",
+      "level": "undergraduate",
+      "programName": "BA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "惠灵顿维多利亚大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "vuw-graduate-mfa-creative-practice-film": {
+      "programId": "vuw-graduate-mfa-creative-practice-film",
+      "schoolId": "vuw",
+      "schoolCn": "惠灵顿维多利亚大学",
+      "level": "graduate",
+      "programName": "MFA Creative Practice — Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "惠灵顿维多利亚大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "skku-un-53287c66": {
+      "programId": "skku-un-53287c66",
+      "schoolId": "skku",
+      "schoolCn": "成均馆大学",
+      "level": "undergraduate",
+      "programName": "Film, Television and Multimedia",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "成均馆大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "skku-gr-ab62fe5f": {
+      "programId": "skku-gr-ab62fe5f",
+      "schoolId": "skku",
+      "schoolCn": "成均馆大学",
+      "level": "graduate",
+      "programName": "Graduate Film, Television and Multimedia",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "成均馆大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "seian-overview": {
+      "programId": "seian-overview",
+      "schoolId": "seian",
+      "schoolCn": "成安造形大学",
+      "level": "unspecified",
+      "programName": "本科：信息设计领域 写真课程",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "dhu-overview": {
+      "programId": "dhu-overview",
+      "schoolId": "dhu",
+      "schoolCn": "数字好莱坞大学",
+      "level": "unspecified",
+      "programName": "修士：数字内容专攻",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "bunka-gakuen-overview": {
+      "programId": "bunka-gakuen-overview",
+      "schoolId": "bunka-gakuen",
+      "schoolCn": "文化学园大学",
+      "level": "unspecified",
+      "programName": "修士：生活环境学研究科（生活环境学专攻 / 设计・造形学专修）；本科：设计・造形学科 媒体映像创作方向",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "bunsei-overview": {
+      "programId": "bunsei-overview",
+      "schoolId": "bunsei",
+      "schoolCn": "文星艺术大学",
+      "level": "unspecified",
+      "programName": "本科：设计专攻 写真・映像分野",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "unsw-overview": {
+      "programId": "unsw-overview",
+      "schoolId": "unsw",
+      "schoolCn": "新南威尔士大学",
+      "level": "unspecified",
+      "programName": "Master of Journalism and Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "nihon-un-fce9317f": {
+      "programId": "nihon-un-fce9317f",
+      "schoolId": "nihon",
+      "schoolCn": "日本大学",
+      "level": "undergraduate",
+      "programName": "电影学科—导演课程",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "日本大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "nihon-un-41ea8058": {
+      "programId": "nihon-un-41ea8058",
+      "schoolId": "nihon",
+      "schoolCn": "日本大学",
+      "level": "undergraduate",
+      "programName": "电影学科—摄影／录音课程",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "日本大学",
+        "level": "undergraduate",
+        "index": 2
+      }
+    },
+    "nihon-un-eeb0ca4c": {
+      "programId": "nihon-un-eeb0ca4c",
+      "schoolId": "nihon",
+      "schoolCn": "日本大学",
+      "level": "undergraduate",
+      "programName": "电影学科—映像表现／理论课程",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "日本大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "nihon-un-fcb0fe53": {
+      "programId": "nihon-un-fcb0fe53",
+      "schoolId": "nihon",
+      "schoolCn": "日本大学",
+      "level": "undergraduate",
+      "programName": "电影学科—演技课程",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "日本大学",
+        "level": "undergraduate",
+        "index": 3
+      }
+    },
+    "nihon-gr-de2035ca": {
+      "programId": "nihon-gr-de2035ca",
+      "schoolId": "nihon",
+      "schoolCn": "日本大学",
+      "level": "graduate",
+      "programName": "大学院艺术学研究科 博士前期课程—映像艺术专攻（电影领域）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "日本大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "jimi-un-58b8fc2a": {
+      "programId": "jimi-un-58b8fc2a",
+      "schoolId": "jimi",
+      "schoolCn": "日本映画大学",
+      "level": "undergraduate",
+      "programName": "映画学部 映画学科（Film / Cinema）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "日本映画大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "aau-overview": {
+      "programId": "aau-overview",
+      "schoolId": "aau",
+      "schoolCn": "旧金山艺术大学",
+      "level": "graduate",
+      "programName": "MFA in Motion Pictures & Television",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "uq-overview": {
+      "programId": "uq-overview",
+      "schoolId": "uq",
+      "schoolCn": "昆士兰大学",
+      "level": "unspecified",
+      "programName": "Master of Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "manchester-overview": {
+      "programId": "manchester-overview",
+      "schoolId": "manchester",
+      "schoolCn": "曼切斯特大学",
+      "level": "graduate",
+      "programName": "MA Digital Media, Culture and Society；MSc Science and Health Communication；MA Creative and Cultural Industries",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "mmu-overview": {
+      "programId": "mmu-overview",
+      "schoolId": "mmu",
+      "schoolCn": "曼彻斯特城市大学",
+      "level": "graduate",
+      "programName": "MA Filmmaking",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "duke-overview": {
+      "programId": "duke-overview",
+      "schoolId": "duke",
+      "schoolCn": "杜克大学",
+      "level": "graduate",
+      "programName": "MA in Computational Media",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "lincoln-overview": {
+      "programId": "lincoln-overview",
+      "schoolId": "lincoln",
+      "schoolCn": "林肯大学",
+      "level": "graduate",
+      "programName": "MA Film Production",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "chapman-un-0f03f9ce": {
+      "programId": "chapman-un-0f03f9ce",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "undergraduate",
+      "programName": "BA Film and Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "undergraduate",
+        "index": 3
+      }
+    },
+    "chapman-un-471bb8a6": {
+      "programId": "chapman-un-471bb8a6",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "undergraduate",
+      "programName": "BFA Creative Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "undergraduate",
+        "index": 2
+      }
+    },
+    "chapman-un-91c35792": {
+      "programId": "chapman-un-91c35792",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "undergraduate",
+      "programName": "BFA Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "chapman-un-c6db1453": {
+      "programId": "chapman-un-c6db1453",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "undergraduate",
+      "programName": "BFA Writing for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "chapman-gr-2e7bb578": {
+      "programId": "chapman-gr-2e7bb578",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "graduate",
+      "programName": "MA Film and Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "chapman-gr-5e4b4803": {
+      "programId": "chapman-gr-5e4b4803",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "graduate",
+      "programName": "MFA Film Production – Directing Emphasis",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "chapman-gr-bf66f54f": {
+      "programId": "chapman-gr-bf66f54f",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "graduate",
+      "programName": "MFA Film and Television Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "chapman-gr-382dcf31": {
+      "programId": "chapman-gr-382dcf31",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "chapman-gr-6e4f4243": {
+      "programId": "chapman-gr-6e4f4243",
+      "schoolId": "chapman",
+      "schoolCn": "查普曼大学",
+      "level": "graduate",
+      "programName": "MFA Writing and Producing for Television — The Showrunner Program",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "查普曼大学",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "met-un-8e5d9a34": {
+      "programId": "met-un-8e5d9a34",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "met-gr-9c88c4d5": {
+      "programId": "met-gr-9c88c4d5",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "graduate",
+      "programName": "MA Cinematography",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "met-gr-93713d79": {
+      "programId": "met-gr-93713d79",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "graduate",
+      "programName": "MA Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "met-gr-f49b4f37": {
+      "programId": "met-gr-f49b4f37",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "graduate",
+      "programName": "MA Post Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "graduate",
+        "index": 5
+      }
+    },
+    "met-gr-0927dcc9": {
+      "programId": "met-gr-0927dcc9",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "graduate",
+      "programName": "MA Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "met-gr-c560e1c1": {
+      "programId": "met-gr-c560e1c1",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "graduate",
+      "programName": "MA Screen & Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "met-gr-caa8f609": {
+      "programId": "met-gr-caa8f609",
+      "schoolId": "met",
+      "schoolCn": "梅特电影学院",
+      "level": "graduate",
+      "programName": "MA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅特电影学院",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "massey-undergraduate-bachelor-of-screen-arts-documentary-and-factual": {
+      "programId": "massey-undergraduate-bachelor-of-screen-arts-documentary-and-factual",
+      "schoolId": "massey",
+      "schoolCn": "梅西大学",
+      "level": "undergraduate",
+      "programName": "Bachelor of Screen Arts — Documentary and Factual",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅西大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "massey-undergraduate-bachelor-of-screen-arts-film-production": {
+      "programId": "massey-undergraduate-bachelor-of-screen-arts-film-production",
+      "schoolId": "massey",
+      "schoolCn": "梅西大学",
+      "level": "undergraduate",
+      "programName": "Bachelor of Screen Arts — Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅西大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "massey-graduate-master-of-screen-arts": {
+      "programId": "massey-graduate-master-of-screen-arts",
+      "schoolId": "massey",
+      "schoolCn": "梅西大学",
+      "level": "graduate",
+      "programName": "Master of Screen Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "梅西大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "yokohama-art-overview": {
+      "programId": "yokohama-art-overview",
+      "schoolId": "yokohama-art",
+      "schoolCn": "横滨美术大学",
+      "level": "unspecified",
+      "programName": "本科：美术・设计学科 映像媒体设计课程",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "jfou-overview": {
+      "programId": "jfou-overview",
+      "schoolId": "jfou",
+      "schoolCn": "樱美林大学",
+      "level": "unspecified",
+      "programName": "本科：艺术文化学群 视觉艺术方向",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "mau-un-01": {
+      "programId": "mau-un-01",
+      "schoolId": "mau",
+      "schoolCn": "武藏野美术大学",
+      "level": "undergraduate",
+      "programName": "造形构想学部 映像学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "武藏野美术大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "mau-gr-01": {
+      "programId": "mau-gr-01",
+      "schoolId": "mau",
+      "schoolCn": "武藏野美术大学",
+      "level": "graduate",
+      "programName": "造形构想研究科 造形构想专攻—映像・写真课程",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "武藏野美术大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "hanyang-un-55f7ab8b": {
+      "programId": "hanyang-un-55f7ab8b",
+      "schoolId": "hanyang",
+      "schoolCn": "汉阳大学",
+      "level": "undergraduate",
+      "programName": "Department of Theater and Film — Film Major",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "汉阳大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "hanyang-gr-d53f610d": {
+      "programId": "hanyang-gr-d53f610d",
+      "schoolId": "hanyang",
+      "schoolCn": "汉阳大学",
+      "level": "graduate",
+      "programName": "Graduate Film / Theatre and Film Pathway",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "汉阳大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "bu-un-fd1f793b": {
+      "programId": "bu-un-fd1f793b",
+      "schoolId": "bu",
+      "schoolCn": "波士顿大学",
+      "level": "undergraduate",
+      "programName": "BS Film & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "波士顿大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "bu-gr-e23a247c": {
+      "programId": "bu-gr-e23a247c",
+      "schoolId": "bu",
+      "schoolCn": "波士顿大学",
+      "level": "graduate",
+      "programName": "MFA Film & Television Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "波士顿大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "bu-gr-382dcf31": {
+      "programId": "bu-gr-382dcf31",
+      "schoolId": "bu",
+      "schoolCn": "波士顿大学",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "波士顿大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "bu-gr-7edf22d5": {
+      "programId": "bu-gr-7edf22d5",
+      "schoolId": "bu",
+      "schoolCn": "波士顿大学",
+      "level": "graduate",
+      "programName": "MS Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "波士顿大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "lmu-un-149dafc1": {
+      "programId": "lmu-un-149dafc1",
+      "schoolId": "lmu",
+      "schoolCn": "洛约拉马利蒙特大学",
+      "level": "undergraduate",
+      "programName": "BA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "洛约拉马利蒙特大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "lmu-un-91c35792": {
+      "programId": "lmu-un-91c35792",
+      "schoolId": "lmu",
+      "schoolCn": "洛约拉马利蒙特大学",
+      "level": "undergraduate",
+      "programName": "BFA Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "洛约拉马利蒙特大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "lmu-gr-b06c9c73": {
+      "programId": "lmu-gr-b06c9c73",
+      "schoolId": "lmu",
+      "schoolCn": "洛约拉马利蒙特大学",
+      "level": "graduate",
+      "programName": "MFA Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "洛约拉马利蒙特大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "lmu-gr-527bf664": {
+      "programId": "lmu-gr-527bf664",
+      "schoolId": "lmu",
+      "schoolCn": "洛约拉马利蒙特大学",
+      "level": "graduate",
+      "programName": "MFA Writing and Producing for Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "洛约拉马利蒙特大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "lmu-gr-8da572b8": {
+      "programId": "lmu-gr-8da572b8",
+      "schoolId": "lmu",
+      "schoolCn": "洛约拉马利蒙特大学",
+      "level": "graduate",
+      "programName": "MFA Writing for the Screen",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "洛约拉马利蒙特大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "cityu-macau-overview": {
+      "programId": "cityu-macau-overview",
+      "schoolId": "cityu-macau",
+      "schoolCn": "澳门城市大学",
+      "level": "unspecified",
+      "programName": "艺术学硕士（Master of Arts）/ 设计学硕士（Master of Design）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "mpu-overview": {
+      "programId": "mpu-overview",
+      "schoolId": "mpu",
+      "schoolCn": "澳门理工大学",
+      "level": "unspecified",
+      "programName": "跨领域艺术硕士学位课程（Master of Interdisciplinary Arts）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "must-un-ea060e70": {
+      "programId": "must-un-ea060e70",
+      "schoolId": "must",
+      "schoolCn": "澳门科技大学",
+      "level": "undergraduate",
+      "programName": "Bachelor in Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "澳门科技大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "must-gr-1d87cc7b": {
+      "programId": "must-gr-1d87cc7b",
+      "schoolId": "must",
+      "schoolCn": "澳门科技大学",
+      "level": "graduate",
+      "programName": "Master of Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "澳门科技大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "must-gr-2076d554": {
+      "programId": "must-gr-2076d554",
+      "schoolId": "must",
+      "schoolCn": "澳门科技大学",
+      "level": "graduate",
+      "programName": "Master of Management in Film Industry",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "澳门科技大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "edinburgh-un-f05e33ca": {
+      "programId": "edinburgh-un-f05e33ca",
+      "schoolId": "edinburgh",
+      "schoolCn": "爱丁堡大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "edinburgh-gr-6262d17f": {
+      "programId": "edinburgh-gr-6262d17f",
+      "schoolId": "edinburgh",
+      "schoolCn": "爱丁堡大学",
+      "level": "graduate",
+      "programName": "MA Film Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "edinburgh-gr-c6c4f568": {
+      "programId": "edinburgh-gr-c6c4f568",
+      "schoolId": "edinburgh",
+      "schoolCn": "爱丁堡大学",
+      "level": "graduate",
+      "programName": "MFA Film Art",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "edinburgh-gr-b73e7019": {
+      "programId": "edinburgh-gr-b73e7019",
+      "schoolId": "edinburgh",
+      "schoolCn": "爱丁堡大学",
+      "level": "graduate",
+      "programName": "MSc Film Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "emerson-un-5c2d4255": {
+      "programId": "emerson-un-5c2d4255",
+      "schoolId": "emerson",
+      "schoolCn": "爱默生学院",
+      "level": "undergraduate",
+      "programName": "BA/BFA Media Arts Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱默生学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "emerson-un-c6db1453": {
+      "programId": "emerson-un-c6db1453",
+      "schoolId": "emerson",
+      "schoolCn": "爱默生学院",
+      "level": "undergraduate",
+      "programName": "BFA Writing for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱默生学院",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "emerson-gr-9f09629b": {
+      "programId": "emerson-gr-9f09629b",
+      "schoolId": "emerson",
+      "schoolCn": "爱默生学院",
+      "level": "graduate",
+      "programName": "MFA Film and Media Art",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱默生学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "emerson-gr-18662be7": {
+      "programId": "emerson-gr-18662be7",
+      "schoolId": "emerson",
+      "schoolCn": "爱默生学院",
+      "level": "graduate",
+      "programName": "MFA Writing for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱默生学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "rmit-un-c8bc559d": {
+      "programId": "rmit-un-c8bc559d",
+      "schoolId": "rmit",
+      "schoolCn": "皇家墨尔本理工",
+      "level": "undergraduate",
+      "programName": "Bachelor of Communication (Media)",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "皇家墨尔本理工",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "rmit-gr-bf1429ff": {
+      "programId": "rmit-gr-bf1429ff",
+      "schoolId": "rmit",
+      "schoolCn": "皇家墨尔本理工",
+      "level": "graduate",
+      "programName": "Master of Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "皇家墨尔本理工",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "rca-overview": {
+      "programId": "rca-overview",
+      "schoolId": "rca",
+      "schoolCn": "皇家艺术学院",
+      "level": "graduate",
+      "programName": "MFA Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "kobe-du-overview": {
+      "programId": "kobe-du-overview",
+      "schoolId": "kobe-du",
+      "schoolCn": "神户艺术工科大学",
+      "level": "unspecified",
+      "programName": "修士：综合艺术与设计专攻（映像表现学科相关）；本科可关注映像表现学科",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "akibi-overview": {
+      "programId": "akibi-overview",
+      "schoolId": "akibi",
+      "schoolCn": "秋田公立美术大学",
+      "level": "unspecified",
+      "programName": "修士：复合艺术研究科",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "ritsumeikan-un-01": {
+      "programId": "ritsumeikan-un-01",
+      "schoolId": "ritsumeikan",
+      "schoolCn": "立命馆大学",
+      "level": "undergraduate",
+      "programName": "映像学部 映像学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "立命馆大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "ritsumeikan-gr-01": {
+      "programId": "ritsumeikan-gr-01",
+      "schoolId": "ritsumeikan",
+      "schoolCn": "立命馆大学",
+      "level": "graduate",
+      "programName": "大学院 映像研究科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "立命馆大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "york-un-5c6a5387": {
+      "programId": "york-un-5c6a5387",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "undergraduate",
+      "programName": "BSc Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "york-gr-5fb90e10": {
+      "programId": "york-gr-5fb90e10",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "graduate",
+      "programName": "MA Cinematography for Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "york-gr-7026e692": {
+      "programId": "york-gr-7026e692",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "graduate",
+      "programName": "MA Directing for Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "york-gr-d9164325": {
+      "programId": "york-gr-d9164325",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "graduate",
+      "programName": "MA Editing for Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "york-gr-cca9db7a": {
+      "programId": "york-gr-cca9db7a",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "graduate",
+      "programName": "MA Producing for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "york-gr-54ebaff7": {
+      "programId": "york-gr-54ebaff7",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "graduate",
+      "programName": "MA Sound for Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "york-gr-ee9ac2a8": {
+      "programId": "york-gr-ee9ac2a8",
+      "schoolId": "york",
+      "schoolCn": "约克大学",
+      "level": "graduate",
+      "programName": "MSc Sound for Film and Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学",
+        "level": "graduate",
+        "index": 5
+      }
+    },
+    "yorku-undergraduate-bfa-cinema-media-arts-production": {
+      "programId": "yorku-undergraduate-bfa-cinema-media-arts-production",
+      "schoolId": "yorku",
+      "schoolCn": "约克大学（加拿大）",
+      "level": "undergraduate",
+      "programName": "BFA Cinema & Media Arts — Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学（加拿大）",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "yorku-undergraduate-bfa-screenwriting-creative-producing": {
+      "programId": "yorku-undergraduate-bfa-screenwriting-creative-producing",
+      "schoolId": "yorku",
+      "schoolCn": "约克大学（加拿大）",
+      "level": "undergraduate",
+      "programName": "BFA Screenwriting & Creative Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学（加拿大）",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "yorku-graduate-ma-cinema-media-studies": {
+      "programId": "yorku-graduate-ma-cinema-media-studies",
+      "schoolId": "yorku",
+      "schoolCn": "约克大学（加拿大）",
+      "level": "graduate",
+      "programName": "MA Cinema & Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学（加拿大）",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "yorku-graduate-mfa-film-production": {
+      "programId": "yorku-graduate-mfa-film-production",
+      "schoolId": "yorku",
+      "schoolCn": "约克大学（加拿大）",
+      "level": "graduate",
+      "programName": "MFA Film — Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学（加拿大）",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "yorku-graduate-mfa-film-screenwriting": {
+      "programId": "yorku-graduate-mfa-film-screenwriting",
+      "schoolId": "yorku",
+      "schoolCn": "约克大学（加拿大）",
+      "level": "graduate",
+      "programName": "MFA Film — Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约克大学（加拿大）",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "jhu-un-0f03f9ce": {
+      "programId": "jhu-un-0f03f9ce",
+      "schoolId": "jhu",
+      "schoolCn": "约翰霍普金斯大学",
+      "level": "undergraduate",
+      "programName": "BA Film and Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约翰霍普金斯大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "jhu-gr-520d5556": {
+      "programId": "jhu-gr-520d5556",
+      "schoolId": "jhu",
+      "schoolCn": "约翰霍普金斯大学",
+      "level": "graduate",
+      "programName": "MA Film and Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "约翰霍普金斯大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "nyu-un-3781033d": {
+      "programId": "nyu-un-3781033d",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "undergraduate",
+      "programName": "BA Cinema Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "undergraduate",
+        "index": 2
+      }
+    },
+    "nyu-un-bdfb32c8": {
+      "programId": "nyu-un-bdfb32c8",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "undergraduate",
+      "programName": "BFA Dramatic Writing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "nyu-un-06587194": {
+      "programId": "nyu-un-06587194",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "undergraduate",
+      "programName": "BFA Undergraduate Film & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "nyu-gr-02e7e893": {
+      "programId": "nyu-gr-02e7e893",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "graduate",
+      "programName": "MA Cinema Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "nyu-gr-f7cee0f8": {
+      "programId": "nyu-gr-f7cee0f8",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "graduate",
+      "programName": "MFA Dramatic Writing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "nyu-gr-eeda10b8": {
+      "programId": "nyu-gr-eeda10b8",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "graduate",
+      "programName": "MFA Graduate Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "nyu-gr-eb80b160": {
+      "programId": "nyu-gr-eb80b160",
+      "schoolId": "nyu",
+      "schoolCn": "纽约大学",
+      "level": "graduate",
+      "programName": "MPS Virtual Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约大学",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "rit-overview": {
+      "programId": "rit-overview",
+      "schoolId": "rit",
+      "schoolCn": "罗彻斯特理工学院",
+      "level": "graduate",
+      "programName": "MFA Film and Animation（production option / screenwriting option）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "afi-gr-dd42d075": {
+      "programId": "afi-gr-dd42d075",
+      "schoolId": "afi",
+      "schoolCn": "美国电影学院",
+      "level": "graduate",
+      "programName": "MFA Cinematography",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国电影学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "afi-gr-6661aa33": {
+      "programId": "afi-gr-6661aa33",
+      "schoolId": "afi",
+      "schoolCn": "美国电影学院",
+      "level": "graduate",
+      "programName": "MFA Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国电影学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "afi-gr-1862889a": {
+      "programId": "afi-gr-1862889a",
+      "schoolId": "afi",
+      "schoolCn": "美国电影学院",
+      "level": "graduate",
+      "programName": "MFA Editing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国电影学院",
+        "level": "graduate",
+        "index": 5
+      }
+    },
+    "afi-gr-cb05cacc": {
+      "programId": "afi-gr-cb05cacc",
+      "schoolId": "afi",
+      "schoolCn": "美国电影学院",
+      "level": "graduate",
+      "programName": "MFA Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国电影学院",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "afi-gr-172928aa": {
+      "programId": "afi-gr-172928aa",
+      "schoolId": "afi",
+      "schoolCn": "美国电影学院",
+      "level": "graduate",
+      "programName": "MFA Production Design",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国电影学院",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "afi-gr-382dcf31": {
+      "programId": "afi-gr-382dcf31",
+      "schoolId": "afi",
+      "schoolCn": "美国电影学院",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国电影学院",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "accd-un-79e8e13e": {
+      "programId": "accd-un-79e8e13e",
+      "schoolId": "accd",
+      "schoolCn": "艺术中心设计学院",
+      "level": "undergraduate",
+      "programName": "BFA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "艺术中心设计学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "accd-gr-0ffa4dc0": {
+      "programId": "accd-gr-0ffa4dc0",
+      "schoolId": "accd",
+      "schoolCn": "艺术中心设计学院",
+      "level": "graduate",
+      "programName": "MFA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "艺术中心设计学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "uchicago-overview": {
+      "programId": "uchicago-overview",
+      "schoolId": "uchicago",
+      "schoolCn": "芝加哥大学",
+      "level": "graduate",
+      "programName": "MFA in Visual Arts（Video and New Media）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "saic-overview": {
+      "programId": "saic-overview",
+      "schoolId": "saic",
+      "schoolCn": "芝加哥艺术学院",
+      "level": "graduate",
+      "programName": "MFA Film, Video, New Media and Animation",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "nfts-gr-dd42d075": {
+      "programId": "nfts-gr-dd42d075",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Cinematography",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 3
+      }
+    },
+    "nfts-gr-776050d7": {
+      "programId": "nfts-gr-776050d7",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Directing Documentary",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "nfts-gr-f68a29c6": {
+      "programId": "nfts-gr-f68a29c6",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Directing Fiction",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "nfts-gr-1862889a": {
+      "programId": "nfts-gr-1862889a",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Editing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 4
+      }
+    },
+    "nfts-gr-cb05cacc": {
+      "programId": "nfts-gr-cb05cacc",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 5
+      }
+    },
+    "nfts-gr-172928aa": {
+      "programId": "nfts-gr-172928aa",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Production Design",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 6
+      }
+    },
+    "nfts-gr-382dcf31": {
+      "programId": "nfts-gr-382dcf31",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "nfts-gr-f46db106": {
+      "programId": "nfts-gr-f46db106",
+      "schoolId": "nfts",
+      "schoolCn": "英国国立电影电视学院",
+      "level": "graduate",
+      "programName": "MFA Sound Design for Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英国国立电影电视学院",
+        "level": "graduate",
+        "index": 7
+      }
+    },
+    "ubc-un-2dcb1c98": {
+      "programId": "ubc-un-2dcb1c98",
+      "schoolId": "ubc",
+      "schoolCn": "英属哥伦比亚大学",
+      "level": "undergraduate",
+      "programName": "BFA Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英属哥伦比亚大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "ubc-gr-f225d903": {
+      "programId": "ubc-gr-f225d903",
+      "schoolId": "ubc",
+      "schoolCn": "英属哥伦比亚大学",
+      "level": "graduate",
+      "programName": "Diploma in Film Production / Second Degree pathway",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "英属哥伦比亚大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "monash-overview": {
+      "programId": "monash-overview",
+      "schoolId": "monash",
+      "schoolCn": "莫那什大学",
+      "level": "unspecified",
+      "programName": "Master of Communications and Media Studies",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "scad-un-bdfb32c8": {
+      "programId": "scad-un-bdfb32c8",
+      "schoolId": "scad",
+      "schoolCn": "萨凡纳艺术设计学院",
+      "level": "undergraduate",
+      "programName": "BFA Dramatic Writing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "萨凡纳艺术设计学院",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "scad-un-54fe3ccf": {
+      "programId": "scad-un-54fe3ccf",
+      "schoolId": "scad",
+      "schoolCn": "萨凡纳艺术设计学院",
+      "level": "undergraduate",
+      "programName": "BFA Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "萨凡纳艺术设计学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "scad-un-5d4e822a": {
+      "programId": "scad-un-5d4e822a",
+      "schoolId": "scad",
+      "schoolCn": "萨凡纳艺术设计学院",
+      "level": "undergraduate",
+      "programName": "BFA Sound Design",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "萨凡纳艺术设计学院",
+        "level": "undergraduate",
+        "index": 2
+      }
+    },
+    "scad-gr-239cb4b1": {
+      "programId": "scad-gr-239cb4b1",
+      "schoolId": "scad",
+      "schoolCn": "萨凡纳艺术设计学院",
+      "level": "graduate",
+      "programName": "MA / MFA Dramatic Writing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "萨凡纳艺术设计学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "scad-gr-f3f5abe5": {
+      "programId": "scad-gr-f3f5abe5",
+      "schoolId": "scad",
+      "schoolCn": "萨凡纳艺术设计学院",
+      "level": "graduate",
+      "programName": "MA / MFA Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "萨凡纳艺术设计学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "scad-gr-6a871e79": {
+      "programId": "scad-gr-6a871e79",
+      "schoolId": "scad",
+      "schoolCn": "萨凡纳艺术设计学院",
+      "level": "graduate",
+      "programName": "MA / MFA Sound Design",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "萨凡纳艺术设计学院",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "northwestern-un-50c1a270": {
+      "programId": "northwestern-un-50c1a270",
+      "schoolId": "northwestern",
+      "schoolCn": "西北大学",
+      "level": "undergraduate",
+      "programName": "BS Communication — Radio/Television/Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "西北大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "northwestern-gr-246900f5": {
+      "programId": "northwestern-gr-246900f5",
+      "schoolId": "northwestern",
+      "schoolCn": "西北大学",
+      "level": "graduate",
+      "programName": "MFA Documentary Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "西北大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "northwestern-gr-e21d5e28": {
+      "programId": "northwestern-gr-e21d5e28",
+      "schoolId": "northwestern",
+      "schoolCn": "西北大学",
+      "level": "graduate",
+      "programName": "MFA Writing for Screen and Stage",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "西北大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "wsu-overview": {
+      "programId": "wsu-overview",
+      "schoolId": "wsu",
+      "schoolCn": "西悉尼大学",
+      "level": "unspecified",
+      "programName": "Master of Arts in Literature and Creative Writing",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "uwa-overview": {
+      "programId": "uwa-overview",
+      "schoolId": "uwa",
+      "schoolCn": "西澳大学",
+      "level": "unspecified",
+      "programName": "Master of Strategic Communication；Master of Science Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "sfu-undergraduate-bfa-film": {
+      "programId": "sfu-undergraduate-bfa-film",
+      "schoolId": "sfu",
+      "schoolCn": "西蒙菲莎大学",
+      "level": "undergraduate",
+      "programName": "BFA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "西蒙菲莎大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "sfu-graduate-mfa-interdisciplinary-arts-film-moving-image-practice": {
+      "programId": "sfu-graduate-mfa-interdisciplinary-arts-film-moving-image-practice",
+      "schoolId": "sfu",
+      "schoolCn": "西蒙菲莎大学",
+      "level": "graduate",
+      "programName": "MFA Interdisciplinary Arts — Film / Moving Image practice",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "西蒙菲莎大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "goldsmiths-un-6039eb6b": {
+      "programId": "goldsmiths-un-6039eb6b",
+      "schoolId": "goldsmiths",
+      "schoolCn": "金史密斯学院",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Media & Communications",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "金史密斯学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "goldsmiths-gr-a6d259be": {
+      "programId": "goldsmiths-gr-a6d259be",
+      "schoolId": "goldsmiths",
+      "schoolCn": "金史密斯学院",
+      "level": "graduate",
+      "programName": "MA/MFA Experimental Film & Documentary",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "金史密斯学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "goldsmiths-gr-6625f7d9": {
+      "programId": "goldsmiths-gr-6625f7d9",
+      "schoolId": "goldsmiths",
+      "schoolCn": "金史密斯学院",
+      "level": "graduate",
+      "programName": "MA/MFA Filmmaking（Directing / Cinematography / Producing / Editing / Sound 等路径）",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "金史密斯学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "kingston-un-8e5d9a34": {
+      "programId": "kingston-un-8e5d9a34",
+      "schoolId": "kingston",
+      "schoolCn": "金斯顿大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "金斯顿大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "kingston-gr-4ad763dd": {
+      "programId": "kingston-gr-4ad763dd",
+      "schoolId": "kingston",
+      "schoolCn": "金斯顿大学",
+      "level": "graduate",
+      "programName": "MA Experimental Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "金斯顿大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "kingston-gr-be514ded": {
+      "programId": "kingston-gr-be514ded",
+      "schoolId": "kingston",
+      "schoolCn": "金斯顿大学",
+      "level": "graduate",
+      "programName": "MA Film Making",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "金斯顿大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "kca-overview": {
+      "programId": "kca-overview",
+      "schoolId": "kca",
+      "schoolCn": "金泽美术工艺大学",
+      "level": "unspecified",
+      "programName": "修士：绘画专攻（影像方向）；本科：设计科 综合设计专业（含影像/摄影延展）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "nid-overview": {
+      "programId": "nid-overview",
+      "schoolId": "nid",
+      "schoolCn": "长冈造形大学",
+      "level": "unspecified",
+      "programName": "本科：造形学部 设计学科（写真领域）",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "adelaide-overview": {
+      "programId": "adelaide-overview",
+      "schoolId": "adelaide",
+      "schoolCn": "阿德莱德大学",
+      "level": "unspecified",
+      "programName": "Master of Immersive Media Technologies",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "howard-overview": {
+      "programId": "howard-overview",
+      "schoolId": "howard",
+      "schoolCn": "霍华德大学",
+      "level": "graduate",
+      "programName": "MFA Film",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "kafa-pr-2afcb3c8": {
+      "programId": "kafa-pr-2afcb3c8",
+      "schoolId": "kafa",
+      "schoolCn": "韩国电影艺术学院",
+      "level": "professional",
+      "programName": "KAFA Feature Film Program",
+      "matchStatus": "program-details",
+      "matchScore": null,
+      "requirement": {
+        "name": "KAFA Feature Film Program",
+        "degree": "Advanced professional non-degree program",
+        "audience": "KAFA Regular Program 毕业生或具备短片导演经历者",
+        "deadline": "以 KAFA 当年公告为准。",
+        "academics": "官方说明该项目面向 Regular Program 毕业生或已有短片导演经验者；教育背景、年龄和国籍限制以当年项目公告为准。",
+        "portfolio": [
+          "以长片开发与制作能力为核心，通常需要既有导演／制作作品和成熟项目基础。",
+          "不适合作为普通本科毕业生无作品直申的“研究生替代项目”。"
+        ],
+        "caution": "这是进阶长片项目，不应与 Regular Program 或大学学位混为一谈。",
+        "status": "官方项目核实",
+        "links": [
+          "https://www.kafa.ac/en/edu-process/formal/introduce.do",
+          "https://www.kafa.ac/en/edu-process/formal/director.do",
+          "https://www.kafa.ac/en/edu-process/formal/film.do",
+          "https://www.kafa.ac/en/edu-process/feature/introduce.do"
+        ]
+      }
+    },
+    "kafa-pr-aecd8ad6": {
+      "programId": "kafa-pr-aecd8ad6",
+      "schoolId": "kafa",
+      "schoolCn": "韩国电影艺术学院",
+      "level": "professional",
+      "programName": "KAFA Regular Program — Directing / Cinematography / Producing / Sound",
+      "matchStatus": "program-details",
+      "matchScore": null,
+      "requirement": {
+        "name": "KAFA Regular Program — Directing / Cinematography / Producing / Sound",
+        "degree": "Professional non-degree film training",
+        "audience": "已有创作基础的电影申请者",
+        "deadline": "招生时间与专业开放情况以 KAFA 当年 Admissions 公告为准。",
+        "academics": "KAFA 是韩国电影振兴委员会体系内的专业电影学院，不是传统本科或硕士学位项目。Regular Program 按导演、摄影、制片、声音等电影工种训练。",
+        "portfolio": [
+          "通常应准备与申请工种直接相关的作品、项目经历、个人职责和创作／职业计划。",
+          "导演方向重点证明叙事、调度和整体创作判断；摄影方向重点证明视觉化剧本和现场摄影能力；制片方向重点证明项目开发、组织和产业判断；声音方向重点证明录音与声音叙事能力。",
+          "确切作品件数、笔试、面试和资格限制必须以当年韩文 Admissions 公告为准。"
+        ],
+        "caution": "不能把 KAFA 写成 MFA，也不能把 Feature Film Program 当作面向所有零基础申请者的普通研究生项目。",
+        "status": "职业项目性质已核实 / 招生细则按年度公告",
+        "links": [
+          "https://www.kafa.ac/en/edu-process/formal/introduce.do",
+          "https://www.kafa.ac/en/edu-process/formal/director.do",
+          "https://www.kafa.ac/en/edu-process/formal/film.do",
+          "https://www.kafa.ac/en/edu-process/feature/introduce.do"
+        ]
+      }
+    },
+    "k-arts-undergraduate-school-of-film-tv-multimedia-broadcasting-cinema": {
+      "programId": "k-arts-undergraduate-school-of-film-tv-multimedia-broadcasting-cinema",
+      "schoolId": "k-arts",
+      "schoolCn": "韩国艺术综合大学",
+      "level": "undergraduate",
+      "programName": "School of Film, TV & Multimedia — Broadcasting / Cinema Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "韩国艺术综合大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "k-arts-undergraduate-school-of-film-tv-multimedia-filmmaking": {
+      "programId": "k-arts-undergraduate-school-of-film-tv-multimedia-filmmaking",
+      "schoolId": "k-arts",
+      "schoolCn": "韩国艺术综合大学",
+      "level": "undergraduate",
+      "programName": "School of Film, TV & Multimedia — Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "韩国艺术综合大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "k-arts-graduate-school-of-film-tv-multimedia-graduate-filmmaking": {
+      "programId": "k-arts-graduate-school-of-film-tv-multimedia-graduate-filmmaking",
+      "schoolId": "k-arts",
+      "schoolCn": "韩国艺术综合大学",
+      "level": "graduate",
+      "programName": "School of Film, TV & Multimedia — Graduate Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "韩国艺术综合大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "cuhk-un-6a3ad9e4": {
+      "programId": "cuhk-un-6a3ad9e4",
+      "schoolId": "cuhk",
+      "schoolCn": "香港中文大学",
+      "level": "undergraduate",
+      "programName": "BSSc Journalism and Communication",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港中文大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "cuhk-gr-be45e540": {
+      "programId": "cuhk-gr-be45e540",
+      "schoolId": "cuhk",
+      "schoolCn": "香港中文大学",
+      "level": "graduate",
+      "programName": "MA in Journalism",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港中文大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "cityu-un-bd5586ff": {
+      "programId": "cityu-un-bd5586ff",
+      "schoolId": "cityu",
+      "schoolCn": "香港城市大学",
+      "level": "undergraduate",
+      "programName": "School of Creative Media Undergraduate Programmes",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港城市大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "cityu-gr-9a84b15b": {
+      "programId": "cityu-gr-9a84b15b",
+      "schoolId": "cityu",
+      "schoolCn": "香港城市大学",
+      "level": "graduate",
+      "programName": "MA in Creative Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港城市大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "cityu-gr-eebe9838": {
+      "programId": "cityu-gr-eebe9838",
+      "schoolId": "cityu",
+      "schoolCn": "香港城市大学",
+      "level": "graduate",
+      "programName": "MFA in Creative Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港城市大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "hku-overview": {
+      "programId": "hku-overview",
+      "schoolId": "hku",
+      "schoolCn": "香港大学",
+      "level": "graduate",
+      "programName": "Master of Journalism - Documentary Filmmaking Specialisation；MA in AI, Ethics and Society；Master of Journalism；MSS in Media, Culture and Creative Cities",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "hsu-overview": {
+      "programId": "hsu-overview",
+      "schoolId": "hsu",
+      "schoolCn": "香港恒生大学",
+      "level": "graduate",
+      "programName": "MA in Strategic Communication；MA in Entertainment Media Management and Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "eduhk-overview": {
+      "programId": "eduhk-overview",
+      "schoolId": "eduhk",
+      "schoolCn": "香港教育大学",
+      "level": "graduate",
+      "programName": "MA in New Media and Social Media",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "hkbu-un-53371e98": {
+      "programId": "hkbu-un-53371e98",
+      "schoolId": "hkbu",
+      "schoolCn": "香港浸会大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港浸会大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "hkbu-gr-9d52d652": {
+      "programId": "hkbu-gr-9d52d652",
+      "schoolId": "hkbu",
+      "schoolCn": "香港浸会大学",
+      "level": "graduate",
+      "programName": "MA Producing for Film, Television and New Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港浸会大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "hkbu-gr-2901cb49": {
+      "programId": "hkbu-gr-2901cb49",
+      "schoolId": "hkbu",
+      "schoolCn": "香港浸会大学",
+      "level": "graduate",
+      "programName": "MFA Cinematic Arts and Creative Practice",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港浸会大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "hkapa-un-59feaa44": {
+      "programId": "hkapa-un-59feaa44",
+      "schoolId": "hkapa",
+      "schoolCn": "香港演艺学院",
+      "level": "undergraduate",
+      "programName": "BFA (Hons) Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港演艺学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "hkapa-gr-4dcd64c0": {
+      "programId": "hkapa-gr-4dcd64c0",
+      "schoolId": "hkapa",
+      "schoolCn": "香港演艺学院",
+      "level": "graduate",
+      "programName": "MFA Cinema Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港演艺学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "chu-hai-overview": {
+      "programId": "chu-hai-overview",
+      "schoolId": "chu-hai",
+      "schoolCn": "香港珠海学院",
+      "level": "graduate",
+      "programName": "MA in Arts Tech and Digital Communication；MA in Global Communication",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "polyu-overview": {
+      "programId": "polyu-overview",
+      "schoolId": "polyu",
+      "schoolCn": "香港理工大学",
+      "level": "graduate",
+      "programName": "MA in Bilingual Corporate Communication；MSc in Innovative Multimedia Entertainment",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "hkust-overview": {
+      "programId": "hkust-overview",
+      "schoolId": "hkust",
+      "schoolCn": "香港科技大学",
+      "level": "graduate",
+      "programName": "MA Arts and Machine Creativity",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "hkmu-overview": {
+      "programId": "hkmu-overview",
+      "schoolId": "hkmu",
+      "schoolCn": "香港都会大学",
+      "level": "graduate",
+      "programName": "MA in Creative Industries and Cultural Assets",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "mica-overview": {
+      "programId": "mica-overview",
+      "schoolId": "mica",
+      "schoolCn": "马里兰艺术学院",
+      "level": "graduate",
+      "programName": "MFA in Filmmaking",
+      "matchStatus": "unavailable",
+      "matchScore": null,
+      "requirement": {}
+    },
+    "uncsa-bfa-filmmaking": {
+      "programId": "uncsa-bfa-filmmaking",
+      "schoolId": "uncsa",
+      "schoolCn": "北卡罗来纳艺术学院",
+      "level": "undergraduate",
+      "programName": "BFA Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "北卡罗来纳艺术学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "uncsa-mfa-creative-producing": {
+      "programId": "uncsa-mfa-creative-producing",
+      "schoolId": "uncsa",
+      "schoolCn": "北卡罗来纳艺术学院",
+      "level": "graduate",
+      "programName": "MFA Creative Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "北卡罗来纳艺术学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "uncsa-mfa-screenwriting": {
+      "programId": "uncsa-mfa-screenwriting",
+      "schoolId": "uncsa",
+      "schoolCn": "北卡罗来纳艺术学院",
+      "level": "graduate",
+      "programName": "MFA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "北卡罗来纳艺术学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "feirstein-4010ec5cc6": {
+      "programId": "feirstein-4010ec5cc6",
+      "schoolId": "feirstein",
+      "schoolCn": "布鲁克林学院费尔斯坦电影研究生院",
+      "level": "graduate",
+      "programName": "MFA Cinema Arts — Live Action Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "布鲁克林学院费尔斯坦电影研究生院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "feirstein-2b2859f0b1": {
+      "programId": "feirstein-2b2859f0b1",
+      "schoolId": "feirstein",
+      "schoolCn": "布鲁克林学院费尔斯坦电影研究生院",
+      "level": "graduate",
+      "programName": "MA Screen Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "布鲁克林学院费尔斯坦电影研究生院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "depaul-un-e6735985": {
+      "programId": "depaul-un-e6735985",
+      "schoolId": "depaul",
+      "schoolCn": "德保罗大学",
+      "level": "undergraduate",
+      "programName": "BFA Film & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德保罗大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "depaul-un-78afc885": {
+      "programId": "depaul-un-78afc885",
+      "schoolId": "depaul",
+      "schoolCn": "德保罗大学",
+      "level": "undergraduate",
+      "programName": "BA Film & Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德保罗大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "depaul-gr-ad65a377": {
+      "programId": "depaul-gr-ad65a377",
+      "schoolId": "depaul",
+      "schoolCn": "德保罗大学",
+      "level": "graduate",
+      "programName": "MFA Film & Television — Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德保罗大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "depaul-gr-ea222ed0": {
+      "programId": "depaul-gr-ea222ed0",
+      "schoolId": "depaul",
+      "schoolCn": "德保罗大学",
+      "level": "graduate",
+      "programName": "MFA Creative Producing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "德保罗大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "sva-un-6807a501": {
+      "programId": "sva-un-6807a501",
+      "schoolId": "sva",
+      "schoolCn": "纽约视觉艺术学院",
+      "level": "undergraduate",
+      "programName": "BFA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约视觉艺术学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "sva-gr-e49ec464": {
+      "programId": "sva-gr-e49ec464",
+      "schoolId": "sva",
+      "schoolCn": "纽约视觉艺术学院",
+      "level": "graduate",
+      "programName": "MFA Social Documentary Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约视觉艺术学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "sfsu-un-51581f26": {
+      "programId": "sfsu-un-51581f26",
+      "schoolId": "sfsu",
+      "schoolCn": "旧金山州立大学",
+      "level": "undergraduate",
+      "programName": "BA Cinema",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "旧金山州立大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "sfsu-gr-64cc5d53": {
+      "programId": "sfsu-gr-64cc5d53",
+      "schoolId": "sfsu",
+      "schoolCn": "旧金山州立大学",
+      "level": "graduate",
+      "programName": "MFA Cinema",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "旧金山州立大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "sfsu-gr-88fe9f13": {
+      "programId": "sfsu-gr-88fe9f13",
+      "schoolId": "sfsu",
+      "schoolCn": "旧金山州立大学",
+      "level": "graduate",
+      "programName": "MA Cinema and Media Studies",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "旧金山州立大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "syracuse-un-d89fb8a4": {
+      "programId": "syracuse-un-d89fb8a4",
+      "schoolId": "syracuse",
+      "schoolCn": "雪城大学",
+      "level": "undergraduate",
+      "programName": "BFA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "雪城大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "syracuse-gr-91f64580": {
+      "programId": "syracuse-gr-91f64580",
+      "schoolId": "syracuse",
+      "schoolCn": "雪城大学",
+      "level": "graduate",
+      "programName": "MFA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "雪城大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "ccc-un-e8c79907": {
+      "programId": "ccc-un-e8c79907",
+      "schoolId": "ccc",
+      "schoolCn": "芝加哥哥伦比亚学院",
+      "level": "undergraduate",
+      "programName": "BA / BFA Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "芝加哥哥伦比亚学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "ccc-gr-985d0d66": {
+      "programId": "ccc-gr-985d0d66",
+      "schoolId": "ccc",
+      "schoolCn": "芝加哥哥伦比亚学院",
+      "level": "graduate",
+      "programName": "MFA Film and Television Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "芝加哥哥伦比亚学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "ccc-gr-1b13d91e": {
+      "programId": "ccc-gr-1b13d91e",
+      "schoolId": "ccc",
+      "schoolCn": "芝加哥哥伦比亚学院",
+      "level": "graduate",
+      "programName": "MA Screenwriting and Development",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "芝加哥哥伦比亚学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "nyfa-un-7bd7c4e8": {
+      "programId": "nyfa-un-7bd7c4e8",
+      "schoolId": "nyfa",
+      "schoolCn": "纽约电影学院",
+      "level": "undergraduate",
+      "programName": "BFA Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约电影学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "nyfa-gr-2335684b": {
+      "programId": "nyfa-gr-2335684b",
+      "schoolId": "nyfa",
+      "schoolCn": "纽约电影学院",
+      "level": "graduate",
+      "programName": "MFA Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "纽约电影学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "uca-un-403d9b05": {
+      "programId": "uca-un-403d9b05",
+      "schoolId": "uca",
+      "schoolCn": "创意艺术大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "创意艺术大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "uca-un-c3f62023": {
+      "programId": "uca-un-c3f62023",
+      "schoolId": "uca",
+      "schoolCn": "创意艺术大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Television Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "创意艺术大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    },
+    "uca-gr-e45bb8b6": {
+      "programId": "uca-gr-e45bb8b6",
+      "schoolId": "uca",
+      "schoolCn": "创意艺术大学",
+      "level": "graduate",
+      "programName": "MA Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "创意艺术大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "eca-un-cb08e979": {
+      "programId": "eca-un-cb08e979",
+      "schoolId": "eca",
+      "schoolCn": "爱丁堡艺术学院",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Film and Television",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡艺术学院",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "eca-gr-82e6466e": {
+      "programId": "eca-gr-82e6466e",
+      "schoolId": "eca",
+      "schoolCn": "爱丁堡艺术学院",
+      "level": "graduate",
+      "programName": "MA Film Directing",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡艺术学院",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "eca-gr-26c397e1": {
+      "programId": "eca-gr-26c397e1",
+      "schoolId": "eca",
+      "schoolCn": "爱丁堡艺术学院",
+      "level": "graduate",
+      "programName": "MFA Film Art",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡艺术学院",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "kua-un-c3fbffc3": {
+      "programId": "kua-un-c3fbffc3",
+      "schoolId": "kua",
+      "schoolCn": "京都艺术大学",
+      "level": "undergraduate",
+      "programName": "映画学科 — 映画製作コース",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "京都艺术大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "kua-gr-982e7408": {
+      "programId": "kua-gr-982e7408",
+      "schoolId": "kua",
+      "schoolCn": "京都艺术大学",
+      "level": "graduate",
+      "programName": "大学院 芸術環境専攻 — 映像・映画相关研究／创作",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "京都艺术大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "rikkyo-un-5c50dcad": {
+      "programId": "rikkyo-un-5c50dcad",
+      "schoolId": "rikkyo",
+      "schoolCn": "立教大学",
+      "level": "undergraduate",
+      "programName": "現代心理学部 映像身体学科",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "立教大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "rikkyo-gr-ba6691ca": {
+      "programId": "rikkyo-gr-ba6691ca",
+      "schoolId": "rikkyo",
+      "schoolCn": "立教大学",
+      "level": "graduate",
+      "programName": "現代心理学研究科 映像身体学専攻",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "立教大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "dongseo-un-bcea1c0c": {
+      "programId": "dongseo-un-bcea1c0c",
+      "schoolId": "dongseo",
+      "schoolCn": "东西大学",
+      "level": "undergraduate",
+      "programName": "Film and Visual Effects — Film Track",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东西大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "dongseo-gr-8f5a1523": {
+      "programId": "dongseo-gr-8f5a1523",
+      "schoolId": "dongseo",
+      "schoolCn": "东西大学",
+      "level": "graduate",
+      "programName": "MA / MFA Visual Contents — Film Track",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "东西大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "khu-un-9809479f": {
+      "programId": "khu-un-9809479f",
+      "schoolId": "khu",
+      "schoolCn": "庆熙大学",
+      "level": "undergraduate",
+      "programName": "Department of Theater and Film — Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "庆熙大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "khu-gr-36008a9d": {
+      "programId": "khu-gr-36008a9d",
+      "schoolId": "khu",
+      "schoolCn": "庆熙大学",
+      "level": "graduate",
+      "programName": "Graduate Department of Theater and Film — Film / Video Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "庆熙大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "american-u-un-d2801709": {
+      "programId": "american-u-un-d2801709",
+      "schoolId": "american-u",
+      "schoolCn": "美国大学",
+      "level": "undergraduate",
+      "programName": "BA Film and Media Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国大学",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "american-u-gr-b78806c0": {
+      "programId": "american-u-gr-b78806c0",
+      "schoolId": "american-u",
+      "schoolCn": "美国大学",
+      "level": "graduate",
+      "programName": "MA Film & Media Production",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "american-u-gr-4788a97c": {
+      "programId": "american-u-gr-4788a97c",
+      "schoolId": "american-u",
+      "schoolCn": "美国大学",
+      "level": "graduate",
+      "programName": "MFA Film & Media Arts",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "美国大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "csun-un-3270e439": {
+      "programId": "csun-un-3270e439",
+      "schoolId": "csun",
+      "schoolCn": "加州州立大学北岭分校",
+      "level": "undergraduate",
+      "programName": "BA Cinema and Television Arts — Film Production Option",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "加州州立大学北岭分校",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "csun-un-e1aa9582": {
+      "programId": "csun-un-e1aa9582",
+      "schoolId": "csun",
+      "schoolCn": "加州州立大学北岭分校",
+      "level": "undergraduate",
+      "programName": "BA Cinema and Television Arts — Screenwriting Option",
+      "matchStatus": "detailed-fuzzy",
+      "matchScore": 0.804,
+      "requirementRef": {
+        "schoolCn": "加州州立大学北岭分校",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "csun-un-8c880e0e": {
+      "programId": "csun-un-8c880e0e",
+      "schoolId": "csun",
+      "schoolCn": "加州州立大学北岭分校",
+      "level": "undergraduate",
+      "programName": "BA Cinema and Television Arts — Television Production Option",
+      "matchStatus": "detailed-fuzzy",
+      "matchScore": 0.891,
+      "requirementRef": {
+        "schoolCn": "加州州立大学北岭分校",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "csun-un-c6751f05": {
+      "programId": "csun-un-c6751f05",
+      "schoolId": "csun",
+      "schoolCn": "加州州立大学北岭分校",
+      "level": "undergraduate",
+      "programName": "BA Cinema and Television Arts — Media Theory and Criticism Option",
+      "matchStatus": "detailed-fuzzy",
+      "matchScore": 0.73,
+      "requirementRef": {
+        "schoolCn": "加州州立大学北岭分校",
+        "level": "undergraduate",
+        "index": 0
+      }
+    },
+    "edinburgh-napier-gr-50551a6c": {
+      "programId": "edinburgh-napier-gr-50551a6c",
+      "schoolId": "edinburgh-napier",
+      "schoolCn": "爱丁堡龙比亚大学",
+      "level": "graduate",
+      "programName": "MA Film",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡龙比亚大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "edinburgh-napier-gr-caa8f609": {
+      "programId": "edinburgh-napier-gr-caa8f609",
+      "schoolId": "edinburgh-napier",
+      "schoolCn": "爱丁堡龙比亚大学",
+      "level": "graduate",
+      "programName": "MA Screenwriting",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡龙比亚大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "edinburgh-napier-gr-d1af27e3": {
+      "programId": "edinburgh-napier-gr-d1af27e3",
+      "schoolId": "edinburgh-napier",
+      "schoolCn": "爱丁堡龙比亚大学",
+      "level": "graduate",
+      "programName": "MA Creative Documentary Filmmaking",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "爱丁堡龙比亚大学",
+        "level": "graduate",
+        "index": 2
+      }
+    },
+    "hku-gr-0afae6c1": {
+      "programId": "hku-gr-0afae6c1",
+      "schoolId": "hku",
+      "schoolCn": "香港大学",
+      "level": "graduate",
+      "programName": "Master of Journalism — Documentary Filmmaking Specialisation",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港大学",
+        "level": "graduate",
+        "index": 0
+      }
+    },
+    "hku-gr-f53a6f01": {
+      "programId": "hku-gr-f53a6f01",
+      "schoolId": "hku",
+      "schoolCn": "香港大学",
+      "level": "graduate",
+      "programName": "MA Creative Artificial Intelligence Film & Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港大学",
+        "level": "graduate",
+        "index": 1
+      }
+    },
+    "hkbu-un-503ec4db": {
+      "programId": "hkbu-un-503ec4db",
+      "schoolId": "hkbu",
+      "schoolCn": "香港浸会大学",
+      "level": "undergraduate",
+      "programName": "BA (Hons) Creative Writing for Film, Television and New Media",
+      "matchStatus": "detailed-exact",
+      "matchScore": 1.0,
+      "requirementRef": {
+        "schoolCn": "香港浸会大学",
+        "level": "undergraduate",
+        "index": 1
+      }
+    }
+  }
+}

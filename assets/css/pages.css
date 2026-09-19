@@ -489,6 +489,83 @@
   .jobs-view__list .job-dir-list { max-height: 40vh; }
 }
 
+/* 院校库「展开列表」——只在 #page-schools 范围内生效，不影响岗位库共用的
+   .jobs-view/.jobs-view__detail 基础样式。点按钮把右侧常驻详情临时藏起来、
+   左侧列表占满整行；再点一下收回来变回二分栏，选中的院校详情还在，不用
+   重新点。宽屏下用列宽变化 + 详情淡出做一点基础动效；窄屏本来就是列表在
+   上、详情在下的单列布局，只用淡出即可，不去动列宽（避免跟移动端单列
+   布局打架）。 */
+@media (min-width: 901px) {
+  #page-schools .jobs-view { transition: grid-template-columns .3s var(--ease-out); }
+  #page-schools .jobs-view.is-list-expanded { grid-template-columns: 1fr 0px; }
+}
+/* 详情面板的滑入滑出借用站内 .sidebar 抽屉同一套写法（transform: translateX
+   + transition，见 components.css .sidebar/.sidebar.is-open），不是新发明
+   一套动效；收起时往右滑出并淡出，跟网格列宽收缩同时发生，视觉上像面板
+   被推出去了，展开时反过来滑回来。 */
+#page-schools .jobs-view__detail {
+  min-width: 0; overflow: hidden;
+  transition: transform var(--transition-med), opacity var(--transition-med);
+}
+#page-schools .jobs-view.is-list-expanded .jobs-view__detail {
+  transform: translateX(28px); opacity: 0; pointer-events: none;
+}
+
+/* 「视图」小标题 + 展开/收起按钮视觉上在同一行：标题左对齐、随内容正常
+   滚动（不 sticky、不悬浮）；按钮右对齐、自己单独 sticky（见下）。
+   两者是 .jobs-view__list 的直接子元素（没有再套一层 wrapper div）——
+   position:sticky 元素不能滚出「最近块级祖先」的盒子范围，而 .jobs-view__list
+   本身就是那个又高又会 sticky 的祖先（见下方按钮注释）；如果外面再包一层
+   只有一行高的 flex/grid 容器，按钮的可粘范围就会被那层矮容器困死，滚动
+   两下就会跟着容器一起划走（试过，会复现）。所以这里改用经典的
+   float 布局让两者同排，不引入新的包裹元素；search 输入框上加
+   clear:both 收掉浮动。 */
+.schools-list-toolbar__title {
+  float: left; line-height: 37px;
+  font-size: var(--text-sm); font-weight: 700; color: var(--color-text);
+}
+#schools-search-input { clear: both; }
+
+/* 展开/收起按钮——改成短的圆角小按钮（不是通栏长按钮），sticky 悬浮在
+   列表列顶部靠右：用户往下翻列表找院校时按钮始终跟着可见，不用划回顶部
+   才能收起。桌面端列表列本身也是 sticky（.jobs-view__list，见上方说明），
+   这里按钮自己也带一份 sticky，窄屏（.jobs-view__list 在 900px 以下变回
+   position:static）时同样能贴住视口顶部。
+   视觉上刻意不是"常态纯色、hover 才发光"（那样跟站内其它 CTA 药丸按钮
+   完全一样，滚动时不容易被注意到）：改成常态就带一圈用 filter:
+   drop-shadow 做的柔光，并配合缓慢的呼吸动效（复用 style.css 里
+   glowPulse 同一手法：站内已经用它做「LIVE」指示点的常亮呼吸），
+   叠加 --shadow-pop 做底部投影撑起"悬浮"的立体感；hover 时呼吸暂停、
+   光晕直接顶到最亮 + 上浮，给出明确的可点击反馈。
+   用 #page-schools 加权，避免被后加载的 film.css 里 .pl-btn--primary
+   覆盖。尊重 prefers-reduced-motion，减弱动效时退化为常亮柔光。 */
+.schools-list-toggle { position: sticky; top: calc(var(--navbar-h) + var(--space-3)); z-index: 5; float: right; }
+#page-schools .schools-list-toggle {
+  display: flex; align-items: center; gap: 5px;
+  width: fit-content; margin: 0 0 var(--space-3) 0;
+  background: var(--color-primary); border-color: var(--color-primary); color: #fff;
+  box-shadow: var(--shadow-pop);
+  filter: drop-shadow(0 0 9px rgba(152,50,105,.55));
+  transition: transform var(--transition-fast), filter var(--transition-fast), background var(--transition-fast);
+  animation: schoolsToggleGlow 2.6s ease-in-out infinite;
+}
+#page-schools .schools-list-toggle:hover {
+  background: var(--color-primary-deep); border-color: var(--color-primary-deep); color: #fff;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 20px rgba(152,50,105,.9));
+  animation-play-state: paused;
+}
+@keyframes schoolsToggleGlow {
+  0%, 100% { filter: drop-shadow(0 0 9px rgba(152,50,105,.5)); }
+  50%      { filter: drop-shadow(0 0 17px rgba(152,50,105,.8)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #page-schools .schools-list-toggle { animation: none; filter: drop-shadow(0 0 12px rgba(152,50,105,.6)); }
+}
+.schools-list-toggle__arrow { font-size: 1.15em; font-weight: 700; line-height: 1; display: inline-block; transition: transform .2s var(--ease-out); }
+#page-schools .jobs-view:not(.is-list-expanded) .schools-list-toggle:hover .schools-list-toggle__arrow { transform: translateX(3px); }
+#page-schools .jobs-view.is-list-expanded .schools-list-toggle:hover .schools-list-toggle__arrow { transform: translateX(-3px); }
+
 /* 职业规划：三个下拉选择器统一为站内视觉语言的自定义样式（去浏览器默认外观 + 自绘箭头） */
 .cp-select-wrap { position: relative; }
 .cp-select-wrap::after {
@@ -914,6 +991,187 @@
 .job-dir-list__pick:hover { border-color: var(--color-primary-bright); color: var(--color-primary-bright); }
 .job-dir-list__pick.is-picked { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
 
+/* ── 院校库（School Library）── */
+/* 这里之前自带 border-top，跟紧挨在它上面的 <hr class="section-divider">
+   （已经是 48px 上下 margin 的分隔线）重复，两条线中间夹出一大块空白——
+   不是缺内容，是同一个「分隔」功能做了两遍。去掉这里自己的顶部边框和
+   顶部内边距，只留 <hr> 这一条分隔线（跟 .thesis-stats 等其它「标题+分隔线
+   +数据」区块的写法一致，那些也都不在数据块自己再加一条线）。 */
+.schools-kpi {
+  display: flex; flex-wrap: wrap; gap: var(--space-6);
+  padding: 0 0 var(--space-6);
+}
+.schools-kpi__item { min-width: 96px; }
+.schools-kpi__num {
+  font-family: var(--font-mono); font-size: clamp(24px, 2.6vw, 34px); font-weight: 600;
+  color: var(--color-primary-bright); line-height: 1;
+}
+.schools-kpi__label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+
+/* .filter-bar__label 是站内通用的筛选栏小标签（很多页面在用，字号很小、
+   颜色很淡），院校库这边字段多（地区/产业方向/排序三条筛选栏堆在一起），
+   标题层级需要更明显一些方便扫视，所以只在 #page-schools 范围内单独
+   加粗放大，不改其它页面的筛选栏。案例展示页同样是两条筛选栏堆叠
+   （层次/国家），沿用同一套加粗规则。 */
+#page-schools .filter-bar__label,
+#page-portfolio .filter-bar__label {
+  font-size: var(--text-sm); font-weight: 700; color: var(--color-text);
+  margin-right: var(--space-2);
+}
+
+/* 筛选按钮改成参考图里那种圆角卡片 + 描边高亮，不是站内默认 .filter-btn
+   的药丸形 + 选中态纯色填充；只在 #page-schools 范围内覆盖，不影响
+   .filter-btn 在其它页面（岗位库/我的规划/案例展示等）的默认外观。
+   选中态在深色底下用「描边加粗 + 淡色底」而不是参考图那种纯白底描边，
+   保持可读对比度；:not(.filter-btn--special) 是为了不吃掉下面「仅看
+   AI/仅看斯芬克」那两个金色专项开关自己的选中态配色。 */
+#page-schools .filter-btn {
+  padding: 10px 18px;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  border-width: 1.5px;
+}
+#page-schools .filter-btn.is-active:not(.filter-btn--special) {
+  background: var(--color-primary-veil); color: var(--color-primary-bright);
+  border-color: var(--color-primary-bright); border-width: 2px;
+  font-weight: 700; box-shadow: none;
+}
+
+.school-dir-list__item {
+  padding: 10px 12px; border-bottom: 1px solid var(--color-border);
+  border-left: 3px solid transparent;
+  cursor: pointer; transition: all var(--transition-fast);
+}
+.school-dir-list__item:nth-child(even) { background: var(--color-surface-2); }
+.school-dir-list__item:last-child { border-bottom: none; }
+.school-dir-list__item:hover { color: var(--color-primary-bright); border-left-color: var(--color-border-2); }
+.school-dir-list__item.is-active { color: var(--color-primary-bright); font-weight: 700; border-left-color: var(--color-primary-bright); background: var(--color-primary-veil); }
+.school-dir-list__name { font-size: var(--text-sm); display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+
+/* 展开列表时用的卡片网格版本（.school-card-grid/.school-card）——沿用
+   之前做过、后来因为改回二分栏而下线的卡片设计，现在只在「展开」态下
+   复用：数据和点击行为（selectSchool）跟 .school-dir-list__item 完全一样，
+   只是网格卡片一屏能看更多院校，配得上展开后多出来的宽度。跟同样叫
+   school-grid* 的产业全景「推荐申请院校」小卡片（.school-grid-card）是
+   两套不相关的东西，命名上特意不共用避免混淆。 */
+.school-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+.school-card {
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  padding: var(--space-4); cursor: pointer; transition: border-color var(--transition-fast), transform var(--transition-fast);
+  display: flex; flex-direction: column; min-width: 0;
+}
+.school-card:hover { border-color: var(--color-primary-bright); transform: translateY(-2px); }
+.school-card.is-active { border-color: var(--color-primary-bright); background: var(--color-primary-veil); }
+.school-card__eyebrow { font-size: 11px; color: var(--color-text-muted); margin-bottom: var(--space-1); }
+.school-card__name { font-size: var(--text-sm); font-weight: 700; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.school-card__name-en { font-size: 10px; color: var(--color-text-faint); font-family: var(--font-en); font-weight: 400; }
+.school-card__badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: var(--space-2); }
+.school-card__blurb {
+  font-size: var(--text-xs); color: var(--color-text-secondary); line-height: 1.6; margin: var(--space-2) 0 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.school-card__hint { font-size: 10px; color: var(--color-primary-bright); margin-top: var(--space-3); }
+.school-dir-list__name-en { font-size: 10px; color: var(--color-text-faint); font-family: var(--font-en); font-weight: 400; }
+.school-dir-list__badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.school-dir-list__flag { font-size: 12px; }
+.school-dir-list__chip {
+  font-size: 10px; padding: 1px 7px; border-radius: var(--radius-sm);
+  background: var(--color-surface-2); color: var(--color-text-muted); border: 1px solid var(--color-border);
+  font-family: var(--font-en);
+}
+.school-dir-list__chip--ai { background: rgba(124,39,85,.10); color: var(--color-primary-bright); border-color: rgba(124,39,85,.28); }
+.school-dir-list__chip--sfk { background: var(--color-accent-veil); color: var(--color-accent-deep); border-color: rgba(184,137,31,.38); }
+
+/* 详情卡（#schools-detail，即 .jobs-view__detail）自身四周有 padding，
+   之前头部用内联 style 把 padding 压成 0，装饰性渐变+网格背景
+   （.sidebar__header::before）只贴着头部内容本身，跟卡片真正的圆角边缘
+   之间还留一圈外层 padding 的空白。这里改用负外边距把头部撑到卡片边缘，
+   配合圆角衔接卡片自身的圆角，背景才能真正铺满到卡片角上。 */
+.schools-hero-header {
+  padding: var(--space-8) var(--space-6) var(--space-5);
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-4);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 院校库主内容区宽度对齐案例展示页：.jobs-view 是岗位库页面（#jobs-role-list
+   / #jobs-role-detail）共用的基础类，不能直接改，这里只在 #page-schools 范围
+   内把左右内边距从 var(--space-9)=80px 降到跟案例展示页 .timeline-section
+   一样的 40px，两栏加起来的宽度就跟案例展示页对齐了；左侧列表+右侧常驻
+   详情的两栏交互本身不变。 */
+#page-schools .jobs-view { padding-left: 40px; padding-right: 40px; }
+
+/* 「仅看 AI 核心院校 / 仅看有斯芬克录取数据」这两个不是分类筛选，是数据
+   来源开关，单独放最后一行、一条虚线分隔，配色也换成金琥珀调
+   （--color-accent 系），跟前面地区/产业方向/排序的品红 active 态区分开。 */
+#schools-toggle-filter {
+  margin-top: var(--space-4); padding-top: var(--space-4);
+  border-top: 1px dashed var(--color-border-2);
+}
+.filter-btn--special { border-color: rgba(184,137,31,.38); color: var(--color-accent-deep); }
+.filter-btn--special:hover { background: var(--color-accent-veil); border-color: var(--color-accent); color: var(--color-accent-deep); }
+.filter-btn--special.is-active {
+  background: var(--color-accent-veil); color: var(--color-accent-deep);
+  border-color: var(--color-accent); font-weight: 700; box-shadow: none;
+}
+
+/* 院校详情顶部：校名+官网同一行右对齐；下面一行是三个平级按钮——
+   查看申请要求/查看录取案例分一组左对齐，查看历年录取数据（跳转到下方
+   分区）右对齐，同一行、都是普通 .pl-btn，不再单独另起一行做弱化样式。 */
+.schools-hero-titlerow { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+.schools-hero-actions { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-2); margin-top: var(--space-4); }
+.schools-hero-actions__group { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* 专业列表里的一行：只常驻显示专业名+学位/学制/学费速览，点击整行打开
+   下面的 .school-overlay 全屏浮层查看完整申请要求——不再是 <details> 手风琴，
+   避免长文本（尤其是逐条罗列的作品集要求）被摺叠或挤在窄区域里。 */
+.school-prog { border: 1px solid var(--color-border); border-radius: var(--radius-sm); margin-bottom: var(--space-2); overflow: hidden; cursor: pointer; transition: border-color .15s; }
+.school-prog:last-child { margin-bottom: 0; }
+.school-prog:hover { border-color: var(--color-border-2); }
+.school-prog__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--color-surface); }
+.school-prog__name { font-size: var(--text-sm); font-weight: 700; }
+.school-prog__meta { font-family: var(--font-en); font-size: 10px; color: var(--color-text-faint); margin-top: 2px; }
+.school-prog__hint { font-size: 10px; color: var(--color-primary-bright); flex-shrink: 0; }
+
+/* 院校库 · 全屏 overlay（申请要求 / 录取案例），结构仿站内已有的
+   .course-overlay（course-demo.js），并加入同一份「深色舞台」token 作用域
+   （见 style.css DARK STAGE SCOPE），面板内的 .sidebar__section / .pl-btn /
+   列表文字因此自动换成深底安全配色，不需要在这里单独手写文字颜色。 */
+.school-overlay { position: fixed; inset: 0; z-index: 1200; display: none; }
+.school-overlay.is-open { display: block; }
+.school-overlay__backdrop { position: absolute; inset: 0; background: rgba(32,16,26,.72); backdrop-filter: blur(2px); }
+.school-overlay__panel {
+  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+  margin: var(--space-5) auto; max-width: 880px; max-height: calc(100% - var(--space-6));
+  background: var(--color-bg); border: 1px solid var(--color-border-2); border-radius: var(--radius-md);
+  overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,.55);
+}
+.school-overlay.is-open .school-overlay__panel { animation: cdRise .32s var(--ease-out) both; }
+.school-overlay__close {
+  position: sticky; top: var(--space-4); float: right; margin-right: var(--space-4);
+  width: 32px; height: 32px; border-radius: 50%; background: var(--color-surface-2);
+  border: 1px solid var(--color-border-2); color: var(--color-text-muted);
+  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;
+  transition: color .15s, background .15s;
+}
+.school-overlay__close:hover { color: var(--color-text); background: var(--color-surface); }
+.school-overlay__body { max-width: 720px; margin: 0 auto; padding: var(--space-8) var(--space-5) var(--space-9); clear: both; }
+.school-overlay__eyebrow { font-family: var(--font-en); font-size: 11px; letter-spacing: .04em; color: var(--color-text-faint); text-transform: uppercase; }
+.school-overlay__title { font-size: var(--text-xl); font-weight: 700; margin: 4px 0 var(--space-2); }
+.school-overlay__hint { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0 0 var(--space-5); }
+.school-overlay__program { padding: var(--space-5) 0; }
+.school-overlay__program + .school-overlay__program { border-top: 1px solid var(--color-border); margin-top: var(--space-2); }
+.school-overlay__program-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.school-overlay__program-head h3 { font-size: var(--text-lg); margin: 0 0 2px; }
+.school-overlay__program-meta { font-family: var(--font-en); font-size: 11px; color: var(--color-text-faint); }
+.school-overlay__zh { font-size: var(--text-sm); color: var(--color-text-secondary); margin: 4px 0 var(--space-3); }
+.school-overlay__status-pill { flex-shrink: 0; font-family: var(--font-mono); font-size: 10px; padding: 4px 9px; border: 1px solid rgba(90,184,122,.35); color: var(--color-success); background: rgba(90,184,122,.10); border-radius: var(--radius-sm); white-space: nowrap; }
+.school-overlay__links { margin-top: var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+@media (max-width: 640px) {
+  .school-overlay__panel { margin: 0; max-width: 100%; max-height: 100%; border-radius: 0; }
+  .school-overlay__program-head { flex-direction: column; }
+}
+
 
 /* Skills */
 .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -956,9 +1214,19 @@
 .school-grid__placeholder { grid-column: 1 / -1; background: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius-sm); padding: var(--space-5); text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); }
 
 /* ── PORTFOLIO PAGE ── */
-.portfolio-cats { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: var(--space-6); }
 .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; }
 .portfolio-grid > * { min-width: 0; box-shadow: 0 0 0 1px var(--color-border); }
+/* 从产业规划页深链跳转带 academic_branch 隐式过滤时的提示条（筛选栏本身
+   不展示这个维度，靠这条提示告诉用户结果被筛过、且可以清除） */
+.portfolio-branch-banner {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-xs); color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+.portfolio-branch-banner button {
+  font-size: var(--text-xs); color: var(--color-primary-bright);
+  background: none; border: none; padding: 0; cursor: pointer; text-decoration: underline;
+}
 
 /* ── TIMELINE PAGE ── */
 .timeline-hero { background: var(--color-void); color: var(--color-text); padding: var(--space-7) var(--space-9) var(--space-6); position: relative; overflow: hidden; isolation: isolate; }

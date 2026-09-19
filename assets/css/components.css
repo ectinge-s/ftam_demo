@@ -22,20 +22,27 @@
   margin-right: var(--space-5); white-space: nowrap;
 }
 /* 官方 VI「影视传媒」科系图标（SFK24 新版科系图标系列）：
-   深色导航条统一使用反白稿，浅底使用专色稿 sfk-dept-film-media.png；
-   图形为正方形 1:1，禁止拉伸、旋转或二次改色。
+   图形本身为单色反白稿、透明底，改色时用 mask 保留原图形轮廓 1:1，不拉伸、不旋转。
    尺寸由 --logo-size 统一控制：18px ≈ 墨迹高 11.3px 的 1.59 倍、略低于标准字行高 19.2px，
-   使图标与「SFK 影视传媒」的视觉重心齐平（原先 24px 高出整行行高 25%，故显失衡）。 */
+   使图标与「SFK 影视传媒科系」的视觉重心齐平（原先 24px 高出整行行高 25%，故显失衡）。
+   图标改为梅子色（--color-primary-bright），与文字配色区分主次。 */
 .navbar__logo-mark {
   flex-shrink: 0; width: var(--logo-size); height: var(--logo-size);
-  display: block; object-fit: contain;
+  display: block;
+  background-color: var(--color-primary-bright);
+  -webkit-mask-image: url('../img/brand/sfk-dept-film-media--reverse.png');
+          mask-image: url('../img/brand/sfk-dept-film-media--reverse.png');
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
   filter: drop-shadow(0 0 6px rgba(233,166,203,.45));
 }
+/* 导航栏 brand 文案：SFK 走次级金色调（--color-accent），中文名走常规文字色（白），
+   与已改梅子色的图标区分开，不再文字图标同色。 */
 .navbar__logo-text {
   font-family: var(--font-cn); font-weight: 700; font-size: var(--text-sm);
   color: var(--color-text); letter-spacing: .01em;
 }
-/* 导航栏「SFK」标准字：辅助色金琥珀（VI 令牌 --color-accent，深色导航条内自动切亮金） */
 .navbar__logo-text .u-en {
   font-family: var(--font-en); color: var(--color-accent);
   letter-spacing: .06em; margin-right: 5px;
@@ -1100,4 +1107,46 @@ body.nav-menu-open { overflow: hidden; }
 @media (max-width: 560px) {
   .site-footer__grid { grid-template-columns: 1fr; }
   .site-footer__inner { padding: var(--space-8) var(--space-5) var(--space-6); }
+}
+
+/* ═══════════════════════════════════════════
+   INFO GRID / STACK LIST / LEVEL TABS
+   ───────────────────────────────────────────
+   通用组件，不绑定任何具体页面：用于字段多、文本长的详情展示（申请要求、
+   岗位要求、案例详情等文字密集区域），替代「一段段纯文字堆叠」的写法：
+     .info-grid / .info-box   —— label + 正文的信息格子，双栏网格，
+                                  长文本用 .info-box--wide 占满整行；
+     .stack-list              —— 逐条罗列的内容（如作品集要求）做成编号
+                                  的独立块，相邻两条用交替底色区分，不是
+                                  一大段夹着句号的流水文字；
+     .level-tabs              —— 本科/研究生这类二选一/三选一的层级切换。
+   参考归档站 application-requirements 详情页（50-application-requirements.js
+   + styles/site.css .application-*-v3）的信息密度处理方式迁移。
+   ═══════════════════════════════════════════ */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.info-box { padding: var(--space-4); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+.info-box--wide { grid-column: 1 / -1; }
+.info-box__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent-deep); margin-bottom: var(--space-2); font-weight: 700; }
+.info-box__copy { font-size: var(--text-sm); line-height: 1.78; color: var(--color-text-secondary); white-space: pre-line; }
+
+.stack-list { display: grid; gap: 8px; }
+.stack-list__item {
+  display: flex; gap: 10px; padding: 11px 13px; border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm); font-size: var(--text-sm); line-height: 1.75; color: var(--color-text-secondary);
+  background: var(--color-surface);
+}
+.stack-list__item:nth-child(even) { background: var(--color-surface-2); }
+.stack-list__num { flex-shrink: 0; font-family: var(--font-mono); font-weight: 700; color: var(--color-accent-deep); }
+
+.callout-block { margin-top: var(--space-3); padding: 13px 15px; border: 1px solid rgba(192,36,59,.28); background: var(--color-danger-veil); border-radius: var(--radius-sm); font-size: var(--text-xs); line-height: 1.75; color: var(--color-text-secondary); }
+.callout-block strong { color: var(--color-danger); }
+
+.level-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: var(--space-4); }
+.level-tabs__btn { padding: 8px 16px; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text-muted); cursor: pointer; font-size: var(--text-sm); font-family: var(--font-cn); border-radius: var(--radius-sm); transition: border-color .15s, background .15s, color .15s; }
+.level-tabs__btn:hover { border-color: var(--color-border-2); color: var(--color-text); }
+.level-tabs__btn.is-active { border-color: var(--color-accent-deep); background: var(--color-accent-deep); color: var(--color-bg); font-weight: 700; }
+
+@media (max-width: 640px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .info-box--wide { grid-column: auto; }
 }

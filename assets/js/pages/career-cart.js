@@ -14,10 +14,16 @@ const CareerCart = {
   _targets: [],
   _open: false,
 
+  // 最多可选职业目标数（主/次/探索），来自 data/career_planning.json 的
+  // principles.maxCareerTargets，改数字只需要改 JSON。
+  get _max() {
+    return (DATA.career_planning && DATA.career_planning.principles && DATA.career_planning.principles.maxCareerTargets) || 3;
+  },
+
   _load() {
     try {
       const raw = JSON.parse(localStorage.getItem(CAREER_CART_STORE));
-      if (Array.isArray(raw)) this._targets = raw.filter(t => t && t.roleId != null).slice(0, 3);
+      if (Array.isArray(raw)) this._targets = raw.filter(t => t && t.roleId != null).slice(0, this._max);
     } catch (e) { /* 忽略 */ }
   },
   _save() {
@@ -38,8 +44,8 @@ const CareerCart = {
     if (idx >= 0) {
       this._targets.splice(idx, 1);
     } else {
-      if (this._targets.length >= 3) {
-        window.alert('最多只能选择 3 个职业目标（主目标／次目标／探索目标），请先移除一个再添加。');
+      if (this._targets.length >= this._max) {
+        window.alert(`最多只能选择 ${this._max} 个职业目标（主目标／次目标／探索目标），请先移除一个再添加。`);
         return;
       }
       this._targets.push({
@@ -66,7 +72,7 @@ const CareerCart = {
   // 职业测评「自动加入/更新」的规则。roles 最多取前 3 个，超出部分会被忽略。
   // roles: [{ roleId, industryId, directionZh, directionEn }, ...]
   setFromAssessment(roles) {
-    this._targets = (roles || []).slice(0, 3).map(r => ({
+    this._targets = (roles || []).slice(0, this._max).map(r => ({
       roleId: r.roleId, industryId: r.industryId, directionZh: r.directionZh, directionEn: r.directionEn,
     }));
     this._save();
@@ -91,7 +97,7 @@ const CareerCart = {
     const labels = ['主目标', '次目标', '探索目标'];
     el.innerHTML = `
       <button type="button" class="cp-cart__tab" onclick="CareerCart.toggleOpen()">
-        我的职业目标 <span class="cp-cart__badge">${this._targets.length}/3</span>
+        我的职业目标 <span class="cp-cart__badge">${this._targets.length}/${this._max}</span>
       </button>
       <div class="cp-cart__panel${this._open ? ' is-open' : ''}">
         <div class="cp-cart__head">已选职业目标<button type="button" class="cp-cart__close" onclick="CareerCart.toggleOpen()">×</button></div>
@@ -100,7 +106,7 @@ const CareerCart = {
             <small>${labels[i]}</small>
             <b>${t.directionZh}</b>
             <button type="button" class="cp-cart__remove" onclick="event.stopPropagation(); CareerCart.remove(${t.roleId})">移除</button>
-          </div>`).join('') : '<div class="cp-cart__empty">还没有选择职业目标。前往「岗位详情」，点击岗位卡片上的「+」即可加入，最多 3 个（主目标／次目标／探索目标）。</div>'}
+          </div>`).join('') : `<div class="cp-cart__empty">还没有选择职业目标。前往「岗位详情」，点击岗位卡片上的「+」即可加入，最多 ${this._max} 个（主目标／次目标／探索目标）。</div>`}
         <button type="button" class="pl-btn pl-btn--primary" style="width:100%;margin-top:var(--space-3)" onclick="CareerCart.goToCareerPlan()">去生成我的规划 →</button>
       </div>`;
   },

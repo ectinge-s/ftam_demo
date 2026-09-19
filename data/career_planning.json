@@ -5,7 +5,8 @@
   "aiExperienceCount": 1,
   "topPlatformRequired": true,
   "resourceSource": "data/internship-resources.json",
-  "resourceOnly": true
+  "resourceOnly": true,
+  "maxCareerTargets": 3
  },
  "rolePools": [
   {

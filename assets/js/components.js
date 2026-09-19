@@ -141,17 +141,18 @@ const ProgramScorer = {
     return result;
   },
 
-  // Country quota: how many schools to show per country group in flat rec lists
-  // Total should add up to the desired max (10)
-  COUNTRY_QUOTA: { US: 4, UK: 4, HK_SG: 2, OTHER: 0 },
-
-  // Return flat top N across countries respecting COUNTRY_QUOTA, one school per slot, best program per school
+  // Country quota: how many schools to show per country group in flat rec lists.
+  // Total should add up to the desired max (10). Lives in
+  // data/school_priority.json._meta.sidebar_country_quota so it can be tuned
+  // without touching code.
+  // Return flat top N across countries respecting the quota, one school per slot, best program per school
   topFlat(roleText, companyText, industryId, total = 10) {
     const programs = DATA.programs.filter(p => (p.industry_tags || []).includes(industryId));
     const groups = DATA.school_priority._meta.country_groups;
+    const quotaMap = DATA.school_priority._meta.sidebar_country_quota || {};
     const picks = [];
 
-    for (const [group, quota] of Object.entries(this.COUNTRY_QUOTA)) {
+    for (const [group, quota] of Object.entries(quotaMap)) {
       if (quota <= 0) continue;
       const countryList = groups[group] || [];
       const inGroup = programs.filter(p => countryList.includes(p.country));

@@ -206,9 +206,10 @@ const HomePage = {
                  : inst.tag === 'alumni'   ? '老师'
                  : inst.is_research        ? '老师' : '';
     const displayName = base + suffix;
-    // 卡片主图用 assets/img/instructor-avatars/ 下新换的头像（裁切/优化过的小图），
-    // 弹窗大图仍然用 inst.photo 原图（assets/img/instructors/），两者互不影响。
-    const avatarSrc = inst.photo ? inst.photo.replace('/img/instructors/', '/img/instructor-avatars/') : null;
+    // 卡片主图用 instructors.json 里的 avatar 字段（裁切/优化过的小图，海外教授
+    // 指向 assets/img/instructor-avatars/，行业导师目前没有单独裁切图，avatar
+    // 与 photo 相同）；弹窗大图仍然用 inst.photo 原图，两者互不影响。
+    const avatarSrc = inst.avatar || inst.photo || null;
     const avatar = avatarSrc
       ? `<div class="person-card__avatar person-card__avatar--photo"><img src="${avatarSrc}" alt="${base}" loading="lazy"></div>`
       : `<div class="person-card__avatar">${base.slice(-1)}</div>`;
